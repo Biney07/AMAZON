@@ -1,69 +1,64 @@
 <template>
-    <div class="headd">
-       <a href="/"><img src="./../../assets/logo.png" alt="logo"/></a> 
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a href="/"><img class="logo" src="./../../assets/logo.png" alt="logo" /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <div class="d-flex flex-row">
+                    <ul class="navbar-nav">
+
+
+
+                        <li class="nav-item"><a class="text-decoration-none nav-link costum active" aria-current="page">
+                                <router-link class="costum" to="/">Home</router-link></a></li>
+                        <li class="nav-item"><a class=" nav-link costum active" aria-current="page"><router-link
+                                    class="costum" to="/about">About</router-link></a></li>
+                        <li class="nav-item"><a class=" nav-link costum active" aria-current="page"><router-link
+                                    class="costum" to="/aktivitete">Aktivitete</router-link></a></li>
+                        <li class="nav-item"> <a class=" nav-link costum active" aria-current="page"><router-link
+                                    class="costum" to="/menute">Menutë</router-link></a></li>
+                        <li class="nav-item"> <a class=" nav-link costum active" aria-current="page"><router-link
+                                    class="costum" to="/contact">Contact</router-link></a></li>
+                        <li class=" ms-auto nav-item d-flex"> <a class=" nav-link costum active"
+                                aria-current="page"><router-link class="costum" to="/login">Login</router-link></a></li>
+
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+    <!-- <div class="headd">
+       
         <header>
        
    
             <ul>
-                <li>
-                    <router-link to="/">Home</router-link></li>
-                <li> <router-link to="/about">About</router-link></li>
-                <li> <router-link to="/aktivitete">Aktivitete</router-link></li>
-                <li> <router-link to="/menute">Menutë</router-link></li>
-                <li> <router-link to="/contact">Contact</router-link></li>
-                <li> <router-link to="/login">Login</router-link></li>
+               
             </ul>
      
     </header>
-    </div>
-   
+    </div> -->
+
 </template>
 
 
 <style>
-.headd{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    background-color:#ffa726;
-    height: 60px;
-}
-img{
-   
-    width: 50px;
+.logo {
+
     height: 50px;
-    padding-left: 10px;
+    padding: 0px 30px 0px 30px;
     margin-top: 5px;
     margin-bottom: 5px;
-    
-}
-header{
-
-   width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    
 
 }
 
-ul{
-    width:600px;
-   margin-top: 15px;
-   margin-bottom: 10px;
-   margin-bottom: 10px;
-   font-size: 21px;
-   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
-    list-style: none;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-   
-
-}
-li a{
-    text-decoration: none;
-    color :inherit;
+.costum {
+    text-decoration: none !important;
+    font-size: 1.3rem !important;
+    font-weight: 600 !important;
 }
 </style>
