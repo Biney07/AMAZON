@@ -38,6 +38,17 @@ const routes = [
     component: () => import( '../views/home/HomeDetails.vue')
   },
 
+  {
+    path: '/homedetails',
+    name: 'homedetails',
+    component: () => import( '../views/home/HomeDetails.vue')
+  },
+
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: () => import( '../views/dashboard/Dashboard.vue')
+  },
  /* {
     path: '/login',
     name: 'login',
