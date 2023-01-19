@@ -1,58 +1,16 @@
 <template>
 <div class="d-flex flex-wrap m-4">
+<div v-for="item in dashboardItems"
+                v-bind:key="item.path">
    <div class="card m-4" style="width: 18rem;">
-      <a href="#" class="card-link text-decoration-none">
+      <router-link class="card-link text-decoration-none" v-bind:to="item.path">
         <div class="card-body">
-           <h5 class="card-title">Home</h5>
-           <h6 class="card-subtitle mb-2">Menaxho Home</h6>
+           <h5 class="card-title">{{item.name}}</h5>
+           <h6 class="card-subtitle mb-2">{{item.subtitle}}</h6>
         </div>
-      </a>
+      </router-link>
     </div>
-
-    <div class="card m-4" style="width: 18rem;">
-      <a href="#" class="card-link text-decoration-none">
-        <div class="card-body">
-           <h5 class="card-title">About</h5>
-           <h6 class="card-subtitle mb-2">Menaxho About</h6>
-        </div>
-      </a>
-    </div>
-
-    <div class="card m-4" style="width: 18rem;">
-      <a href="#" class="card-link text-decoration-none">
-        <div class="card-body">
-           <h5 class="card-title">Aktivitete</h5>
-           <h6 class="card-subtitle mb-2">Menaxho Aktivitete</h6>
-        </div>
-      </a>
-    </div>
-
-    <div class="card m-4" style="width: 18rem;">
-      <a href="#" class="card-link text-decoration-none">
-        <div class="card-body">
-           <h5 class="card-title">Menute</h5>
-           <h6 class="card-subtitle mb-2">Menaxho Menute</h6>
-        </div>
-      </a>
-    </div>
-
-    <div class="card m-4" style="width: 18rem;">
-      <a href="#" class="card-link text-decoration-none">
-        <div class="card-body">
-           <h5 class="card-title">Contact</h5>
-           <h6 class="card-subtitle mb-2">Menaxho Contact</h6>
-        </div>
-      </a>
-    </div>
-
-    <div class="card m-4" style="width: 18rem;">
-      <a href="#" class="card-link text-decoration-none">
-        <div class="card-body">
-           <h5 class="card-title">Regjistrimet</h5>
-           <h6 class="card-subtitle mb-2">Menaxho Regjistrimet</h6>
-        </div>
-      </a>
-    </div>
+</div>
 </div>
 
 </template>
@@ -75,3 +33,20 @@
    color: white;
 }
 </style>
+
+<script>
+    export default {
+        data() {
+            return {
+                dashboardItems: [
+                    { path: '/dashboard/home', name: 'Home', subtitle: 'Menaxho Home' },
+                    { path: '/dashboard/about', name: 'About Us', subtitle: 'Menaxho About' },
+                    { path: '/dashboard/aktivitete', name: 'Aktivitete', subtitle: 'Menaxho Aktivitete' },
+                    { path: '/dashboard/menute', name: 'Menute', subtitle: 'Menaxho Menute' },
+                    { path: '/dashboard/contact', name: 'Contact', subtitle: 'Menaxho Contact' },
+                    { path: '/dashboard/register', name: 'Register', subtitle: 'Menaxho Register' },
+                ]
+            }
+        },
+    }
+</script>

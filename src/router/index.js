@@ -49,6 +49,42 @@ const routes = [
     name: 'dashboard',
     component: () => import( '../views/dashboard/Dashboard.vue')
   },
+
+  {
+    path: '/dashboard/home',
+    name: 'dashboardhome',
+    component: () => import( '../views/dashboard/home/Home.vue')
+  },
+
+  {
+    path: '/dashboard/about',
+    name: 'dashboardabout',
+    component: () => import( '../views/dashboard/about/About.vue')
+  },
+
+  {
+    path: '/dashboard/aktivitete',
+    name: 'dashboardaktivitete',
+    component: () => import( '../views/dashboard/aktivitetet/Aktivitetet.vue')
+  },
+
+  {
+    path: '/dashboard/menute',
+    name: 'dashboardmenute',
+    component: () => import( '../views/dashboard/menute/Menute.vue')
+  },
+
+  {
+    path: '/dashboard/contact',
+    name: 'dashboardcontact',
+    component: () => import( '../views/dashboard/contact/Contact.vue')
+  },
+
+  {
+    path: '/dashboard/register',
+    name: 'dashboardregister',
+    component: () => import( '../views/dashboard/register/Register.vue')
+  },
  /* {
     path: '/login',
     name: 'login',
