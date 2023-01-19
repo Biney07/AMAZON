@@ -23,6 +23,23 @@
     <span class="visually-hidden">Next</span>
   </button>
 </div>
+<div style="display:flex;flex-direction:column;justify-content: space-evenly;">
+  <div style="display:flex;flex-direction:row;justify-content:start;margin-top:30px;margin-left: 30px;">
+  <h4 style="margin-right: 20px;">Numri i dhomave : <b>3</b> ,</h4>
+  <h4>Cmimi <b>40$</b></h4>
+
+</div>
+<div style="display:flex;flex-direction:row;justify-content:start;margin-top:5px;margin-left: 30px;" >
+  <h5>Statusi : <i>e Lirë</i></h5>
+</div>
+<div><p style="display:flex; flex-wrap: wrap; margin-left: 50px; margin-right: 50px; margin-top: 50px;line-height: 30px;">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. 
+  The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here',
+   making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search 
+   for 'lorem ipsum' will uncover many web sites still in their infancy. 
+  Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p></div>
+</div>
+
+
     
   </template>
 
