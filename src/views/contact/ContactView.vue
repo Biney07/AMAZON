@@ -89,7 +89,7 @@
 
 
   <style scoped>
-  button, .info{
+  .btn, .info{
     background-color: rgba(126, 239, 104, 0.8);
     color: white;
   }

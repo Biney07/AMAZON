@@ -85,11 +85,11 @@ const routes = [
     name: 'dashboardregister',
     component: () => import( '../views/dashboard/register/Register.vue')
   },
- /* {
+ {
     path: '/login',
     name: 'login',
-    component: () => import( '../views/LoginView.vue')
-  } */
+    component: () => import( '../views/login/LoginView.vue')
+  }
 ]
 
 const router = createRouter({
