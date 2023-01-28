@@ -7,6 +7,7 @@ import {
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import contactRouter from './api/routes/contactRoute';
 
 mongoose.connect(`${MONGO_CONNECTION_URI}:${MONGO_DB_PORT}/${MONGO_DB_NAME}`).then(() => {
     console.log(`Connected to mongodb on port ${MONGO_DB_PORT}`);
@@ -19,9 +20,15 @@ mongoose.connect(`${MONGO_CONNECTION_URI}:${MONGO_DB_PORT}/${MONGO_DB_NAME}`).th
         })
     );
 
-    app.use(express.urlencoded({ extended: true }))
+    const bp = require('body-parser');
 
-    app.use(express.json());
+    app.use(bp.json());
+    
+    app.use(bp.urlencoded({ extended: true }));
+    
+
+    app.use('/contacts', contactRouter);
+
 
     app.listen(API_PORT, () => {
         console.log(`Amazon listening on port: ${API_PORT}`)

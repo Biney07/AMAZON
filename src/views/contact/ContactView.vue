@@ -7,21 +7,19 @@
 
     <div class="mb-3">
       <label class="form-label" for="name">Emri</label>
-      <input class="form-control" v-bind:value="newKontakt.emri"
-                v-on:input="newKontakt.emri = $event.target.value" type="text" placeholder="Emri" data-sb-validations="required" />
+      <input class="form-control" name="emri" v-model="newContact.emri" v-on:input="newContact.emri = $event.target.value"
+                 type="text" placeholder="Emri" data-sb-validations="required" />
     </div>
 
     <div class="mb-3">
       <label class="form-label" for="emailAddress">Email</label>
-      <input class="form-control" v-bind:value="newKontakt.email"
-                v-on:input="newKontakt.email = $event.target.value" type="email" placeholder="Email" data-sb-validations="required, email" />
+      <input class="form-control" name="email" v-model="newContact.email" v-on:input="newContact.email = $event.target.value" type="email" placeholder="Email" data-sb-validations="required, email" />
     </div>
 
     <div class="col-md-12">
       <div class="form-group">
         <label class="label" for="#">Mesazhi</label>
-        <textarea name="message" class="form-control" v-bind:value="newKontakt.mesazhi"
-                v-on:input="newKontakt.mesazhi = $event.target.value" cols="30" rows="4" placeholder="Mesazhi"></textarea>
+        <textarea name="message" class="form-control" v-model="newContact.mesazhi" v-on:input="newContact.mesazhi = $event.target.value" cols="30" rows="4" placeholder="Mesazhi"></textarea>
       </div>
     </div>
 
@@ -68,22 +66,19 @@
   export default {
         data() {
             return {
-                newKontakt: {
+                newContact: {
                     emri: '',
                     email: '',
                     mesazhi: ''
                 },
+                allContacts: this.$store.state.contacts,
             }
         },
         methods: {
-            async handleCreateKontakt() {
-                console.log('Kontakti qe eshte derguar -> ', this.newKontakt);
-                
-                this.newKontakt.emri = '';
-                this.newKontakt.email = '';
-                this.newKontakt.mesazhi = '';
-            }
+        async handleCreateKontakt() {
+            this.$store.dispatch('createContact', { ...this.newContact })
         }
+    }
   }
   </script>
 
