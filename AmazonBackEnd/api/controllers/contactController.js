@@ -3,6 +3,10 @@ import { StatusCodes,  ReasonPhrases  } from 'http-status-codes';
 import createContactSchema from '../validators/contact/createContact';
 
 const contactController = {
+    list: async(req, res) => {
+        const list = await contactModel.find();
+        return res.json(list);
+    },
     
     create: async(req, res) => {
         console.log('req.body - ', req.body);

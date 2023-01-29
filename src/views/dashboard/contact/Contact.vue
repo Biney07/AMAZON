@@ -11,10 +11,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Enes</td>
-                            <td>enes@gmail.com</td>
-                            <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</td>
+                        <tr v-for="contact in this.contacts" :key="contact._id">
+                            <td>{{ contact.emri }}</td>
+                            <td>{{ contact.email }}</td>
+                            <td>{{ contact.mesazhi }}</td>
                             <td><button class="btn btn-sm btn-danger" @click="showAlert">Delete</button></td>
                             
                         </tr>
@@ -26,7 +26,15 @@
 
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
+  computed: {
+            ...mapState(['contacts'])
+        },
+        mounted() {
+            this.$store.dispatch('fetchContacts');
+        },
   methods: {
     showAlert() {
       this.$swal({

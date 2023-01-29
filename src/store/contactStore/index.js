@@ -7,9 +7,17 @@ const contactStore = createStore({
     mutations: {
         addContact(state, contact) {
             state.contacts.push(contact);
+        },
+        setContacts(state, contacts) {
+            state.contacts = contacts;
         }
     },
     actions: {
+        async fetchContacts({ commit }) {
+            const res = await fetch('http://localhost:3000/contacts');
+            const contacts = await res.json();
+            commit('setContacts', contacts)
+        }, 
        async createContact({ commit }, contactData) {
         const res = await fetch('http://localhost:3000/contacts',
                 {
