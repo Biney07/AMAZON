@@ -10,6 +10,9 @@ const contactStore = createStore({
         },
         setContacts(state, contacts) {
             state.contacts = contacts;
+        },
+        removeContactById(state, contactId) {
+            state.contacts = state.contacts.filter((contact) => contact._id !== contactId)
         }
     },
     actions: {
@@ -33,8 +36,17 @@ const contactStore = createStore({
         const newContact = await res.json();
 
         commit('addContact', newContact);
-       }
+       },
+       async deleteContact({ commit }, contactId) {
+            await fetch(`http://localhost:3000/contacts/${contactId}`, {
+               method: 'DELETE'
+            })
+
+            commit('removeContactById', contactId)
+        }
     },
+
+
     modules: {}
 });
 

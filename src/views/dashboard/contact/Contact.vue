@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex justify-content-center align-items-center m-5">
+    <div class="m-5">
             <div class="table-responsive">
                 <table class="table">
                     <thead class="table-info">
@@ -15,7 +15,7 @@
                             <td>{{ contact.emri }}</td>
                             <td>{{ contact.email }}</td>
                             <td>{{ contact.mesazhi }}</td>
-                            <td><button class="btn btn-sm btn-danger" @click="showAlert">Delete</button></td>
+                            <td><button class="btn btn-sm btn-danger" @click="handleDeleteContact(contact._id)">Delete</button></td>
                             
                         </tr>
                     </tbody>
@@ -36,7 +36,7 @@ export default {
             this.$store.dispatch('fetchContacts');
         },
   methods: {
-    showAlert() {
+   handleDeleteContact(contactId) {
       this.$swal({
         title: "Jeni te sigurt qe deshironi te fshini?",
         text: "A jeni te sigurt? Pasi qe nuk mund te kthehet me!",
@@ -47,13 +47,14 @@ export default {
         closeOnConfirm: true
     }).then((result) => {
         if (result.value) {
+        this.$store.dispatch('deleteContact', contactId)
         this.$swal(
             'I fshire!',
             'Eshte fshire me sukses.',
             'success'
         )
         }
-    });
+    })
     },
   },
 };

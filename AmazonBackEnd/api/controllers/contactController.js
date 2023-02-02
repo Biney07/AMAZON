@@ -18,6 +18,18 @@ const contactController = {
             return res.json(newContact);
         
     },
+    delete: async(req, res) => {
+        const contactId = req.params.contactId;
+    
+        try {
+            await contactModel.deleteOne({ _id: contactId });
+            res.json({ deleted: true });
+        } catch (err) {
+            res.status(StatusCodes.NOT_FOUND).json({ message: ReasonPhrases.NOT_FOUND});
+        }
+    
+    }
+    
 };
 
 
