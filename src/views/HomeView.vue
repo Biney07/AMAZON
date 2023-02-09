@@ -168,6 +168,9 @@
 
 export default {
   name: 'HomeView',
+  methods:{
+	
+  },
   components: {
 
   }
