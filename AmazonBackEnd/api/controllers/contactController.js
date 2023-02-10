@@ -10,12 +10,42 @@ const contactController = {
     
     create: async(req, res) => {
         console.log('req.body - ', req.body);
+        const validationResult = createContactSchema.validate(req.body);
+    
+        if (validationResult.error) {
+            return res
+                .status(StatusCodes.NOT_FOUND)
+                .json({
+                    message: ReasonPhrases.NOT_FOUND,
+                    error: validationResult.error.message
+                });
+        }
+
+    
+        const newContact = new contactModel(validationResult.value);
+    
+        try {
+            await newContact.save();
+        
+            return res.json(newContact);
+        } catch (err) {
+            return res.json(StatusCodes.NOT_FOUND)
+                .json({
+                    message: ReasonPhrases.NOT_FOUND,
+                    error: err.message
+                });
+        }
+
+        
+        
+        
+        /*console.log('req.body - ', req.body);
        
     
         const newContact = new contactModel(req.body);
             await newContact.save();
         
-            return res.json(newContact);
+            return res.json(newContact);*/
         
     },
     delete: async(req, res) => {
