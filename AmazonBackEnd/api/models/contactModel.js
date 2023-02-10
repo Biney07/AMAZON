@@ -6,6 +6,6 @@ const schema = mongoose.Schema({
     mesazhi: String
 });
 
-const model  = mongoose.model("contacts", schema);
+const contactModel = mongoose.model("contacts", schema);
 
-export default model ;
+export default contactModel;

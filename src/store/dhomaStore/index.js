@@ -8,10 +8,17 @@ const dhomaStore = createStore({
         addDhoma(state, dhoma) {
             state.dhomat.push(dhoma);
         },
+        setDhomat(state, dhomat) {
+            state.dhomat = dhomat;
+        }
        
     },
     actions: {
-      
+        async fetchDhomat({ commit }) {
+            const res = await fetch('http://localhost:3000/dhomat');
+            const dhomat = await res.json();
+            commit('setDhomat', dhomat)
+        }, 
        async createDhoma({ commit }, dhomaData) {
         const res = await fetch('http://localhost:3000/dhomat',
                 {
