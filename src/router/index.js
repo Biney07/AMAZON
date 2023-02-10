@@ -52,7 +52,12 @@ const routes = [
 
   {
     path: '/dashboard/home',
-    name: 'dashboardhome',
+    name: 'dashboardhomee',
+    component: () => import( '../views/dashboard/home/homeDashboard.vue')
+  },
+  {
+    path: '/dashboard/home/Home',
+    name: 'dashboardhomeee',
     component: () => import( '../views/dashboard/home/Home.vue')
   },
 
@@ -84,6 +89,11 @@ const routes = [
     path: '/dashboard/register',
     name: 'dashboardregister',
     component: () => import( '../views/dashboard/register/Register.vue')
+  },
+  {
+    path: '/dashboard/home/homeDashboard',
+    name: 'dashboardhome',
+    component: () => import( '../views/dashboard/home/homeDashboard.vue')
   },
  {
     path: '/login',

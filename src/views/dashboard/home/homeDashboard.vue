@@ -1,0 +1,74 @@
+<template>
+
+    <div class="float-start" style="margin-left:10px;">
+        <a><router-link class="btn btn-success" to="/dashboard/home/Home">Krijo</router-link></a>
+      
+    </div>
+    <div class="m-5">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="table-info">
+                        <tr>
+                            <th>Dhoma</th>
+                            <th>Pershkrimi</th>
+                            <th>Foto 1</th>
+                            <th>Foto 2</th>
+                            <th>Foto 3</th>
+                            <th>Cmimi</th>
+                            <th>Veprime</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="dhoma in this.dhomat" :key="dhoma._id">
+                            <td>{{ dhoma.numri }}</td>
+                            <td>{{ dhoma.pershkrimi }}</td>
+                            <td>{{ dhoma.foto1 }}</td>
+                            <td>{{ dhoma.foto2 }}</td>
+                            <td>{{ dhoma.foto3 }}</td>
+                            <td>{{ dhoma.cmimi }}</td>
+                            <td><button class="btn btn-sm btn-danger" @click="handleDeleteContact(dhoma._id)">Delete</button></td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+</template> 
+
+
+<script>
+import { mapState } from 'vuex';
+
+export default {
+	computed: {
+            ...mapState(['dhomat'])
+        },
+        mounted() {
+            this.$store.dispatch('fetchDhomat');
+        },
+  methods: {
+   /*handleDeleteContact(contactId) {
+      this.$swal({
+        title: "Jeni te sigurt qe deshironi te fshini?",
+        text: "A jeni te sigurt? Pasi qe nuk mund te kthehet me!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "red",
+        confirmButtonText: "Po, Deshiroj ta fshij!",
+        closeOnConfirm: true
+    }).then((result) => {
+        if (result.value) {
+        this.$store.dispatch('deleteContact', contactId)
+        this.$swal(
+            'I fshire!',
+            'Eshte fshire me sukses.',
+            'success'
+        )
+        }
+    })
+    },  */
+  },
+
+};
+</script>

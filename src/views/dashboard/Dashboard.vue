@@ -39,6 +39,7 @@
         data() {
             return {
                 dashboardItems: [
+                   // { path: '/dashboard/home', name: 'Home', subtitle: 'Menaxho Home' },
                     { path: '/dashboard/home', name: 'Home', subtitle: 'Menaxho Home' },
                     { path: '/dashboard/about', name: 'About Us', subtitle: 'Menaxho About' },
                     { path: '/dashboard/aktivitete', name: 'Aktivitete', subtitle: 'Menaxho Aktivitete' },
