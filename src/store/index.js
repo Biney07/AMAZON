@@ -21,6 +21,9 @@ const store = createStore({
         },
         setDhomat(state, dhomat) {
             state.dhomat = dhomat;
+        },
+        removeDhomaById(state, dhomaId) {
+            state.dhomat = state.dhomat.filter((dhoma) => dhoma._id !== dhomaId)
         }
     },
     actions: {
@@ -72,8 +75,17 @@ const store = createStore({
         const newDhome = await res.json();
 
         commit('addDhoma', newDhome);
-       }
-    },
+       },
+
+       async deleteDhoma({ commit }, dhomaId) {
+        await fetch(`http://localhost:3000/dhomat/${dhomaId}`, {
+           method: 'DELETE'
+        })
+
+        commit('removeDhomaById', dhomaId)
+    }
+},
+   
 
 
     modules: {}

@@ -17,6 +17,17 @@ const dhomaController = {
         
             return res.json(newDhome);
         
+    },
+    delete: async(req, res) => {
+        const dhomaId = req.params.dhomaId;
+
+        try {
+            await dhomaModel.deleteOne({ _id: dhomaId });
+            res.json({ deleted: true });
+        } catch (err) {
+            res.status(StatusCodes.NOT_FOUND).json({ message: ReasonPhrases.NOT_FOUND});
+        }
+
     }
 };
 

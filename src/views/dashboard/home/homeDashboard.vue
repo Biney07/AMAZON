@@ -27,7 +27,7 @@
                             <td>{{ dhoma.foto2 }}</td>
                             <td>{{ dhoma.foto3 }}</td>
                             <td>{{ dhoma.cmimi }}</td>
-                            <td><button class="btn btn-sm btn-danger" @click="handleDeleteContact(dhoma._id)">Delete</button></td>
+                            <td><button class="btn btn-sm btn-danger" @click="handleDeleteDhoma(dhoma._id)">Delete</button></td>
                             
                         </tr>
                     </tbody>
@@ -48,7 +48,7 @@ export default {
             this.$store.dispatch('fetchDhomat');
         },
   methods: {
-   /*handleDeleteContact(contactId) {
+handleDeleteDhoma(dhomaId) {
       this.$swal({
         title: "Jeni te sigurt qe deshironi te fshini?",
         text: "A jeni te sigurt? Pasi qe nuk mund te kthehet me!",
@@ -59,7 +59,7 @@ export default {
         closeOnConfirm: true
     }).then((result) => {
         if (result.value) {
-        this.$store.dispatch('deleteContact', contactId)
+        this.$store.dispatch('deleteDhoma', dhomaId)
         this.$swal(
             'I fshire!',
             'Eshte fshire me sukses.',
@@ -67,7 +67,7 @@ export default {
         )
         }
     })
-    },  */
+    }, 
   },
 
 };

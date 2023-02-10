@@ -24,7 +24,7 @@
 			</div>
 			<div class="card-body">
 				<h5 class="card-title">Dhoma {{ dhoma.numri }}</h5>
-				<p class="card-text">{{ dhoma.pershkrimi}}</p>
+
 				<a class="btn btn-success text-white" >
 
 					<i class="bi bi-cart-plus"></i> Rezervo
