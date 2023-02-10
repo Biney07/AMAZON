@@ -1,8 +1,10 @@
 import { createStore } from 'vuex';
 
-const contactStore = createStore({
+const store = createStore({
     state: {
         contacts: [],
+        dhomat: [],
+        
     },
     mutations: {
         addContact(state, contact) {
@@ -13,6 +15,12 @@ const contactStore = createStore({
         },
         removeContactById(state, contactId) {
             state.contacts = state.contacts.filter((contact) => contact._id !== contactId)
+        },
+        addDhoma(state, dhoma) {
+            state.dhomat.push(dhoma);
+        },
+        setDhomat(state, dhomat) {
+            state.dhomat = dhomat;
         }
     },
     actions: {
@@ -43,11 +51,32 @@ const contactStore = createStore({
             })
 
             commit('removeContactById', contactId)
-        }
+        },
+      async fetchDhomat({ commit }) {
+            const res = await fetch('http://localhost:3000/dhomat');
+            const dhomat = await res.json();
+            commit('setDhomat', dhomat)
+        },
+       async createDhoma({ commit }, dhomaData) {
+        const res = await fetch('http://localhost:3000/dhomat',
+                {
+                    method: 'post',
+                    body: JSON.stringify(dhomaData),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+
+                }
+            )
+
+        const newDhome = await res.json();
+
+        commit('addDhoma', newDhome);
+       }
     },
 
 
     modules: {}
 });
 
-export default contactStore;
+export default store;
