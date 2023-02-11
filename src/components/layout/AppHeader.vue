@@ -22,6 +22,8 @@
                                     class="costum" to="/menute">Menutë</router-link></a></li>
                         <li class="nav-item"> <a class=" nav-link costum active" aria-current="page"><router-link
                                     class="costum" to="/contact">Contact</router-link></a></li>
+                        <li class="nav-item"> <a class=" nav-link costum active" aria-current="page"><router-link
+                                    class="costum" to="/restaurantdasmat">Dasmat</router-link></a></li>
                         <li class=" ms-auto nav-item d-flex"> <a class=" nav-link costum active"
                                 aria-current="page"><router-link class="costum" to="/login">Login</router-link></a></li>
                         <li class="ms-auto nav-item d-flex"> <a class=" nav-link costum active"

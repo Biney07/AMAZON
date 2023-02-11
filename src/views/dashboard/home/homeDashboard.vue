@@ -1,6 +1,6 @@
 <template>
 
-    <div class="float-start" style="margin-left:10px;">
+    <div class="float-start" style="margin-left:47px; margin-top:6px;">
         <a><router-link class="btn btn-success" to="/dashboard/home/Home">Krijo</router-link></a>
       
     </div>

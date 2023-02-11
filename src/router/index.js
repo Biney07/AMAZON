@@ -80,6 +80,12 @@ const routes = [
   },
 
   {
+    path: '/dashboard/dasmat',
+    name: 'dashboarddasmat',
+    component: () => import( '../views/dashboard/dasmat/Dasmat.vue')
+  },
+
+  {
     path: '/dashboard/contact',
     name: 'dashboardcontact',
     component: () => import( '../views/dashboard/contact/Contact.vue')
@@ -89,6 +95,21 @@ const routes = [
     path: '/dashboard/register',
     name: 'dashboardregister',
     component: () => import( '../views/dashboard/register/Register.vue')
+  },
+  {
+    path: '/restaurantdasmat',
+    name: 'restaurantdasmat',
+    component: () => import( '../views/dasmat/DasmatView.vue')
+  },
+  {
+    path: '/restaurantdasmat/create',
+    name: 'restaurantdasmatcreate',
+    component: () => import( '../views/dashboard/dasmat/CreateDasmat.vue')
+  },
+  {
+    path: '/restaurantdasmat/edit',
+    name: 'restaurantdasmatedit',
+    component: () => import( '../views/dashboard/dasmat/EditDasmat.vue')
   },
   {
     path: '/dashboard/home/homeDashboard',
