@@ -21,7 +21,7 @@
                             <td>{{ dasmat.qyteti }}</td>
                             <td>{{ dasmat.adresa }}</td>
                             <td>{{ dasmat.foto }}</td>
-                            <td><button class="btn btn-sm btn-success"><router-link class="btn-success" to="/restaurantdasmat/edit">Edit</router-link></button> | <button class="btn btn-sm btn-danger" @click="showAlert">Delete</button></td>
+                            <td><button class="btn btn-sm btn-success"><router-link class="btn-success" to="/restaurantdasmat/edit">Edit</router-link></button> | <button class="btn btn-sm btn-danger" @click="handleDeleteDasmat(dasmat._id)">Delete</button></td>
 
                         </tr>
                     </tbody>
@@ -42,7 +42,7 @@ mounted() {
     this.$store.dispatch('fetchDasmats');
 },
   methods: {
-    showAlert() {
+    handleDeleteDasmat(dasmatId) {
       this.$swal({
         title: "Jeni te sigurt qe deshironi te fshini?",
         text: "A jeni te sigurt? Pasi qe nuk mund te kthehet me!",
@@ -53,6 +53,7 @@ mounted() {
         closeOnConfirm: true
     }).then((result) => {
         if (result.value) {
+            this.$store.dispatch('deleteDasmat', dasmatId)
         this.$swal(
             'I fshire!',
             'Eshte fshire me sukses.',

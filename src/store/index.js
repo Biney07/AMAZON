@@ -30,6 +30,9 @@ const store = createStore({
         },
         setDasmats(state, dasmats) {
             state.dasmats = dasmats;
+        },
+        removeDasmatById(state, dasmatId) {
+            state.dasmats = state.dasmats.filter((dasmat) => dasmat._id !== dasmatId)
         }
     },
     actions: {
@@ -110,6 +113,13 @@ const store = createStore({
         const newDasmat = await res.json();
 
         commit('addDasmat', newDasmat);
+    },
+    async deleteDasmat({ commit }, dasmatId) {
+        await fetch(`http://localhost:3000/dasmat/${dasmatId}`, {
+           method: 'DELETE'
+        })
+
+        commit('removeDasmatById', dasmatId)
     }
 },
 

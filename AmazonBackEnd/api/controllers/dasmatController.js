@@ -36,6 +36,17 @@ const dasmatController = {
                 });
         }
     },
+    delete: async(req, res) => {
+        const dasmatId = req.params.dasmatId;
+
+        try {
+            await dasmatModel.deleteOne({ _id: dasmatId });
+            res.json({ deleted: true });
+        } catch (err) {
+            res.status(StatusCodes.NOT_FOUND).json({ message: ReasonPhrases.NOT_FOUND});
+        }
+
+    }
 };
 
 
