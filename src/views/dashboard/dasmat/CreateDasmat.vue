@@ -1,28 +1,34 @@
 <template>
     <div class="container py-4 w-50">
-  <h2 style="color:rgba(126, 239, 104, 0.8);">Kontakto</h2>
+  <h2 style="color:rgba(126, 239, 104, 0.8);">Krijo Restaurantet e Dasmave</h2>
   <form id="contactForm" v-on:submit.prevent="handleCreateDasmat">
 
     <div class="mb-3">
       <label class="form-label" for="name">Emri</label>
-      <input class="form-control" v-bind:value="newCreateDasmat.emri"
-                v-on:input="newCreateDasmat.emri = $event.target.value" type="text" placeholder="Emri" data-sb-validations="required" />
+      <input class="form-control" v-bind:value="newCreateDasmat.emri" minlength="4" maxlength="100"
+                v-on:input="newCreateDasmat.emri = $event.target.value" type="text" placeholder="Emri" required />
     </div>
 
     <div class="mb-3">
       <label class="form-label" for="Qyteti">Qyteti</label>
-      <input class="form-control" v-bind:value="newCreateDasmat.qyteti"
-                v-on:input="newCreateDasmat.qyteti = $event.target.value" type="text" placeholder="Qyteti" data-sb-validations="required" />
+      <input class="form-control" v-bind:value="newCreateDasmat.qyteti" minlength="3" maxlength="25"
+                v-on:input="newCreateDasmat.qyteti = $event.target.value" type="text" placeholder="Qyteti" required />
     </div>
 
     <div class="mb-3">
       <label class="form-label" for="Address">Adresa</label>
-      <input class="form-control" v-bind:value="newCreateDasmat.adresa"
-                v-on:input="newCreateDasmat.adresa = $event.target.value" type="text" placeholder="Adresa" data-sb-validations="required" />
+      <input class="form-control" v-bind:value="newCreateDasmat.adresa" minlength="6" maxlength="200"
+                v-on:input="newCreateDasmat.adresa = $event.target.value" type="text" placeholder="Adresa" required />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label" for="foto">Foto</label>
+      <input class="form-control" v-bind:value="newCreateDasmat.foto" minlength="8" maxlength="200"
+                v-on:input="newCreateDasmat.foto = $event.target.value" type="text" placeholder="Foto" required />
     </div>
 
     <div class="d-grid mt-4">
-      <button class="btn btn-lg" id="submitButton" type="submit">Dergo</button>
+      <button class="btn btn-lg" id="submitButton" type="submit">Krijo</button>
     </div>
 
   </form>
@@ -38,17 +44,20 @@ export default {
                 newCreateDasmat: {
                     emri: '',
                     qyteti: '',
-                    adresa: ''
+                    adresa: '',
+                    foto: ''
                 },
+                allDasmats: this.$store.state.dasmats,
             }
         },
         methods: {
             async handleCreateDasmat() {
-                console.log('Dasmat qe eshte derguar -> ', this.newCreateDasmat);
-                
+            this.$store.dispatch('createDasmat', { ...this.newCreateDasmat }) 
                 this.newCreateDasmat.emri = '';
                 this.newCreateDasmat.qyteti = '';
                 this.newCreateDasmat.adresa = '';
+                this.newCreateDasmat.foto = '';
+                    
             }
         }
   }

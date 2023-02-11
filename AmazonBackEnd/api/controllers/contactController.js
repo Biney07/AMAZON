@@ -35,17 +35,6 @@ const contactController = {
                     error: err.message
                 });
         }
-
-        
-        
-        
-        /*console.log('req.body - ', req.body);
-       
-    
-        const newContact = new contactModel(req.body);
-            await newContact.save();
-        
-            return res.json(newContact);*/
         
     },
     delete: async(req, res) => {

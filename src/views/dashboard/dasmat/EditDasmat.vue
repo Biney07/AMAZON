@@ -1,28 +1,33 @@
 <template>
     <div class="container py-4 w-50">
-  <h2 style="color:rgba(126, 239, 104, 0.8);">Kontakto</h2>
+  <h2 style="color:rgba(126, 239, 104, 0.8);">Ndrysho Restaurantet e Dasmave</h2>
   <form id="contactForm" v-on:submit.prevent="handleEditDasmat">
 
     <div class="mb-3">
       <label class="form-label" for="name">Emri</label>
-      <input class="form-control" v-bind:value="newEditDasmat.emri"
+      <input class="form-control" v-bind:value="newEditDasmat.emri" minlength="4" maxlength="100"
                 v-on:input="newEditDasmat.emri = $event.target.value" type="text" placeholder="Emri" data-sb-validations="required" />
     </div>
 
     <div class="mb-3">
       <label class="form-label" for="Qyteti">Qyteti</label>
-      <input class="form-control" v-bind:value="newEditDasmat.qyteti"
+      <input class="form-control" v-bind:value="newEditDasmat.qyteti" minlength="3" maxlength="25"
                 v-on:input="newEditDasmat.qyteti = $event.target.value" type="text" placeholder="Qyteti" data-sb-validations="required" />
     </div>
 
     <div class="mb-3">
       <label class="form-label" for="Address">Adresa</label>
-      <input class="form-control" v-bind:value="newEditDasmat.adresa"
+      <input class="form-control" v-bind:value="newEditDasmat.adresa" minlength="6" maxlength="200"
                 v-on:input="newEditDasmat.adresa = $event.target.value" type="text" placeholder="Adresa" data-sb-validations="required" />
+    </div>
+    <div class="mb-3">
+      <label class="form-label" for="Foto">Foto</label>
+      <input class="form-control" v-bind:value="newEditDasmat.foto" minlength="8" maxlength="200"
+                v-on:input="newEditDasmat.foto = $event.target.value" type="text" placeholder="Foto" data-sb-validations="required" />
     </div>
 
     <div class="d-grid mt-4">
-      <button class="btn btn-lg" id="submitButton" type="submit">Dergo</button>
+      <button class="btn btn-lg" id="submitButton" type="submit">Ndrysho</button>
     </div>
 
   </form>
@@ -38,7 +43,8 @@ export default {
                 newEditDasmat: {
                     emri: '',
                     qyteti: '',
-                    adresa: ''
+                    adresa: '',
+                    foto: ''
                 },
             }
         },
@@ -49,6 +55,7 @@ export default {
                 this.newEditDasmat.emri = '';
                 this.newEditDasmat.qyteti = '';
                 this.newEditDasmat.adresa = '';
+                this.newEditDasmat.foto = '';
             }
         }
   }

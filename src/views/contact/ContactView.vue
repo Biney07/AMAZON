@@ -76,15 +76,10 @@
         },
         methods: {
         async handleCreateKontakt() {
-           const validation = this.$store.dispatch('createContact', { ...this.newContact })
-           if(!validation){
-             alert('Ka ndodhur nje gabim duhet ti plotsoni te dhenat ne rregull');
-           }else{
-             alert('Kontakti eshte derguar me sukses, do te ju kontaktojm se shpejti.');
+           this.$store.dispatch('createContact', { ...this.newContact })
              this.newContact.emri = '';
              this.newContact.email = '';
              this.newContact.mesazhi = '';
-           }
             
         }
     }

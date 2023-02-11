@@ -9,6 +9,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import contactRouter from './api/routes/contactRoute';
 import dhomaRouter from './api/routes/dhomaRoute';
+import dasmatRouter from './api/routes/dasmatRoute';
 
 mongoose.connect(`${MONGO_CONNECTION_URI}:${MONGO_DB_PORT}/${MONGO_DB_NAME}`).then(() => {
     console.log(`Connected to mongodb on port ${MONGO_DB_PORT}`);
@@ -30,6 +31,7 @@ mongoose.connect(`${MONGO_CONNECTION_URI}:${MONGO_DB_PORT}/${MONGO_DB_NAME}`).th
 
     app.use('/contacts', contactRouter);
     app.use('/dhomat', dhomaRouter);
+    app.use('/dasmat', dasmatRouter);
 
 
     app.listen(API_PORT, () => {

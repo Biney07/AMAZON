@@ -4,7 +4,7 @@ const store = createStore({
     state: {
         contacts: [],
         dhomat: [],
-        
+        dasmats: [],
     },
     mutations: {
         addContact(state, contact) {
@@ -24,6 +24,12 @@ const store = createStore({
         },
         removeDhomaById(state, dhomaId) {
             state.dhomat = state.dhomat.filter((dhoma) => dhoma._id !== dhomaId)
+        },
+        addDasmat(state, dasmat) {
+            state.dasmats.push(dasmat);
+        },
+        setDasmats(state, dasmats) {
+            state.dasmats = dasmats;
         }
     },
     actions: {
@@ -83,10 +89,29 @@ const store = createStore({
         })
 
         commit('removeDhomaById', dhomaId)
+    },
+    async fetchDasmats({ commit }) {
+        const res = await fetch('http://localhost:3000/dasmat');
+        const dasmats = await res.json();
+        commit('setDasmats', dasmats)
+    },
+    async createDasmat({ commit }, dasmatData) {
+        const res = await fetch('http://localhost:3000/dasmat',
+                {
+                    method: 'post',
+                    body: JSON.stringify(dasmatData),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+
+                }
+            )
+        
+        const newDasmat = await res.json();
+
+        commit('addDasmat', newDasmat);
     }
 },
-   
-
 
     modules: {}
 });

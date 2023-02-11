@@ -11,14 +11,16 @@
                             <th>Emri</th>
                             <th>Qyteti</th>
                             <th>Adresa</th>
+                            <th>Foto</th>
                             <th>Veprim</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Amazon Hotel Ambient i brendshem</td>
-                            <td>Prishtina</td>
-                            <td>Kilometrin 8-tė tė magjistrales Prishtinė – Mitrovicė</td>
+                        <tr v-for="dasmat in this.dasmats" :key="dasmat._id">
+                            <td>{{ dasmat.emri }}</td>
+                            <td>{{ dasmat.qyteti }}</td>
+                            <td>{{ dasmat.adresa }}</td>
+                            <td>{{ dasmat.foto }}</td>
                             <td><button class="btn btn-sm btn-success"><router-link class="btn-success" to="/restaurantdasmat/edit">Edit</router-link></button> | <button class="btn btn-sm btn-danger" @click="showAlert">Delete</button></td>
 
                         </tr>
@@ -30,7 +32,15 @@
 
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
+computed: {
+    ...mapState(['dasmats'])
+},
+mounted() {
+    this.$store.dispatch('fetchDasmats');
+},
   methods: {
     showAlert() {
       this.$swal({
