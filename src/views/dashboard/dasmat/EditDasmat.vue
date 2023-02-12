@@ -5,25 +5,25 @@
 
     <div class="mb-3">
       <label class="form-label" for="name">Emri</label>
-      <input class="form-control" v-bind:value="newEditDasmat.emri" minlength="4" maxlength="100"
-                v-on:input="newEditDasmat.emri = $event.target.value" type="text" placeholder="Emri" data-sb-validations="required" />
+      <input class="form-control" v-model="dasmat.emri" minlength="4" maxlength="100"
+                 type="text" placeholder="Emri" required />
     </div>
 
     <div class="mb-3">
       <label class="form-label" for="Qyteti">Qyteti</label>
-      <input class="form-control" v-bind:value="newEditDasmat.qyteti" minlength="3" maxlength="25"
-                v-on:input="newEditDasmat.qyteti = $event.target.value" type="text" placeholder="Qyteti" data-sb-validations="required" />
+      <input class="form-control" v-model="dasmat.qyteti" minlength="3" maxlength="25"
+                 type="text" placeholder="Qyteti" required />
     </div>
 
     <div class="mb-3">
       <label class="form-label" for="Address">Adresa</label>
-      <input class="form-control" v-bind:value="newEditDasmat.adresa" minlength="6" maxlength="200"
-                v-on:input="newEditDasmat.adresa = $event.target.value" type="text" placeholder="Adresa" data-sb-validations="required" />
+      <input class="form-control" v-model="dasmat.adresa" minlength="6" maxlength="200"
+                 type="text" placeholder="Adresa" required />
     </div>
     <div class="mb-3">
       <label class="form-label" for="Foto">Foto</label>
-      <input class="form-control" v-bind:value="newEditDasmat.foto" minlength="8" maxlength="200"
-                v-on:input="newEditDasmat.foto = $event.target.value" type="text" placeholder="Foto" data-sb-validations="required" />
+      <input class="form-control" v-model="dasmat.foto" minlength="8" maxlength="200"
+                type="text" placeholder="Foto" required />
     </div>
 
     <div class="d-grid mt-4">
@@ -37,27 +37,21 @@
 
 
 <script>
+import { mapState } from "vuex";
 export default {
-        data() {
-            return {
-                newEditDasmat: {
-                    emri: '',
-                    qyteti: '',
-                    adresa: '',
-                    foto: ''
-                },
-            }
-        },
-        methods: {
-            async handleEditDasmat() {
-                console.log('Dasmat qe eshte derguar -> ', this.newEditDasmat);
-                
-                this.newEditDasmat.emri = '';
-                this.newEditDasmat.qyteti = '';
-                this.newEditDasmat.adresa = '';
-                this.newEditDasmat.foto = '';
-            }
-        }
+  computed: {
+    ...mapState(["dasmat"]),
+  },
+  mounted() {
+    this.$store.dispatch("getByIdDasmat", this.$route.params.dasmatId);
+  },
+  methods: {
+      async handleEditDasmat() {
+          this.$store.dispatch('updateDasmat', { ...this.dasmat });
+          
+          this.$router.back();
+      }
+  }
   }
 </script>
 

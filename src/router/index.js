@@ -107,7 +107,7 @@ const routes = [
     component: () => import( '../views/dashboard/dasmat/CreateDasmat.vue')
   },
   {
-    path: '/restaurantdasmat/edit',
+    path: '/restaurantdasmat/edit/:dasmatId',
     name: 'restaurantdasmatedit',
     component: () => import( '../views/dashboard/dasmat/EditDasmat.vue')
   },

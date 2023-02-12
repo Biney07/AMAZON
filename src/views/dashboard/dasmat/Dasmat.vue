@@ -21,7 +21,7 @@
                             <td>{{ dasmat.qyteti }}</td>
                             <td>{{ dasmat.adresa }}</td>
                             <td>{{ dasmat.foto }}</td>
-                            <td><button class="btn btn-sm btn-success"><router-link class="btn-success" to="/restaurantdasmat/edit">Edit</router-link></button> | <button class="btn btn-sm btn-danger" @click="handleDeleteDasmat(dasmat._id)">Delete</button></td>
+                            <td><button class="btn btn-sm btn-success"><router-link class="btn-success" :to="`/restaurantdasmat/edit/${dasmat._id}`" >Edit</router-link></button> | <button class="btn btn-sm btn-danger" @click="handleDeleteDasmat(dasmat._id)">Delete</button></td>
 
                         </tr>
                     </tbody>

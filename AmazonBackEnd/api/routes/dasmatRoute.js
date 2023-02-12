@@ -5,6 +5,8 @@ const dasmatRouter = express.Router({ mergeParams: true });
 
 dasmatRouter.post('/', dasmatController.create);
 dasmatRouter.get('/', dasmatController.list);
-dasmatRouter.delete('/:dasmatId', dasmatController.delete)
+dasmatRouter.get('/:dasmatId', dasmatController.findById)
+dasmatRouter.delete('/:dasmatId', dasmatController.delete);
+dasmatRouter.put('/:dasmatId', dasmatController.update);
 
 export default dasmatRouter;

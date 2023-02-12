@@ -53,10 +53,7 @@ export default {
         methods: {
             async handleCreateDasmat() {
             this.$store.dispatch('createDasmat', { ...this.newCreateDasmat }) 
-                this.newCreateDasmat.emri = '';
-                this.newCreateDasmat.qyteti = '';
-                this.newCreateDasmat.adresa = '';
-                this.newCreateDasmat.foto = '';
+                this.$router.back();
                     
             }
         }
