@@ -11,8 +11,9 @@
 
     <div class="mb-3">
       <label class="form-label" for="Qyteti">Qyteti</label>
-      <input class="form-control" v-bind:value="newCreateDasmat.qyteti" minlength="3" maxlength="25"
-                v-on:input="newCreateDasmat.qyteti = $event.target.value" type="text" placeholder="Qyteti" required />
+        <select id="Qyteti" v-model="selectedQyteti" v-bind:value="newCreateDasmat.qyteti" v-on:input="newCreateDasmat.qyteti = $event.target.value">
+          <option v-for="qy in Qytetet" :value="qy.name" :key="qy.name">{{ qy.name }}</option>
+        </select>
     </div>
 
     <div class="mb-3">
@@ -48,7 +49,18 @@ export default {
                     foto: ''
                 },
                 allDasmats: this.$store.state.dasmats,
-            }
+                Qytetet: [
+                    { name: 'Podujeve' },
+                    { name: 'Prishtina' },
+                    { name: 'Prizren' },
+                    { name: 'Gjilan' },
+                    { name: 'Peje'},
+                    { name: 'Gjakove'},
+                    { name: 'Ferizaj'},
+                    { name: 'Mitrovic'},
+                ],
+                selectedQyteti: ''
+            } 
         },
         methods: {
             async handleCreateDasmat() {
@@ -78,4 +90,38 @@ export default {
     border-color: rgba(126, 239, 104, 0.8);
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6);
   }
+
+  select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: transparent;
+  border: none;
+  font-size: 16px;
+  padding: 10px;
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  box-shadow: 0 2px 3px rgba(126, 239, 104, 0.8);
+}
+
+select:focus {
+  outline: none;
+  box-shadow: 0 2px 3px rgba(126, 239, 104, 0.8);
+}
+
+select option {
+  font-size: 16px;
+  background-color: white;
+  color: black;
+}
+
+select option:hover {
+  background-color: rgba(126, 239, 104, 0.8);
+}
+
+select option:checked {
+  background-color: rgba(126, 239, 104, 0.8);
+  color: white;
+}
   </style>
