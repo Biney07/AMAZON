@@ -16,17 +16,24 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="dasmat in this.dasmats" :key="dasmat._id">
+                        <tr v-for="dasmat in paginatedDasmats" :key="dasmat._id">
                             <td>{{ dasmat.emri }}</td>
                             <td>{{ dasmat.qyteti }}</td>
                             <td>{{ dasmat.adresa }}</td>
-                            <td>{{ dasmat.foto }}</td>
+                            <td><img :src="dasmat.foto" alt="Photo" style="width: 70px; height: 70px;"/></td>
                             <td><button class="btn btn-sm btn-success"><router-link class="btn-success" :to="`/restaurantdasmat/edit/${dasmat._id}`" >Edit</router-link></button> | <button class="btn btn-sm btn-danger" @click="handleDeleteDasmat(dasmat._id)">Delete</button></td>
 
                         </tr>
                     </tbody>
                 </table>
             </div>
+           <div class="text-center">
+              <button class="btn btn-success" :disabled="currentPage === 1" @click="currentPage--">Previous</button>
+             <span v-for="pageNumber in totalPages" :key="pageNumber">
+               <button class="btn btn-success" :class="{ active: pageNumber === currentPage }" @click="currentPage = pageNumber">{{ pageNumber }}</button>
+             </span>
+            <button class="btn btn-success" :disabled="currentPage === totalPages" @click="currentPage++">Next</button>
+           </div>
         </div>
 </template> 
 
@@ -35,12 +42,28 @@
 import { mapState } from 'vuex';
 
 export default {
-computed: {
-    ...mapState(['dasmats'])
-},
-mounted() {
-    this.$store.dispatch('fetchDasmats');
-},
+    data() {
+    return {
+        currentPage: 1
+    }
+    },
+    computed: {
+        pageSize() {
+        return 6
+    },
+    totalPages() {
+        return Math.ceil(this.dasmats.length / this.pageSize)
+    },
+    paginatedDasmats() {
+        const startIndex = (this.currentPage - 1) * this.pageSize
+        const endIndex = startIndex + this.pageSize
+        return this.dasmats.slice(startIndex, endIndex)
+    },
+        ...mapState(['dasmats'])
+    },
+    mounted() {
+        this.$store.dispatch('fetchDasmats');
+    },
   methods: {
     handleDeleteDasmat(dasmatId) {
       this.$swal({
