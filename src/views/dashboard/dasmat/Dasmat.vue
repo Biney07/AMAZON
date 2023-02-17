@@ -1,5 +1,9 @@
 <template>
 
+<div class="form-group mt-4">
+    <label for="search">Kerko:</label>
+    <input type="text" v-model="searchQuery" id="search" class="form-control w-50 m-auto" placeholder="Kerko...">
+</div>
     <div class="float-start" style="margin-left:47px; margin-top:6px;">
         <a><router-link class="btn btn-success" to="/restaurantdasmat/create">Krijo</router-link></a> 
     </div>
@@ -44,20 +48,28 @@ import { mapState } from 'vuex';
 export default {
     data() {
     return {
-        currentPage: 1
+        currentPage: 1,
+        searchQuery: ''
     }
     },
     computed: {
         pageSize() {
         return 6
     },
+    filteredDasmats() {
+        return this.dasmats.filter(dasmat => {
+            return dasmat.emri.toLowerCase().includes(this.searchQuery.toLowerCase())
+                || dasmat.qyteti.toLowerCase().includes(this.searchQuery.toLowerCase())
+                || dasmat.adresa.toLowerCase().includes(this.searchQuery.toLowerCase());
+        });
+    },
     totalPages() {
-        return Math.ceil(this.dasmats.length / this.pageSize)
+        return Math.ceil(this.filteredDasmats.length / this.pageSize)
     },
     paginatedDasmats() {
         const startIndex = (this.currentPage - 1) * this.pageSize
         const endIndex = startIndex + this.pageSize
-        return this.dasmats.slice(startIndex, endIndex)
+        return this.filteredDasmats.slice(startIndex, endIndex)
     },
         ...mapState(['dasmats'])
     },

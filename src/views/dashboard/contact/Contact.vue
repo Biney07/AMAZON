@@ -1,4 +1,8 @@
 <template>
+<div class="form-group mt-4">
+    <label for="search">Kerko:</label>
+    <input type="text" v-model="searchQuery" id="search" class="form-control w-50 m-auto" placeholder="Kerko...">
+</div>
     <div class="m-5">
             <div class="table-responsive">
                 <table class="table">
@@ -7,6 +11,7 @@
                             <th>Emri</th>
                             <th>Email</th>
                             <th>Mesazhi</th>
+                            <th>Koha e Krijimit</th>
                             <th>Veprim</th>
                         </tr>
                     </thead>
@@ -15,6 +20,7 @@
                             <td>{{ contact.emri }}</td>
                             <td>{{ contact.email }}</td>
                             <td>{{ contact.mesazhi }}</td>
+                            <td>{{ contact.createdAt }}</td>
                             <td><button class="btn btn-sm btn-danger" @click="handleDeleteContact(contact._id)">Delete</button></td>
                             
                         </tr>
@@ -38,20 +44,28 @@ import { mapState } from 'vuex';
 export default {
       data() {
         return {
-            currentPage: 1
+            currentPage: 1,
+            searchQuery: '',
         }
         },
         computed: {
             pageSize() {
             return 6
         },
+        filteredContacts() {
+        return this.contacts.filter(contact => {
+            return contact.emri.toLowerCase().includes(this.searchQuery.toLowerCase())
+                || contact.email.toLowerCase().includes(this.searchQuery.toLowerCase())
+                || contact.mesazhi.toLowerCase().includes(this.searchQuery.toLowerCase());
+            });
+        },
         totalPages() {
-            return Math.ceil(this.contacts.length / this.pageSize)
+            return Math.ceil(this.filteredContacts.length / this.pageSize)
         },
         paginatedContacts() {
             const startIndex = (this.currentPage - 1) * this.pageSize
             const endIndex = startIndex + this.pageSize
-            return this.contacts.slice(startIndex, endIndex)
+            return this.filteredContacts.slice(startIndex, endIndex)
         },
             ...mapState(['contacts'])
         },

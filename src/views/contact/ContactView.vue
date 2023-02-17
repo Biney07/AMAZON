@@ -7,7 +7,7 @@
 
     <div class="mb-3">
       <label class="form-label" for="name">Emri</label>
-      <input class="form-control" name="emri" v-model="newContact.emri" v-on:input="newContact.emri = $event.target.value"
+      <input class="form-control" minlength="4" maxlength="25" name="emri" v-model="newContact.emri" v-on:input="newContact.emri = $event.target.value"
                  type="text" placeholder="Emri" required />
     </div>
 
@@ -19,7 +19,7 @@
     <div class="col-md-12">
       <div class="form-group">
         <label class="label" for="#">Mesazhi</label>
-        <textarea name="message" class="form-control" v-model="newContact.mesazhi" v-on:input="newContact.mesazhi = $event.target.value" cols="30" rows="4" placeholder="Mesazhi" required ></textarea>
+        <textarea name="message" class="form-control" minlength="6" maxlength="200" v-model="newContact.mesazhi" v-on:input="newContact.mesazhi = $event.target.value" cols="30" rows="4" placeholder="Mesazhi" required ></textarea>
       </div>
     </div>
 
@@ -80,6 +80,8 @@
              this.newContact.emri = '';
              this.newContact.email = '';
              this.newContact.mesazhi = '';
+
+             alert('Konatkti eshte derguar me sukses.')
             
         }
     }
