@@ -39,7 +39,7 @@ const routes = [
   },
 
   {
-    path: '/homedetails',
+    path: '/homedetails/:dhomaId',
     name: 'homedetails',
     component: () => import( '../views/home/HomeDetails.vue')
   },

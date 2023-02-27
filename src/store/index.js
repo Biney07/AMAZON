@@ -149,6 +149,11 @@ const store = createStore({
 
         commit('updateDasmatById', updateDasmat);
     },
+    async getByIdDhomat({ commit }, dhomaId) {
+        const res = await fetch(`http://localhost:3000/dhomat/${dhomaId}`);
+        const dhomat = await res.json();
+        commit('setDhomat', dhomat)
+    },
 },
 
     modules: {}

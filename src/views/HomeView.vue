@@ -17,7 +17,7 @@
 				</p>
 			</div>
 			<div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-        <router-link  to="/homeDetails"><img :src="dhoma.foto1" class="img-fluid" /></router-link>	
+        <router-link  :to="`/homeDetails/${dhoma._id}`"><img :src="dhoma.foto1" class="img-fluid" /></router-link>	
 				<a asp-action="Details">
 					<div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
 				</a>

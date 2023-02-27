@@ -6,5 +6,6 @@ const dhomaRouter = express.Router({ mergeParams: true });
 dhomaRouter.get('/', dhomaController.list);
 dhomaRouter.post('/', dhomaController.create);
 dhomaRouter.delete('/:dhomaId', dhomaController.delete)
+dhomaRouter.get('/:dhomaId', dhomaController.findById)
 
 export default dhomaRouter;

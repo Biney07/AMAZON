@@ -18,6 +18,18 @@ const dhomaController = {
             return res.json(newDhome);
         
     },
+    findById: async (req, res) => {
+        try {
+          const dhomat = await dhomaModel.findOne({
+            _id: req.params.dhomaId,
+          });
+
+          if (!dhomat) throw Error("Dhoma nuk u gjet");
+          return res.json(dhomat);
+        } catch (error) {
+          res.status(404).json({ error: error.message });
+        }
+      },
     delete: async(req, res) => {
         const dhomaId = req.params.dhomaId;
 
