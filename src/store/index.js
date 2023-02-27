@@ -40,7 +40,10 @@ const store = createStore({
         },
         removeDasmatById(state, dasmatId) {
             state.dasmats = state.dasmats.filter((dasmat) => dasmat._id !== dasmatId)
-        }
+        },
+        updateDhomaById(state, dhoma) {
+            state.dhomat = state.dhomat.find((d) => d._id == dhoma._id)
+        },
     },
     actions: {
         async fetchContacts({ commit }) {
@@ -154,6 +157,23 @@ const store = createStore({
         const dhomat = await res.json();
         commit('setDhomat', dhomat)
     },
+    async updateDhoma({ commit }, dhomaData) {
+        const res = await fetch(`http://localhost:3000/dhomat/${dhomaData._id}`,
+                {
+                    method: 'PUT',
+                    body: JSON.stringify(dhomaData),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+
+                }
+            )
+        
+        const updateDhoma = await res.json();
+
+        commit('updateDhomaById', updateDhoma);
+    },
+
 },
 
     modules: {}

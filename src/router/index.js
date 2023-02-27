@@ -112,6 +112,13 @@ const routes = [
     component: () => import( '../views/dashboard/dasmat/EditDasmat.vue')
   },
   {
+    path: '/dashboard/home/edit/:dhomaId',
+    name: 'dhomaedit',
+    component: () => import( '../views/dashboard/home/EditDhoma.vue')
+  },
+
+
+  {
     path: '/dashboard/home/homeDashboard',
     name: 'dashboardhome',
     component: () => import( '../views/dashboard/home/homeDashboard.vue')
