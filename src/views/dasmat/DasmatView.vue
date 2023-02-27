@@ -13,8 +13,8 @@
 				</a>
 			</div>
 			<div class="card-body">
-				<h5 class="card-title">{{ dasmat.emri }} | {{ dasmat.qyteti }}</h5>
-				<a class="btn btn-success text-white" >Shiko Detajet</a>
+				<h5 class="card-title">{{ dasmat.emri }}</h5>
+				<router-link class="btn btn-success text-white" :to="`/restaurantdasmatdetails/${dasmat._id}`">Shiko Detajet</router-link>
 			</div>
 		</div>
 		</div>
