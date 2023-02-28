@@ -6,7 +6,8 @@ const schema = mongoose.Schema({
     foto1: String,
     foto2: String,
     foto3: String,
-    cmimi : Number
+    cmimi : Number,
+    statusi:Boolean
 });
 
 const dhomaModel = mongoose.model("dhomat", schema);

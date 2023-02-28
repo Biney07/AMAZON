@@ -15,6 +15,7 @@
                             <th>Foto 2</th>
                             <th>Foto 3</th>
                             <th>Cmimi</th>
+                            <th>Statusi</th>
                             <th>Veprime</th>
                             <th></th>
 
@@ -28,6 +29,7 @@
                             <td>{{ dhoma.foto2 }}</td>
                             <td>{{ dhoma.foto3 }}</td>
                             <td>{{ dhoma.cmimi }}</td>
+                            <td>{{ dhoma.statusi ? 'e Lirë' : 'e Zënë' }}</td>
                             <td><button class="btn btn-sm btn-success"><router-link class="btn-success" :to="`/dashboard/home/edit/${dhoma._id}`" >Edit</router-link></button> </td>
                             <td><button class="btn btn-sm btn-danger" @click="handleDeleteDhoma(dhoma._id)">Delete</button></td>
                             

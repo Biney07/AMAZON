@@ -8,6 +8,7 @@ const updateDhomaSchema = Joi.object({
     foto2: Joi.string().required().min(3).max(200),
     foto3: Joi.string().required().min(3).max(200),
     cmimi:Joi.number().required().min(0).max(300),
+    statusi: Joi.boolean().required(),
     __v: Joi.allow()
 });
 

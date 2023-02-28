@@ -33,6 +33,12 @@
           <input class="form-control" v-model="dhomat.cmimi"  type="number" placeholder="Cmimi" required />
         </div>
   
+        
+      <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="statusi" v-model="dhomat.statusi">
+        <label class="form-check-label" for="statusi">E lirë</label>
+      </div>
+
         <div class="d-grid mt-4">
           <button class="btn btn-lg" id="submitButton" type="submit">Ruaj</button>
         </div>
