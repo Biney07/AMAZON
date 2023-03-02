@@ -1,4 +1,5 @@
 import { createStore } from 'vuex';
+import signupUser from '@/firebase/user/signupUser';
 
 const store = createStore({
     state: {
@@ -173,6 +174,10 @@ const store = createStore({
 
         commit('updateDhomaById', updateDhoma);
     },
+    async registerUser( payload){
+
+       signupUser(payload);
+    }
 
 },
 

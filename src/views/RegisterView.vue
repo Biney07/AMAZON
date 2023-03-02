@@ -1,16 +1,29 @@
 
 <script>
-import {getAuth , createUserWithEmailAndPassword} from 'firebase/auth';
+//import {getAuth , createUserWithEmailAndPassword, updateProfile , signOut} from 'firebase/auth';
 export default{
     data(){
         return{
-
+name : '',
+email : '',
+password: '',
         }
     },
     methods:{
-        handleRegisterUser(){
-            const auth = getAuth();
-            createUserWithEmailAndPassword(auth,this.email,this.password);
+      async handleRegisterUser(){
+        //     const auth = getAuth();
+        //     const result = await createUserWithEmailAndPassword(auth,this.email,this.password);
+        //     const user = result.user;
+        //    await updateProfile(user, {displayName:this.name});
+        //     await signOut(auth);
+        //     this.$router.push('./login');
+        this.$store.dispatch('registerUser',{
+            name : this.name,
+            email : this.email,
+            password : this.password,
+         
+        })
+        this.$router.push('./login');
         }
     }
 }
@@ -32,7 +45,7 @@ export default{
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0 form-group">
-                      <input type="text" id="name" class="form-control" />
+                      <input type="text" id="name" class="form-control" v-model="name" />
                       <label class="form-label" for="name">Your Name</label>
                     </div>
                   </div>
@@ -40,7 +53,7 @@ export default{
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0 form-group">
-                      <input type="email" id="email" class="form-control" />
+                      <input type="email" id="email" class="form-control" v-model="email" />
                       <label class="form-label" for="email">Your Email</label>
                     </div>
                   </div>
@@ -48,7 +61,7 @@ export default{
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0 form-group">
-                      <input type="password" id="password" class="form-control" />
+                      <input type="password" id="password" class="form-control" v-model="password"/>
                       <label class="form-label" for="password">Password</label>
                     </div>
                   </div>
