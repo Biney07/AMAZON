@@ -1,6 +1,6 @@
 import { createStore } from 'vuex';
-import signupUser from '@/firebase/user/signupUser';
-
+//import signupUser from '@/firebase/user/signupUser';
+import apiRequest from '@/utility/apiRequest';
 const store = createStore({
     state: {
         contacts: [],
@@ -44,6 +44,8 @@ const store = createStore({
         },
         updateDhomaById(state, dhoma) {
             state.dhomat = state.dhomat.find((d) => d._id == dhoma._id)
+        },setUser(state, user) {
+            state.user = user;
         },
     },
     actions: {
@@ -174,9 +176,10 @@ const store = createStore({
 
         commit('updateDhomaById', updateDhoma);
     },
+   // async registerUser({ commit }, payload){
     async registerUser( payload){
 
-       signupUser(payload);
+      await apiRequest.registerUser(payload);
     }
 
 },

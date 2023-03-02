@@ -10,21 +10,15 @@ password: '',
         }
     },
     methods:{
-      async handleRegisterUser(){
-        //     const auth = getAuth();
-        //     const result = await createUserWithEmailAndPassword(auth,this.email,this.password);
-        //     const user = result.user;
-        //    await updateProfile(user, {displayName:this.name});
-        //     await signOut(auth);
-        //     this.$router.push('./login');
-        this.$store.dispatch('registerUser',{
-            name : this.name,
-            email : this.email,
-            password : this.password,
-         
-        })
-        this.$router.push('./login');
-        }
+      async handleRegisterUser() {
+                this.$store.dispatch('registerUser', {
+                    name: this.name,
+                    email: this.email,
+                    password: this.password,
+                })
+
+                this.$router.push('/login');
+            }
     }
 }
 </script>
@@ -40,7 +34,7 @@ password: '',
 
                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
 
-                <form class="mx-1 mx-md-4" v-on:submit.prevent="handleRegisterUser">
+                <form class="mx-1 mx-md-4" @submit.prevent="handleRegisterUser">
 
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
