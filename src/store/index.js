@@ -1,6 +1,12 @@
 import { createStore } from 'vuex';
 //import signupUser from '@/firebase/user/signupUser';
-import apiRequest from '@/utility/apiRequest';
+//import apiRequest from '@/utility/apiRequest';
+
+import { auth } from '../firebase'
+import {
+  createUserWithEmailAndPassword
+
+} from 'firebase/auth'
 const store = createStore({
     state: {
         contacts: [],
@@ -8,6 +14,8 @@ const store = createStore({
         dasmats: [],
         dasmat: [],
         foods:[],
+        user: null,
+    authIsReady: false
     },
     mutations: {
         addContact(state, contact) {
@@ -52,9 +60,9 @@ const store = createStore({
                 }
                  return d
              })
-},setUser(state, user) {
-            state.user = user;
-        },
+},//setUser(state, user) {
+//             state.user = user;
+//         },
        addFood(state, food) {
          state.foods.push(food);
          console.log(state.foods); // add this line to check the state after adding a new food item
@@ -72,7 +80,14 @@ const store = createStore({
         },
         removeFoodById(state, foodId) {
         state.foods = state.foods.filter((food) => food._id !== foodId);
-        }
+        },
+        setUser(state, payload) {
+            state.user = payload
+            console.log('user state changed:', state.user)
+          },
+          setAuthIsReady(state, payload) {
+            state.authIsReady = payload
+          }
     },
     actions: {
     
@@ -255,10 +270,20 @@ async updateFood({ commit }, foodData) {
         commit('updateDhomaById', updateDhoma);
     },
    // async registerUser({ commit }, payload){
-    async registerUser( payload){
+    // async registerUser( payload){
 
-      await apiRequest.registerUser(payload);
-    }
+    //   await apiRequest.registerUser(payload);
+    // }
+    async signup(context, { email, password }) {
+        console.log('signup action')
+  
+        const res = await createUserWithEmailAndPassword(auth, email, password)
+        if (res) {
+          context.commit('setUser', res.user)
+        } else {
+          throw new Error('could not complete signup')
+        }
+      },
 
 },
 

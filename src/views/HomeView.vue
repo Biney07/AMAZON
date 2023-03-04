@@ -10,7 +10,7 @@
 
 		
 
-    <div class="card" style="width:50vh; margin:20px" v-for="dhoma in this.dhomat" :key="dhoma._id" :class="{ 'bg-custom': !dhoma.statusi }">
+    <div class="card" style="width:50vh; margin:20px" v-for="dhoma in this.dhomat" :key="dhoma._id" :class="{ 'border-danger': !dhoma.statusi }">
 			<div class="col-md-12">
 				<p class="card-text d-flex justify-content-end">
 					<a class="text-dark float-right fs-3 " style="padding-left:5px;" ><i class="bi bi-pencil-square text-primary"></i></a>

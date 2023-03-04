@@ -1,25 +1,49 @@
 
 <script>
+import { ref } from 'vue'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 //import {getAuth , createUserWithEmailAndPassword, updateProfile , signOut} from 'firebase/auth';
 export default{
-    data(){
-        return{
-name : '',
-email : '',
-password: '',
-        }
-    },
-    methods:{
-      async handleRegisterUser() {
-                this.$store.dispatch('registerUser', {
-                    name: this.name,
-                    email: this.email,
-                    password: this.password,
-                })
+//     data(){
+//         return{
+// name : '',
+// email : '',
+// password: '',
+//         }
+//     },
+//     methods:{
+//       async handleRegisterUser() {
+//                 this.$store.dispatch('registerUser', {
+//                     name: this.name,
+//                     email: this.email,
+//                     password: this.password,
+//                 })
 
-                this.$router.push('/login');
-            }
+//                 this.$router.push('/login');
+//             },
+            
+//     }
+setup() {
+    const email = ref('')
+    const password = ref('')
+    const error = ref(null)
+    const store = useStore()
+    const router = useRouter()
+    const handleSubmit = async () => {
+      try {
+        await store.dispatch('signup', {
+          email: email.value,
+          password: password.value
+        })
+        router.push('/')
+      }
+      catch (err) {
+        error.value = err.message
+      }
     }
+    return { handleSubmit, email, password, error }
+  }
 }
 </script>
 <template>
@@ -34,15 +58,15 @@ password: '',
 
                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
 
-                <form class="mx-1 mx-md-4" @submit.prevent="handleRegisterUser">
+                <form class="mx-1 mx-md-4" @submit.prevent="handleSubmit">
 
-                  <div class="d-flex flex-row align-items-center mb-4">
+                  <!-- <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0 form-group">
                       <input type="text" id="name" class="form-control" v-model="name" />
                       <label class="form-label" for="name">Your Name</label>
                     </div>
-                  </div>
+                  </div> -->
 
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
@@ -55,7 +79,7 @@ password: '',
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0 form-group">
-                      <input type="password" id="password" class="form-control" v-model="password"/>
+                      <input type="password" id="password" class="form-control"  v-model="password"/>
                       <label class="form-label" for="password">Password</label>
                     </div>
                   </div>
@@ -67,6 +91,7 @@ password: '',
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                     <button class="btn btn-primary btn-lg">Register</button>
                   </div>
+                  <div v-if="error">{{ error }}</div>
 
                 </form>
 

@@ -74,6 +74,7 @@ export default {
     }, methods: {
         async handleCreateDhome() {
             this.$store.dispatch('createDhoma', { ...this.newDhome })
+            this.$router.back();
         }
 }
 }
