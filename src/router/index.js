@@ -113,7 +113,7 @@ const routes = [
   },
   {
     path: '/restaurantdasmatdetails/:dasmatId',
-    name: 'restaurantdasmatedit',
+    name: 'restaurantdasmatdetails',
     component: () => import( '../views/dasmat/DasmatDetails.vue')
   },
   {
