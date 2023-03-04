@@ -43,7 +43,7 @@
                     { path: '/dashboard/home', name: 'Home', subtitle: 'Menaxho Home' },
                     { path: '/dashboard/about', name: 'About Us', subtitle: 'Menaxho About' },
                     { path: '/dashboard/aktivitete', name: 'Aktivitete', subtitle: 'Menaxho Aktivitete' },
-                    { path: '/dashboard/menute', name: 'Menute', subtitle: 'Menaxho Menute' },
+                    { path: '/dashboard/menute', name: 'MenuDashboard', subtitle: 'Menaxho Menute' },
                     { path: '/dashboard/dasmat', name: 'Dasmat', subtitle: 'Menaxho Restaurantet e Dasmave' },
                     { path: '/dashboard/contact', name: 'Contact', subtitle: 'Menaxho Contact' },
                     { path: '/dashboard/register', name: 'Register', subtitle: 'Menaxho Register' },
