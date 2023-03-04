@@ -10,7 +10,8 @@ import mongoose from 'mongoose';
 import contactRouter from './api/routes/contactRoute';
 import dhomaRouter from './api/routes/dhomaRoute';
 import dasmatRouter from './api/routes/dasmatRoute';
-
+import userRouter from './api/routes/userRoute'
+import foodRouter from './api/routes/foodRoute';
 mongoose.connect(`${MONGO_CONNECTION_URI}:${MONGO_DB_PORT}/${MONGO_DB_NAME}`).then(() => {
     console.log(`Connected to mongodb on port ${MONGO_DB_PORT}`);
 
@@ -32,7 +33,8 @@ mongoose.connect(`${MONGO_CONNECTION_URI}:${MONGO_DB_PORT}/${MONGO_DB_NAME}`).th
     app.use('/contacts', contactRouter);
     app.use('/dhomat', dhomaRouter);
     app.use('/dasmat', dasmatRouter);
-
+    app.use('/users', userRouter);
+    app.use('/foods', foodRouter);
 
     app.listen(API_PORT, () => {
         console.log(`Amazon listening on port: ${API_PORT}`)

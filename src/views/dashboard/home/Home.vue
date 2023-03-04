@@ -37,7 +37,16 @@
    
   </div>
 
-
+  <div class="mb-3 form-check">
+      <input
+        type="checkbox"
+        name="statusi"
+        v-model="newDhome.statusi"
+        class="form-check-input"
+        id="statusi"
+      />
+      <label class="form-check-label" for="statusi">E lirë</label>
+    </div>
 
   <div class=" mt-4">
       <button class="btn btn-lg btn-primary" id="submitButton" type="submit">Ruaj</button>
@@ -58,12 +67,14 @@ export default {
                 foto2 : '',
                 foto3 : '',
                 cmimi : '',
+                statusi: false,
             }
 
         }
     }, methods: {
         async handleCreateDhome() {
             this.$store.dispatch('createDhoma', { ...this.newDhome })
+            this.$router.back();
         }
 }
 }

@@ -30,7 +30,7 @@
 
 </div>
 <div style="display:flex;flex-direction:row;justify-content:start;margin-top:5px;margin-left: 30px;" >
-  <h5>Statusi : <i>e Lirë</i></h5>
+  <h5>Statusi : <i>{{ dhomat.statusi ? 'e Lirë' : 'e Zënë' }}</i></h5>
 </div>
 <div><p style="display:flex; flex-wrap: wrap; margin-left: 50px; margin-right: 50px; margin-top: 50px;line-height: 30px;">{{dhomat.pershkrimi}}</p></div>
 </div>

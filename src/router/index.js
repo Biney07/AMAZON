@@ -73,11 +73,24 @@ const routes = [
     component: () => import( '../views/dashboard/aktivitetet/Aktivitetet.vue')
   },
 
-  {
+
+   {
     path: '/dashboard/menute',
-    name: 'dashboardmenute',
+    name: 'MenuDashboard',
+    component: () => import( '../views/dashboard/menute/MenuDashboard.vue')
+  },
+     {
+    path: '/dashboard/menute/create',
+    name: 'MenuCreate',
     component: () => import( '../views/dashboard/menute/Menute.vue')
   },
+   {
+    path: '/dashboard/menute/edit/:foodId',
+    name: 'MenuEdit',
+    component: () => import( '../views/dashboard/menute/MenuEdit.vue')
+  },
+
+
 
   {
     path: '/dashboard/dasmat',
@@ -132,6 +145,11 @@ const routes = [
     path: '/login',
     name: 'login',
     component: () => import( '../views/login/LoginView.vue')
+  },
+  {
+    path:'/register',
+    name:'register',
+    component: () => import( '../views/RegisterView.vue')
   }
 ]
 
