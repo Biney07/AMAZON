@@ -7,6 +7,16 @@ import {
   createUserWithEmailAndPassword
 
 } from 'firebase/auth'
+const adminEmails = ['admin1@example.com', 'admin2@example.com']
+const getUserRole = async (email) => {
+    // Check if the user's email matches an admin email
+    if (adminEmails.includes(email)) {
+      return 'admin'
+    } else {
+      return 'user'
+    }
+  }
+  
 const store = createStore({
     state: {
         contacts: [],
@@ -15,7 +25,8 @@ const store = createStore({
         dasmat: [],
         foods:[],
         user: null,
-    authIsReady: false
+    authIsReady: false,
+    
     },
     mutations: {
         addContact(state, contact) {
@@ -274,16 +285,32 @@ async updateFood({ commit }, foodData) {
 
     //   await apiRequest.registerUser(payload);
     // }
-    async signup(context, { email, password }) {
-        console.log('signup action')
+
   
+   
+      async signup(context, { email, password }) {
+        console.log('signup action')
+    
         const res = await createUserWithEmailAndPassword(auth, email, password)
         if (res) {
-          context.commit('setUser', res.user)
+          // Set the user role based on their email
+          const role = await getUserRole(email)
+          context.commit('setUser', { user: res.user, role: role })
         } else {
           throw new Error('could not complete signup')
         }
       },
+    // async signup(context, { email, password }) {
+    //     console.log('signup action')
+  
+    //     const res = await createUserWithEmailAndPassword(auth, email, password)
+    //     if (res) {
+    //       context.commit('setUser', res.user)
+    //     } else {
+    //       throw new Error('could not complete signup')
+    //     }
+    //   },
+  
 
 },
 

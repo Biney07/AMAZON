@@ -10,7 +10,7 @@
 
 		
 
-    <div class="card" style="width:50vh; margin:20px" v-for="dhoma in this.dhomat" :key="dhoma._id" :class="{ 'border-danger': !dhoma.statusi }">
+    <div class="card" style="width:50vh; margin:20px" v-for="dhoma in this.dhomat" :key="dhoma._id">
 			<div class="col-md-12">
 				<p class="card-text d-flex justify-content-end">
 					<a class="text-dark float-right fs-3 " style="padding-left:5px;" ><i class="bi bi-pencil-square text-primary"></i></a>
@@ -26,10 +26,9 @@
 			<div class="card-body">
 				<h5 class="card-title">Dhoma {{ dhoma.numri }}</h5>
 
-				<a class="btn btn-success text-white" >
-
-					<i class="bi bi-cart-plus"></i> Rezervo
-				</a>
+				<a class="btn btn-success text-white" :class="{ 'btn-danger': !dhoma.statusi, 'disabled': !dhoma.statusi }" :disabled="!dhoma.statusi">
+  <i class="bi bi-cart-plus"></i> Rezervo
+</a>
 
 			</div>
 
