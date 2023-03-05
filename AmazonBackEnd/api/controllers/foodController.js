@@ -1,5 +1,6 @@
 import foodModel from '../models/foodModel';
 import createFoodSchema from '../validators/food/foodValidation'
+import { StatusCodes,  ReasonPhrases  } from 'http-status-codes';
 const foodController = {
   list: async (req, res) => {
     const foods = await foodModel.find();
@@ -23,32 +24,45 @@ create: async (req, res) => {
 
 
   findById: async (req, res) => {
-    try {
-      const foodModel = await foodModel.findById(req.params.foodId);
-      if (!foodModel) throw Error("foodModel not found");
-      return res.json(foodModel);
-    } catch (error) {
-      res.status(404).json({ error: error.message });
-    }
-  },
+     try {
+          const foods = await foodModel.findOne({
+            _id: req.params.foodId,
+          });
+
+          if (!foods) throw Error("Food was not found");
+          return res.json(foods);
+        } catch (error) {
+          res.status(404).json({ error: error.message });
+        }
+      },
 
   update: async (req, res) => {
-    try {
-          // Validate the request body against the schema
-    const { error, value } = validateFood.validate(req.body);
-    if (error) {
-      // Return a 400 Bad Request response if the request body is invalid
-      return res.status(400).json({ error: error.message });
-    }
-      const foodModel = await foodModel.findByIdAndUpdate(req.params.foodId, req.body, { new: true });
-      if (!foodModel) throw Error("foodModel not found");
-      return res.json(foodModel);
   
-  } catch (error) {
-    // Return a 500 Internal Server Error response if there's an error
-    return res.status(500).json({ error: error.message });
-  }
+      const { value: foodData, error } = createFoodSchema.validate(req.body);
+    if (error) {
+      throw new Error(`Validation error: ${error.message}`);
+    }
+
+     
+
+      try {
+        
+          await foodModel.updateOne({ _id: req.params.foodId }, foodData);
+
+          const updatedFood = await foodModel.find({ _id: req.params.foodId });
+
+          return res.json(updatedFood);
+      } catch (err) {
+          return res
+              .status(StatusCodes.INTERNAL_SERVER_ERROR)
+              .json({
+                  message: ReasonPhrases.INTERNAL_SERVER_ERROR,
+                  err: err.message
+              })
+      }
+
   },
+
 
      delete: async(req, res) => {
      

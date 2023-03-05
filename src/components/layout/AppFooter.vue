@@ -91,7 +91,7 @@
                     { path: '/', name: 'Home' },
                     { path: '/about', name: 'About us' },
                     { path: '/aktivitete', name: 'Aktivitete' },
-                    { path: '/menute', name: 'Menutë' },
+                    { path: '/foods', name: 'Menutë' },
                     { path: '/contact', name: 'Contact Us'}
                 ]
             }

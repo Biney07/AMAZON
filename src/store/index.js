@@ -7,6 +7,16 @@ import {
   createUserWithEmailAndPassword
 
 } from 'firebase/auth'
+const adminEmails = ['admin1@example.com', 'admin2@example.com']
+const getUserRole = async (email) => {
+    // Check if the user's email matches an admin email
+    if (adminEmails.includes(email)) {
+      return 'admin'
+    } else {
+      return 'user'
+    }
+  }
+  
 const store = createStore({
     state: {
         contacts: [],
@@ -15,7 +25,8 @@ const store = createStore({
         dasmat: [],
         foods:[],
         user: null,
-    authIsReady: false
+    authIsReady: false,
+    
     },
     mutations: {
         addContact(state, contact) {
@@ -52,17 +63,15 @@ const store = createStore({
             state.dasmats = state.dasmats.filter((dasmat) => dasmat._id !== dasmatId)
         },
        updateDhomaById(state, dhoma) {
-         console.log('dhoma:', dhoma);
-        console.log('dhoma._id:', dhoma._id);
+       
          state.dhomat = state.dhomat.map(d => {
             if (d._id === dhoma._id) {
              return dhoma
                 }
                  return d
              })
-},//setUser(state, user) {
-//             state.user = user;
-//         },
+        },
+      
        addFood(state, food) {
          state.foods.push(food);
          console.log(state.foods); // add this line to check the state after adding a new food item
@@ -203,7 +212,7 @@ const store = createStore({
     commit('setFoods', foods)
 },
 async createFood({ commit }, foodData) {
-       console.log(foodData);
+
     const res = await fetch('http://localhost:3000/foods',
         {
             method: 'post',
@@ -220,7 +229,7 @@ async createFood({ commit }, foodData) {
     commit('addFood', newFood);
 },
 async deleteFood({ commit }, foodId) {
-    console.log(foodId);
+   
     await fetch(`http://localhost:3000/foods/${foodId}`, {
         method: 'DELETE'
     })
@@ -228,26 +237,28 @@ async deleteFood({ commit }, foodId) {
     commit('removeFoodById', foodId)
 },
 async getFoodById({ commit }, foodId) {
+   
     const res = await fetch(`http://localhost:3000/foods/${foodId}`);
     const food = await res.json();
-    commit('setFood', food)
+    commit('setFoods', food)
 },
 async updateFood({ commit }, foodData) {
-    const res = await fetch(`http://localhost:3000/foods/${foodData._id}`,
-        {
-            method: 'PUT',
-            body: JSON.stringify(foodData),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-    )
+   
+      const res = await fetch(`http://localhost:3000/foods/${foodData._id}`,
+                    {
+                        method: 'PUT',
+                        body: JSON.stringify(foodData),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
 
-    const updatedFood = await res.json();
+                    }
+                )
+            
+            const updateFood = await res.json();
 
-    commit('updateFoodById', updatedFood);
-
-    },
+            commit('updateFoodById', updateFood);
+        },
     async getByIdDhomat({ commit }, dhomaId) {
         const res = await fetch(`http://localhost:3000/dhomat/${dhomaId}`);
         const dhomat = await res.json();
@@ -274,16 +285,32 @@ async updateFood({ commit }, foodData) {
 
     //   await apiRequest.registerUser(payload);
     // }
-    async signup(context, { email, password }) {
-        console.log('signup action')
+
   
+   
+      async signup(context, { email, password }) {
+        console.log('signup action')
+    
         const res = await createUserWithEmailAndPassword(auth, email, password)
         if (res) {
-          context.commit('setUser', res.user)
+          // Set the user role based on their email
+          const role = await getUserRole(email)
+          context.commit('setUser', { user: res.user, role: role })
         } else {
           throw new Error('could not complete signup')
         }
       },
+    // async signup(context, { email, password }) {
+    //     console.log('signup action')
+  
+    //     const res = await createUserWithEmailAndPassword(auth, email, password)
+    //     if (res) {
+    //       context.commit('setUser', res.user)
+    //     } else {
+    //       throw new Error('could not complete signup')
+    //     }
+    //   },
+  
 
 },
 
