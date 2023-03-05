@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from 'firebase/auth'
+import { getFirestore } from "firebase/firestore";
 //import {getAuth, connectAuthEmulator} from 'firebase/auth';
 //import {getFunctions, connectFunctionsEmulator} from 'firebase/functions';
 // TODO: Add SDKs for Firebase products that you want to use
@@ -24,5 +25,5 @@ initializeApp(firebaseConfig)
 //export default app;
 
 const auth = getAuth()
-
-export { auth }
+const db = getFirestore();
+export { auth , db }
