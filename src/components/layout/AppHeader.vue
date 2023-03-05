@@ -26,12 +26,16 @@
                                     class="costum" to="/contact">Contact</router-link></a></li>
                         <li class="nav-item"> <a class=" nav-link costum active" aria-current="page"><router-link
                                     class="costum" to="/restaurantdasmat">Dasmat</router-link></a></li>
-                                    <li class=" ms-auto nav-item d-flex"> <a class=" nav-link costum active"
-                                aria-current="page"><router-link class="costum" to="/register">Register</router-link></a></li>
-                        <li class=" ms-auto nav-item d-flex"> <a class=" nav-link costum active"
+                            <li v-if="!user" class=" ms-auto nav-item d-flex"> <a class=" nav-link costum active"
+                        aria-current="page"><router-link class="costum" to="/register">Register</router-link></a></li>
+                        <li v-if="!user" class=" ms-auto nav-item d-flex"> <a class=" nav-link costum active"
                                 aria-current="page"><router-link class="costum" to="/login">Login</router-link></a></li>
                         <li class="ms-auto nav-item d-flex"> <a class=" nav-link costum active"
                                 aria-current="page"><router-link class="costum" to="/dashboard">Dashboard</router-link></a></li>
+                        <div v-if="user" class="mt-2">
+                          <span>Miresevini: {{ user.email }}</span>
+                        </div>
+                        <button v-if="user" class="btn btn-primary" @click="handleClick">Logout</button>
 
                     </ul>
                 </div>
@@ -39,6 +43,8 @@
             </div>
         </div>
     </nav>
+
+
     <!-- <div class="headd">
        
         <header>
@@ -53,6 +59,23 @@
 
 </template>
 
+<script>
+import { useStore } from 'vuex'
+import { computed } from 'vue'
+
+export default {
+  setup() {
+    const store = useStore()
+    const handleClick = () => {
+      store.dispatch('logout')
+    }
+    return {
+      handleClick,
+      user: computed(() => store.state.user),
+    }
+  }
+}
+</script>
 
 <style>
 .logo {

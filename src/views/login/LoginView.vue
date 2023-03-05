@@ -2,18 +2,16 @@
  
 <div class="container py-4 w-50">
   <h2 style="color:rgba(126, 239, 104, 0.8);">Login</h2>
-  <form id="contactForm" v-on:submit.prevent="handleCreateLogin">
+  <form id="contactForm" v-on:submit.prevent="handleLogin">
 
     <div class="mb-3">
       <label class="form-label" for="emailAddress">Email</label>
-      <input class="form-control" v-bind:value="newLogin.email"
-                v-on:input="newLogin.email = $event.target.value" type="email" placeholder="Email" data-sb-validations="required, email" />
+      <input class="form-control" v-model="email" type="email" placeholder="Email" required />
     </div>
 
     <div class="mb-3">
       <label class="form-label" for="Password">Password</label>
-      <input class="form-control" v-bind:value="newLogin.password"
-                v-on:input="newLogin.password = $event.target.value" type="password" placeholder="Password" data-sb-validations="required, password" />
+      <input class="form-control" v-model="password" type="password" placeholder="Password" required />
     </div>
 
     <div class="d-grid mt-4">
@@ -21,30 +19,37 @@
     </div>
 
   </form>
-
+<div v-if="error">{{ error }}</div>
 </div>
 </template>
 
 <script>
-  export default {
-        data() {
-            return {
-                newLogin: {
-                    email: '',
-                    password: ''
-                },
-            }
-        },
-        methods: {
-            async handleCreateLogin() {
-                console.log('Login qe eshte derguar -> ', this.newLogin);
-                
-                this.newLogin.email = '';
-                this.newLogin.password = '';
-            }
-        }
+import { ref } from 'vue'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+export default {
+  setup() {
+    const email = ref('')
+    const password = ref('')
+    const error = ref(null)
+    const store = useStore()
+    const router = useRouter()
+    const handleLogin = async () => {
+      try {
+        await store.dispatch('login', {
+          email: email.value,
+          password: password.value
+        })
+        router.push('/')
+      }
+      catch (err) {
+        alert('Keni shkruar Gabim email ose password.')
+      }
+    }
+    return { handleLogin, email, password, error }
   }
-  </script>
+}
+</script>
 
 
   <style scoped>

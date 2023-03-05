@@ -9,8 +9,19 @@
 <script>
 import AppHeader from '@/components/layout/AppHeader.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
+import { getAuth, onAuthStateChanged } from '@firebase/auth';
 
 export default {
+
+  mounted() {
+    const auth = getAuth();
+
+    onAuthStateChanged(auth, (user) => {
+        this.$store.commit('setUser', user);
+    })
+
+  },
+
   name: 'App',
   components: {
     AppHeader,
