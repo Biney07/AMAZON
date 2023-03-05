@@ -26,6 +26,11 @@ const routes = [
     name: 'foods',
     component: () => import( '../views/FoodsView.vue')
   },
+    {
+    path: '/menute',
+    name: 'menute',
+    component: () => import( '../views/MenuteView.vue')
+  },
  
   {
     path: '/contact',
@@ -142,8 +147,8 @@ const routes = [
     component: () => import( '../views/dashboard/home/homeDashboard.vue')
   },
    {
-    path: '/dashboard/menute',
-    name: 'menute',
+    path: '/dashboard/menute/create',
+    name: 'menuteCreate',
     component: () => import( '../views/dashboard/menute/MenuCreate.vue')
   },
  {

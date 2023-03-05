@@ -47,7 +47,7 @@
                     { path: '/dashboard/dasmat', name: 'Dasmat', subtitle: 'Menaxho Restaurantet e Dasmave' },
                     { path: '/dashboard/contact', name: 'Contact', subtitle: 'Menaxho Contact' },
                     { path: '/dashboard/register', name: 'Register', subtitle: 'Menaxho Register' },
-                    { path: '/dashboard/menute', name: 'Menu', subtitle: 'Menaxho Menu' },
+                    { path: '/dashboard/menute/create', name: 'Menu', subtitle: 'Menaxho Menu' },
                 ]
             }
         },

@@ -21,6 +21,8 @@
                         <li class="nav-item"> <a class=" nav-link costum active" aria-current="page"><router-link
                                     class="costum" to="/foods">Ushqimet</router-link></a></li>
                         <li class="nav-item"> <a class=" nav-link costum active" aria-current="page"><router-link
+                                    class="costum" to="/menute">Menute</router-link></a></li>
+                        <li class="nav-item"> <a class=" nav-link costum active" aria-current="page"><router-link
                                     class="costum" to="/contact">Contact</router-link></a></li>
                         <li class="nav-item"> <a class=" nav-link costum active" aria-current="page"><router-link
                                     class="costum" to="/restaurantdasmat">Dasmat</router-link></a></li>
