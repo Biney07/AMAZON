@@ -22,6 +22,11 @@ const routes = [
     component: () => import( '../views/AktiviteteView.vue')
   },
   {
+    path: '/foods',
+    name: 'foods',
+    component: () => import( '../views/FoodsView.vue')
+  },
+    {
     path: '/menute',
     name: 'menute',
     component: () => import( '../views/MenuteView.vue')
@@ -75,19 +80,19 @@ const routes = [
 
 
    {
-    path: '/dashboard/menute',
-    name: 'MenuDashboard',
-    component: () => import( '../views/dashboard/menute/MenuDashboard.vue')
+    path: '/dashboard/foods',
+    name: 'FoodDashboard',
+    component: () => import( '../views/dashboard/foods/FoodDashboard.vue')
   },
      {
-    path: '/dashboard/menute/create',
-    name: 'MenuCreate',
-    component: () => import( '../views/dashboard/menute/Menute.vue')
+    path: '/dashboard/foods/create',
+    name: 'FoodCreate',
+    component: () => import( '../views/dashboard/foods/Foods.vue')
   },
    {
-    path: '/dashboard/menute/edit/:foodId',
-    name: 'MenuEdit',
-    component: () => import( '../views/dashboard/menute/MenuEdit.vue')
+    path: '/dashboard/foods/edit/:foodId',
+    name: 'FoodEdit',
+    component: () => import( '../views/dashboard/foods/FoodEdit.vue')
   },
 
 
@@ -140,6 +145,11 @@ const routes = [
     path: '/dashboard/home/homeDashboard',
     name: 'dashboardhome',
     component: () => import( '../views/dashboard/home/homeDashboard.vue')
+  },
+   {
+    path: '/dashboard/menute/create',
+    name: 'menuteCreate',
+    component: () => import( '../views/dashboard/menute/MenuCreate.vue')
   },
  {
     path: '/login',

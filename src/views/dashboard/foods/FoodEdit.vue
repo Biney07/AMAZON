@@ -1,15 +1,15 @@
 <template>
     <div>
         <h1>Edit Food Item</h1>
-        <form id="editForm" @submit.prevent="handleEditFood"
+        <form id="editForm" v-on:submit.prevent="handleEditFood"
             style="margin: auto; width: 40%; text-align: start; padding: 10px">
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
-                <input type="text" name="name" v-model="foodModel.name" class="form-control" id="name" />
+                <input type="text" name="name" v-model="foods.name" class="form-control" id="name" />
             </div>
             <div class="mb-3">
                 <label for="category" class="form-label">Category</label>
-                <select name="category" v-model="foodModel.category" class="form-control" id="category">
+                <select name="category" v-model="foods.category" class="form-control" id="category">
                     <option value="">Select a category</option>
                     <option value="appetizers">Appetizers</option>
                     <option value="main dish">Main Dish</option>
@@ -18,19 +18,19 @@
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <textarea name="description" v-model="foodModel.description" class="form-control"
+                <textarea name="description" v-model="foods.description" class="form-control"
                     id="description"></textarea>
             </div>
             <div class="mb-3">
                 <label for="price" class="form-label">Price</label>
-                <input type="number" name="price" v-model="foodModel.price" class="form-control" id="price" />
+                <input type="number" name="price" v-model="foods.price" class="form-control" id="price" />
             </div>
             <div class="mb-3">
                 <label for="image" class="form-label">Image URL</label>
-                <input type="text" name="image" v-model="foodModel.image" class="form-control" id="image" />
+                <input type="text" name="image" v-model="foods.image" class="form-control" id="image" />
             </div>
             <div class="mb-3 form-check">
-                <input type="checkbox" name="status" v-model="foodModel.status" class="form-check-input" id="status" />
+                <input type="checkbox" name="status" v-model="foods.status" class="form-check-input" id="status" />
                 <label class="form-check-label" for="status">Available</label>
             </div>
             <div class="mt-4">
@@ -54,11 +54,13 @@ export default {
         ...mapState(["foods"]),
     },
     mounted() {
-        this.$store.dispatch("getByIdFoods", this.$route.params.foodId);
+       console.log(this.$store.dispatch("getFoodById", this.$route.params.foodId)); 
+       this.$store.dispatch("getFoodById", this.$route.params.foodId);
     },
     methods: {
-        async handleEditDhoma() {
-            this.$store.dispatch('updateFood', { ...this.food });
+       async handleEditFood() {
+            console.log(this.foods);
+            this.$store.dispatch('updateFood', { ...this.foods });
 
             this.$router.back();
         }
