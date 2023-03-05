@@ -20,13 +20,14 @@
             <p>{{ getMenuFoodName(menu.dessert) }}</p>
           </div>
           <div class="menu-card-column">
-            <h3>Price</h3>
-            <p>{{ menu.price }}</p>
-          </div>
-          <div class="menu-card-column">
             <h3>Extra</h3>
             <p>{{ menu.extra }}</p>
           </div>
+          <div class="menu-card-column">
+            <h3>Price</h3>
+            <h5>{{ menu.price }} EURO</h5>
+          </div>
+          
         </div>
       </div>
     </div>

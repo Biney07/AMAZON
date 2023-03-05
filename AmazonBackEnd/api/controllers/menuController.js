@@ -1,7 +1,7 @@
 const Menu = require('../models/menuModel');
 const mongoose = require('mongoose');
 
-exports.getMenus = async (req, res) => {
+exports.getMenu = async (req, res) => {
   try {
     console.log(res);
     const menus = await Menu.find().populate('appetizer main_dish dessert');

@@ -33,6 +33,7 @@ const store = createStore({
         dasmats: [],
         dasmat: [],
         foods:[],
+        menus:[],
         user: null,
     authIsReady: false,
     userRole: null
@@ -56,6 +57,16 @@ const store = createStore({
         removeDhomaById(state, dhomaId) {
             state.dhomat = state.dhomat.filter((dhoma) => dhoma._id !== dhomaId)
         },
+        updateDhomaById(state, dhoma) {
+       
+         state.dhomat = state.dhomat.map(d => {
+            if (d._id === dhoma._id) {
+             return dhoma
+                }
+                 return d
+             })
+        },
+      
         addDasmat(state, dasmat) {
             state.dasmats.push(dasmat);
         },
@@ -71,20 +82,11 @@ const store = createStore({
         removeDasmatById(state, dasmatId) {
             state.dasmats = state.dasmats.filter((dasmat) => dasmat._id !== dasmatId)
         },
-       updateDhomaById(state, dhoma) {
-       
-         state.dhomat = state.dhomat.map(d => {
-            if (d._id === dhoma._id) {
-             return dhoma
-                }
-                 return d
-             })
-        },
-      
-       addFood(state, food) {
+   
+        addFood(state, food) {
          state.foods.push(food);
          console.log(state.foods); // add this line to check the state after adding a new food item
-     },
+         },
         setFoods(state, foods) {
         state.foods = foods;
         },
@@ -121,7 +123,20 @@ const store = createStore({
           },
           setAuthIsReady(state, payload) {
             state.authIsReady = payload
-          }
+          },
+        setMenu: (state, menus) => (state.menus = menus),
+        addMenu: (state, newMenu) => state.menus.push(newMenu),
+      updateMenu: (state, { menuId, menuData }) => {
+  if (Array.isArray(state.menus)) {
+    const index = state.menus.findIndex(menu => menu._id === menuId);
+    if (index !== -1) {
+      state.menus.splice(index, 1, menuData);
+    }
+  }
+},
+
+  removeMenu: (state, menuId) =>
+    (state.menus = state.menus.filter(menu => menu._id !== menuId))
     },
     actions: {
     
@@ -232,11 +247,11 @@ const store = createStore({
             commit('updateDasmatById', updateDasmat);
         },
         async fetchFoods({ commit }) {
-    const res = await fetch('http://localhost:3000/foods');
-    const foods = await res.json();
-    commit('setFoods', foods)
-},
-async createFood({ commit }, foodData) {
+        const res = await fetch('http://localhost:3000/foods');
+        const foods = await res.json();
+        commit('setFoods', foods)
+        },
+        async createFood({ commit }, foodData) {
 
     const res = await fetch('http://localhost:3000/foods',
         {
@@ -355,6 +370,40 @@ async updateFood({ commit }, foodData) {
         await signOut(auth)
         context.commit('setUser', null)
       }
+      },  async fetchMenus({ commit }) {
+    const response = await fetch('http://localhost:3000/menute');
+    const menus = await response.json();
+    commit('setMenu', menus);
+  },
+  async createMenu({ commit }, menuData) {
+    await fetch('http://localhost:3000/menute', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(menuData)
+    });
+    commit('addMenu', menuData);
+  },
+  async updateMenu({ commit }, { menuId, menuData }) {
+    console.log(menuData);
+    await fetch(`http://localhost:3000/menute/${menuId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(menuData)
+    });
+    commit('updateMenu', { menuId, menuData });
+  },
+  async deleteMenu({ commit }, menuId) {
+    await fetch(`http://localhost:3000/menute/${menuId}`, {
+      method: 'DELETE'
+    });
+    commit('removeMenu', menuId);
+  },
+  async getMenuById({ commit }, menuId) {
+   
+    const res = await fetch(`http://localhost:3000/menute/${menuId}`);
+    const menu = await res.json();
+    commit('setMenu', menu)
+},
     // async signup(context, { email, password }) {
     //     console.log('signup action')
   
@@ -367,7 +416,7 @@ async updateFood({ commit }, foodData) {
     //   },
   
 
-},
+
 
 
     modules: {}

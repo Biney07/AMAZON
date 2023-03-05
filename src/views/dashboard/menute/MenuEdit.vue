@@ -1,15 +1,15 @@
 <template>
   <div>
-    <h1>Create Menu</h1>
-   
+    <h1>Update Menu</h1>
+
     <form style="margin: auto; width: 40%; text-align: start; padding: 10px">
       <div>
         <label for="name">Name</label>
-        <input type="text" id="name" v-model="name" />
+        <input type="text" id="name" v-model="menu.name" />
       </div>
       <div>
         <label for="appetizer">Appetizer</label>
-        <select id="appetizer" v-model="appetizer">
+        <select id="appetizer" v-model="menu.appetizer">
           <option
             v-for="food in foods.filter(
               (food) => food.category == 'appetizers'
@@ -20,10 +20,11 @@
             {{ food.name }}
           </option>
         </select>
+
       </div>
       <div>
         <label for="mainDish">Main Dish</label>
-        <select id="mainDish" v-model="mainDish">
+        <select id="mainDish" v-model="menu.main_dish">
           <option
             v-for="food in foods.filter(
               (food) => food.category === 'main dish'
@@ -37,7 +38,7 @@
       </div>
       <div>
         <label for="dessert">Dessert</label>
-        <select id="dessert" v-model="dessert">
+        <select id="dessert" v-model="menu.dessert">
           <option
             v-for="food in foods.filter((food) => food.category === 'dessert')"
             :key="food._id"
@@ -49,13 +50,13 @@
       </div>
       <div>
         <label for="price">Price</label>
-        <input type="text" id="price" v-model="price" />
+        <input type="text" id="price" v-model="menu.price" />
       </div>
       <div>
         <label for="extra">Extra</label>
-        <input type="text" id="extra" v-model="extra" />
+        <input type="text" id="extra" v-model="menu.extra" />
       </div>
-      <button type="submit" @click.prevent="createMenu">Create Menu</button>
+      <button type="submit" @click.prevent="updateMenu">Update Menu</button>
     </form>
   </div>
 </template>
@@ -64,48 +65,36 @@
 export default {
   data() {
     return {
-      name: "",
-      appetizer: "",
-      mainDish: "",
-      dessert: "",
-      price: 0,
-      extra: "",
+      menu: {},
       foods: [],
     };
   },
+
   created() {
+    const menuId = this.$route.params.menuId;
+    console.log(menuId);
+    this.getMenuById(menuId);
     this.fetchFoods();
   },
   methods: {
-    async fetchFoods() {
-      const res = await fetch("http://localhost:3000/foods");
-      const foods = await res.json();
-      this.foods = foods;
+    async getMenuById(menuId) {
+      await this.$store.dispatch("getMenuById", menuId);
+      this.menu = this.$store.state.menus;
     },
-    async createMenu() {
-      const menu = {
-        name: this.name,
-        appetizer: this.appetizer,
-        main_dish: this.mainDish,
-        dessert: this.dessert,
-        price: this.price,
-        extra: this.extra,
-      };
-      const res = await fetch("http://localhost:3000/menute", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(menu),
-      });
-      const data = await res.json();
-      console.log(data);
-      this.name = "";
-      this.appetizer = "";
-      this.mainDish = "";
-      this.dessert = "";
-      this.price = 0;
-      this.extra = "";
+    async fetchFoods() {
+      await this.$store.dispatch("fetchFoods");
+      this.foods = this.$store.state.foods;
+      console.log(this.foods);
+    },
+    async updateMenu() {
+      const menuData = { ...this.menu };
+      const menuId = this.$route.params.menuId;
+      try {
+        await this.$store.dispatch("updateMenu", { menuId, menuData });
+        this.$router.push("/menute");
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
 };

@@ -35,7 +35,7 @@
                         <div v-if="user" class="mt-2">
                           <span>Miresevini: {{ user.email }}</span>
                         </div>
-                        <button v-if="user" class="btn btn-primary" @click="handleClick">Logout</button>
+                        <button v-if="user" class="btn btn-success" style="padding: 2px 20px; margin: 0px 30px;" @click="handleClick">Logout</button>
 
                     </ul>
                 </div>

@@ -151,6 +151,16 @@ const routes = [
     name: 'menuteCreate',
     component: () => import( '../views/dashboard/menute/MenuCreate.vue')
   },
+    {
+    path: '/dashboard/menute',
+    name: 'menuDashboard',
+    component: () => import( '../views/dashboard/menute/MenuDashboard.vue')
+  },
+   {
+    path: '/dashboard/menute/edit/:menuId',
+    name: 'menuteEdit',
+    component: () => import( '../views/dashboard/menute/MenuEdit.vue')
+  },
  {
     path: '/login',
     name: 'login',
