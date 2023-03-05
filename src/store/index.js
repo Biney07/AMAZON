@@ -2,20 +2,27 @@ import { createStore } from 'vuex';
 //import signupUser from '@/firebase/user/signupUser';
 //import apiRequest from '@/utility/apiRequest';
 
-import { auth } from '../firebase'
+import { auth , db } from '../firebase'
 import {
   createUserWithEmailAndPassword
 
 } from 'firebase/auth'
-const adminEmails = ['admin1@example.com', 'admin2@example.com']
-const getUserRole = async (email) => {
-    // Check if the user's email matches an admin email
-    if (adminEmails.includes(email)) {
-      return 'admin'
-    } else {
-      return 'user'
-    }
-  }
+
+
+
+import { doc, setDoc, getDoc } from "firebase/firestore"; 
+
+
+
+//const adminEmails = ['admin1@example.com', 'admin2@example.com']
+// const getUserRole = async (email) => {
+//     // Check if the user's email matches an admin email
+//     if (adminEmails.includes(email)) {
+//       return 'admin'
+//     } else {
+//       return 'user'
+//     }
+//   }
   
 const store = createStore({
     state: {
@@ -26,7 +33,7 @@ const store = createStore({
         foods:[],
         user: null,
     authIsReady: false,
-    
+    userRole: null
     },
     mutations: {
         addContact(state, contact) {
@@ -95,6 +102,22 @@ const store = createStore({
         setUser(state, payload) {
             state.user = payload
             console.log('user state changed:', state.user)
+      
+            // Get user's data from Firestore collection
+            const userRef = doc(db, 'users', state.user.uid);
+            getDoc(userRef)
+              .then((doc) => {
+                if (doc.exists()) {
+                  // Extract user's role from data
+                  state.userRole = doc.data().role;
+                  console.log('user role:', state.userRole);
+                } else {
+                  console.log('user not found');
+                }
+              })
+              .catch((error) => {
+                console.log('error getting user data:', error);
+              });
           },
           setAuthIsReady(state, payload) {
             state.authIsReady = payload
@@ -287,15 +310,28 @@ async updateFood({ commit }, foodData) {
     // }
 
   
-   
-      async signup(context, { email, password }) {
+    async signup(context, { email, password }) {
         console.log('signup action')
-    
+      
         const res = await createUserWithEmailAndPassword(auth, email, password)
         if (res) {
-          // Set the user role based on their email
-          const role = await getUserRole(email)
-          context.commit('setUser', { user: res.user, role: role })
+          const user = res.user
+          var roli = null; 
+  
+          const adminEmails = ['admin1@example.com', 'admin2@example.com']
+          console.log()
+          if (adminEmails.includes(email)){
+            roli = "Admin";
+          }
+          else{
+            roli = "User";
+          }
+          // Add user role
+          await setDoc(doc(db, `users/${user.uid}`), {
+            role: roli
+          }, { merge: true })
+          // Commit user to store
+          context.commit('setUser', user)
         } else {
           throw new Error('could not complete signup')
         }
