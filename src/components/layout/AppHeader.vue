@@ -19,7 +19,7 @@
                         <li class="nav-item"><a class=" nav-link costum active" aria-current="page"><router-link
                                     class="costum" to="/aktivitete">Aktivitete</router-link></a></li>
                         <li class="nav-item"> <a class=" nav-link costum active" aria-current="page"><router-link
-                                    class="costum" to="/menute">Menutë</router-link></a></li>
+                                    class="costum" to="/foods">Ushqimet</router-link></a></li>
                         <li class="nav-item"> <a class=" nav-link costum active" aria-current="page"><router-link
                                     class="costum" to="/contact">Contact</router-link></a></li>
                         <li class="nav-item"> <a class=" nav-link costum active" aria-current="page"><router-link

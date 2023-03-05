@@ -8,8 +8,6 @@
           <input class="form-control" v-model="dhomat.numri" type="number" placeholder="Numri" required />
         </div>
   
-        
-  
         <div class="mb-3">
           <label class="form-label" for="pershkrimi">Pershkrimi</label>
           <input class="form-control" v-model="dhomat.pershkrimi" minlength="6" maxlength="200" type="text" placeholder="Pershkrimi" required />
