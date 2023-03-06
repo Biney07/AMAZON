@@ -33,7 +33,7 @@
                         <li class="ms-auto nav-item d-flex"> <a class=" nav-link costum active"
                                 aria-current="page"><router-link class="costum" to="/dashboard">Dashboard</router-link></a></li>
                         <div v-if="user" class="mt-2">
-                          <span>Miresevini: {{ user.email }}</span>
+                          <span>Miresevini: {{ userName }}</span>
                         </div>
                         <button v-if="user" class="btn btn-success" style="padding: 2px 20px; margin: 0px 30px;" @click="handleClick">Logout</button>
 
@@ -72,6 +72,7 @@ export default {
     return {
       handleClick,
       user: computed(() => store.state.user),
+      userName: computed(() => store.state.userName),
     }
   }
 }

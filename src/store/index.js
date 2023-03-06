@@ -112,7 +112,9 @@ const store = createStore({
                 if (doc.exists()) {
                   // Extract user's role from data
                   state.userRole = doc.data().role;
+                  state.userName = doc.data().name;
                   console.log('user role:', state.userRole);
+                  console.log('user name:', state.userName);
                 } else {
                   console.log('user not found');
                 }
@@ -327,33 +329,62 @@ async updateFood({ commit }, foodData) {
     // }
 
   
-    async signup(context, { email, password }) {
-        console.log('signup action')
+    // async signup(context, { email, password }) {
+    //     console.log('signup action')
       
-        const res = await createUserWithEmailAndPassword(auth, email, password)
-        if (res) {
-          const user = res.user
-          var roli = null; 
+    //     const res = await createUserWithEmailAndPassword(auth, email, password)
+    //     if (res) {
+    //       const user = res.user
+    //       var roli = null; 
   
-          const adminEmails = ['admin1@example.com', 'admin2@example.com']
-          console.log()
-          if (adminEmails.includes(email)){
-            roli = "Admin";
-          }
-          else{
-            roli = "User";
-          }
-          // Add user role
-          await setDoc(doc(db, `users/${user.uid}`), {
-            role: roli
-          }, { merge: true })
-          // Commit user to store
-          context.commit('setUser', user)
-        } else {
-          throw new Error('could not complete signup')
+    //       const adminEmails = ['admin1@example.com', 'admin2@example.com']
+    //       console.log()
+    //       if (adminEmails.includes(email)){
+    //         roli = "Admin";
+    //       }
+    //       else{
+    //         roli = "User";
+    //       }
+    //       // Add user role
+    //       await setDoc(doc(db, `users/${user.uid}`), {
+    //         role: roli
+    //       }, { merge: true })
+    //       // Commit user to store
+    //       context.commit('setUser', user)
+    //     } else {
+    //       throw new Error('could not complete signup')
+    //     }
+    //   },
+    async signup(context, { email, password, name }) {
+      console.log('signup action')
+      if (!name) {
+        throw new Error('Name is required for signup')
+      }
+      const res = await createUserWithEmailAndPassword(auth, email, password)
+      if (res) {
+        const user = res.user
+        var roli = null; 
+    
+        const adminEmails = ['admin1@example.com', 'admin2@example.com']
+        console.log()
+        if (adminEmails.includes(email)){
+          roli = "Admin";
         }
-      },
-
+        else{
+          roli = "User";
+        }
+        // Add user role
+        await setDoc(doc(db, `users/${user.uid}`), {
+          role: roli,
+          name: name
+        }, { merge: true })
+        // Commit user to store
+        context.commit('setUser', user)
+      } else {
+        throw new Error('could not complete signup')
+      }
+    },
+    
       async login(context, { email, password }) {
         console.log('login action')
   

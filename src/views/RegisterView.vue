@@ -24,26 +24,49 @@ export default{
 //             },
             
 //     }
+// setup() {
+//     const email = ref('')
+//     const password = ref('')
+//     const error = ref(null)
+//     const store = useStore()
+//     const router = useRouter()
+//     const handleSubmit = async () => {
+//       try {
+//         await store.dispatch('signup', {
+//           email: email.value,
+//           password: password.value
+//         })
+//         router.push('/')
+//       }
+//       catch (err) {
+//         error.value = err.message
+//       }
+//     }
+//     return { handleSubmit, email, password, error }
+//   }
 setup() {
-    const email = ref('')
-    const password = ref('')
-    const error = ref(null)
-    const store = useStore()
-    const router = useRouter()
-    const handleSubmit = async () => {
-      try {
-        await store.dispatch('signup', {
-          email: email.value,
-          password: password.value
-        })
-        router.push('/')
-      }
-      catch (err) {
-        error.value = err.message
-      }
+  const email = ref('')
+  const password = ref('')
+  const name = ref('')
+  const error = ref(null)
+  const store = useStore()
+  const router = useRouter()
+  const handleSubmit = async () => {
+    try {
+      await store.dispatch('signup', {
+        email: email.value,
+        password: password.value,
+        name: name.value
+      })
+      router.push('/')
     }
-    return { handleSubmit, email, password, error }
+    catch (err) {
+      error.value = err.message
+    }
   }
+  return { handleSubmit, email, password, name, error }
+}
+
 }
 </script>
 <template>
@@ -60,13 +83,13 @@ setup() {
 
                 <form class="mx-1 mx-md-4" @submit.prevent="handleSubmit">
 
-                  <!-- <div class="d-flex flex-row align-items-center mb-4">
+                  <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0 form-group">
                       <input type="text" id="name" class="form-control" v-model="name" />
-                      <label class="form-label" for="name">Your Name</label>
+                      <label class="form-label" for="name">Your Name and Surname</label>
                     </div>
-                  </div> -->
+                  </div>
 
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
