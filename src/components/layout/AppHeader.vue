@@ -1,51 +1,116 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a href="/"><img class="logo" src="./../../assets/logo.png" alt="logo" /></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <div class="d-flex flex-row">
-                    <ul class="navbar-nav">
-
-
-
-                        <li class="nav-item"><a class="text-decoration-none nav-link costum active" aria-current="page">
-                                <router-link class="costum" to="/">Home</router-link></a></li>
-                        <li class="nav-item"><a class=" nav-link costum active" aria-current="page"><router-link
-                                    class="costum" to="/about">About</router-link></a></li>
-                        <li class="nav-item"><a class=" nav-link costum active" aria-current="page"><router-link
-                                    class="costum" to="/aktivitete">Aktivitete</router-link></a></li>
-                        <li class="nav-item"> <a class=" nav-link costum active" aria-current="page"><router-link
-                                    class="costum" to="/foods">Ushqimet</router-link></a></li>
-                        <li class="nav-item"> <a class=" nav-link costum active" aria-current="page"><router-link
-                                    class="costum" to="/menute">Menute</router-link></a></li>
-                        <li class="nav-item"> <a class=" nav-link costum active" aria-current="page"><router-link
-                                    class="costum" to="/contact">Contact</router-link></a></li>
-                        <li class="nav-item"> <a class=" nav-link costum active" aria-current="page"><router-link
-                                    class="costum" to="/restaurantdasmat">Dasmat</router-link></a></li>
-                            <li v-if="!user" class=" ms-auto nav-item d-flex"> <a class=" nav-link costum active"
-                        aria-current="page"><router-link class="costum" to="/register">Register</router-link></a></li>
-                        <li v-if="!user" class=" ms-auto nav-item d-flex"> <a class=" nav-link costum active"
-                                aria-current="page"><router-link class="costum" to="/login">Login</router-link></a></li>
-                        <li class="ms-auto nav-item d-flex"> <a class=" nav-link costum active"
-                                aria-current="page"><router-link class="costum" to="/dashboard">Dashboard</router-link></a></li>
-                        <div v-if="user" class="mt-2">
-                          <span>Miresevini: {{ userName }}</span>
-                        </div>
-                        <button v-if="user" class="btn btn-success" style="padding: 2px 20px; margin: 0px 30px;" @click="handleClick">Logout</button>
-
-                    </ul>
-                </div>
-
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a href="/"
+        ><img class="logo" src="./../../assets/logo.png" alt="logo"
+      /></a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <div class="d-flex flex-row">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a
+                class="text-decoration-none nav-link costum active"
+                aria-current="page"
+              >
+                <router-link class="costum" to="/">Home</router-link></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link costum active" aria-current="page"
+                ><router-link class="costum" to="/about">About</router-link></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link costum active" aria-current="page"
+                ><router-link class="costum" to="/aktivitete"
+                  >Aktivitete</router-link
+                ></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link costum active" aria-current="page"
+                ><router-link class="costum" to="/foods"
+                  >Ushqimet</router-link
+                ></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link costum active" aria-current="page"
+                ><router-link class="costum" to="/menute"
+                  >Menute</router-link
+                ></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link costum active" aria-current="page"
+                ><router-link class="costum" to="/contact"
+                  >Contact</router-link
+                ></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link costum active" aria-current="page"
+                ><router-link class="costum" to="/restaurantdasmat"
+                  >Dasmat</router-link
+                ></a
+              >
+            </li>
+            <li v-if="!user" class="ms-auto nav-item d-flex">
+              <a class="nav-link costum active" aria-current="page"
+                ><router-link class="costum" to="/register"
+                  >Register</router-link
+                ></a
+              >
+            </li>
+            <li v-if="!user" class="ms-auto nav-item d-flex">
+              <a class="nav-link costum active" aria-current="page"
+                ><router-link class="costum" to="/login">Login</router-link></a
+              >
+            </li>
+            <li class="ms-auto nav-item d-flex">
+              <a class="nav-link costum active" aria-current="page"
+                ><router-link class="costum" to="/dashboard"
+                  >Dashboard</router-link
+                ></a
+              >
+            </li>
+          </ul>
+             <div v-if="user" class="d-flex ms-auto">
+              <div class="dropdown">
+                <button
+                  class="btn btn-success dropdown-toggle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  {{ user.email }}
+                </button>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a v-if="user" class="dropdown-item" @click="handleClick"
+                      >Logout</a
+                    >
+                  </li>
+                </ul>
+              </div>
             </div>
         </div>
-    </nav>
+      </div>
+    </div>
+  </nav>
 
-
-    <!-- <div class="headd">
+  <!-- <div class="headd">
        
         <header>
        
@@ -56,19 +121,18 @@
      
     </header>
     </div> -->
-
 </template>
 
 <script>
-import { useStore } from 'vuex'
-import { computed } from 'vue'
+import { useStore } from "vuex";
+import { computed } from "vue";
 
 export default {
   setup() {
-    const store = useStore()
+    const store = useStore();
     const handleClick = () => {
-      store.dispatch('logout')
-    }
+      store.dispatch("logout");
+    };
     return {
       handleClick,
       user: computed(() => store.state.user),
@@ -80,17 +144,15 @@ export default {
 
 <style>
 .logo {
-
-    height: 50px;
-    padding: 0px 30px 0px 30px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-
+  height: 50px;
+  padding: 0px 30px 0px 30px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .costum {
-    text-decoration: none !important;
-    font-size: 1.3rem !important;
-    font-weight: 600 !important;
+  text-decoration: none !important;
+  font-size: 1.3rem !important;
+  font-weight: 600 !important;
 }
 </style>
