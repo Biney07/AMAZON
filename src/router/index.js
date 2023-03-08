@@ -1,5 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import store from "../store/index"
+
 
 
 const routes = [
@@ -52,47 +54,56 @@ const routes = [
   {
     path: '/dashboard',
     name: 'dashboard',
-    component: () => import( '../views/dashboard/Dashboard.vue')
+    component: () => import( '../views/dashboard/Dashboard.vue'),
+    meta: { requiresAdmin: true }
   },
 
   {
     path: '/dashboard/home',
     name: 'dashboardhomee',
-    component: () => import( '../views/dashboard/home/homeDashboard.vue')
+    component: () => import( '../views/dashboard/home/homeDashboard.vue'),
+    meta: { requiresAdmin: true }
   },
   {
     path: '/dashboard/home/Home',
     name: 'dashboardhomeee',
-    component: () => import( '../views/dashboard/home/Home.vue')
+    component: () => import( '../views/dashboard/home/Home.vue'),
+    meta: { requiresAdmin: true }
   },
 
   {
     path: '/dashboard/about',
     name: 'dashboardabout',
-    component: () => import( '../views/dashboard/about/About.vue')
+    component: () => import( '../views/dashboard/about/About.vue'),
+    meta: { requiresAdmin: true }
   },
 
   {
     path: '/dashboard/aktivitete',
     name: 'dashboardaktivitete',
-    component: () => import( '../views/dashboard/aktivitetet/Aktivitetet.vue')
+    component: () => import( '../views/dashboard/aktivitetet/Aktivitetet.vue'),
+    meta: { requiresAdmin: true }
+
   },
 
 
    {
     path: '/dashboard/foods',
     name: 'FoodDashboard',
-    component: () => import( '../views/dashboard/foods/FoodDashboard.vue')
+    component: () => import( '../views/dashboard/foods/FoodDashboard.vue'),
+    meta: { requiresAdmin: true }
   },
      {
     path: '/dashboard/foods/create',
     name: 'FoodCreate',
-    component: () => import( '../views/dashboard/foods/Foods.vue')
+    component: () => import( '../views/dashboard/foods/Foods.vue'),
+    meta: { requiresAdmin: true }
   },
    {
     path: '/dashboard/foods/edit/:foodId',
     name: 'FoodEdit',
-    component: () => import( '../views/dashboard/foods/FoodEdit.vue')
+    component: () => import( '../views/dashboard/foods/FoodEdit.vue'),
+    meta: { requiresAdmin: true }
   },
 
 
@@ -100,19 +111,22 @@ const routes = [
   {
     path: '/dashboard/dasmat',
     name: 'dashboarddasmat',
-    component: () => import( '../views/dashboard/dasmat/Dasmat.vue')
+    component: () => import( '../views/dashboard/dasmat/Dasmat.vue'),
+    meta: { requiresAdmin: true }
   },
 
   {
     path: '/dashboard/contact',
     name: 'dashboardcontact',
-    component: () => import( '../views/dashboard/contact/Contact.vue')
+    component: () => import( '../views/dashboard/contact/Contact.vue'),
+    meta: { requiresAdmin: true }
   },
 
   {
     path: '/dashboard/register',
     name: 'dashboardregister',
-    component: () => import( '../views/dashboard/register/Register.vue')
+    component: () => import( '../views/dashboard/register/Register.vue'),
+    meta: { requiresAdmin: true }
   },
   {
     path: '/restaurantdasmat',
@@ -178,4 +192,16 @@ const router = createRouter({
   routes
 })
 
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAdmin)) {
+    // check if user is admin
+    if (store.state.userRole === "Admin") {
+      next()
+    } else {
+      next('/login') // redirect to login page if user is not admin
+    }
+  } else {
+    next()
+  }
+})
 export default router

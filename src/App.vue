@@ -31,6 +31,7 @@ export default {
 }
 </script>
 <style>
+@import "~bootstrap-icons/font/bootstrap-icons.css";
 #app {
   font-family: 'Sofia Sans', sans-serif !important;
   -webkit-font-smoothing: antialiased;
