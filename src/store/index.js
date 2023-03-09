@@ -36,7 +36,8 @@ const store = createStore({
     menus: [],
     user: null,
     authIsReady: false,
-    userRole: null
+    userRole: null,
+    userName:null,
   },
   mutations: {
     addContact(state, contact) {
@@ -113,6 +114,7 @@ const store = createStore({
             // Extract user's role from data
             state.userRole = doc.data().role;
             state.userName = doc.data().name;
+            
             console.log('user role:', state.userRole);
             console.log('user name:', state.userName);
           } else {

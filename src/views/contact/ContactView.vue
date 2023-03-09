@@ -2,7 +2,7 @@
 
 
  <div class="container py-4 w-50">
-  <h2 style="color:rgba(126, 239, 104, 0.8);">Kontakto</h2>
+  <h2 style="color:black">Kontakto</h2>
   <form id="contactForm" v-on:submit.prevent="handleCreateKontakt">
 
     <div class="mb-3">
@@ -91,23 +91,23 @@
 
   <style scoped>
   .btn, .info{
-    background-color: rgba(126, 239, 104, 0.8);
+    background-color: rgba(0, 0, 0, 0.8);
     color: white;
   }
 
   button:hover{
-    background-color: rgba(95, 214, 71, 0.8);
+    background-color: rgba(0, 0, 0, 0.8);
     color: black;
   }
 
   .info:hover{
-    background-color: rgba(95, 214, 71, 0.8);
+    background-color: rgba(0, 0, 0, 0.8);
     color: black;
   }
 
   input, textarea{
-    border-color: rgba(126, 239, 104, 0.8);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6);
+    border-color: rgba(0, 0, 0, 0.8);
+    
   }
   </style>
   

@@ -160,6 +160,11 @@ const routes = [
     name: 'dashboardhome',
     component: () => import( '../views/dashboard/home/homeDashboard.vue')
   },
+  {
+    path: '/dashboard/rezervimidhomes/create',
+    name: 'dashboardrezervimi',
+    component: () => import( '../views/dashboard/rezervimi/RezervimiDhoma.vue')
+  },
    {
     path: '/dashboard/menute/create',
     name: 'menuteCreate',
