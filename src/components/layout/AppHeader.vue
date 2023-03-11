@@ -96,6 +96,7 @@ export default {
     const handleClick = () => {
       store.dispatch("logout");
       window.location.reload();
+      localStorage.removeItem("userData");
     };
     return {
       handleClick,

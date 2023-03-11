@@ -1,6 +1,5 @@
 import { createStore } from 'vuex';
-//import signupUser from '@/firebase/user/signupUser';
-//import apiRequest from '@/utility/apiRequest';
+
 
 import { auth, db } from '../firebase'
 import {
@@ -16,15 +15,6 @@ import { doc, setDoc, getDoc } from "firebase/firestore";
 
 
 
-//const adminEmails = ['admin1@example.com', 'admin2@example.com']
-// const getUserRole = async (email) => {
-//     // Check if the user's email matches an admin email
-//     if (adminEmails.includes(email)) {
-//       return 'admin'
-//     } else {
-//       return 'user'
-//     }
-//   }
 
 const store = createStore({
   state: {
@@ -101,11 +91,10 @@ const store = createStore({
     },
     removeFoodById(state, foodId) {
       state.foods = state.foods.filter((food) => food._id !== foodId);
-    },
-    setUser(state, payload) {
+    },setUser(state, payload) {
       state.user = payload
       console.log('user state changed:', state.user)
-
+    
       // Get user's data from Firestore collection
       const userRef = doc(db, 'users', state.user.uid);
       getDoc(userRef)
@@ -114,9 +103,17 @@ const store = createStore({
             // Extract user's role from data
             state.userRole = doc.data().role;
             state.userName = doc.data().name;
-            
+    
             console.log('user role:', state.userRole);
             console.log('user name:', state.userName);
+    
+            // Save user data to localStorage
+            const userData = {
+              user: state.user,
+              userRole: state.userRole,
+              userName: state.userName
+            }
+            localStorage.setItem('userData', JSON.stringify(userData));
           } else {
             console.log('user not found');
           }
@@ -125,6 +122,7 @@ const store = createStore({
           console.log('error getting user data:', error);
         });
     },
+    
     setAuthIsReady(state, payload) {
       state.authIsReady = payload
     },
@@ -324,39 +322,7 @@ const store = createStore({
 
       commit('updateDhomaById', updateDhoma);
     },
-    // async registerUser({ commit }, payload){
-    // async registerUser( payload){
-
-    //   await apiRequest.registerUser(payload);
-    // }
-
-
-    // async signup(context, { email, password }) {
-    //     console.log('signup action')
-
-    //     const res = await createUserWithEmailAndPassword(auth, email, password)
-    //     if (res) {
-    //       const user = res.user
-    //       var roli = null; 
-
-    //       const adminEmails = ['admin1@example.com', 'admin2@example.com']
-    //       console.log()
-    //       if (adminEmails.includes(email)){
-    //         roli = "Admin";
-    //       }
-    //       else{
-    //         roli = "User";
-    //       }
-    //       // Add user role
-    //       await setDoc(doc(db, `users/${user.uid}`), {
-    //         role: roli
-    //       }, { merge: true })
-    //       // Commit user to store
-    //       context.commit('setUser', user)
-    //     } else {
-    //       throw new Error('could not complete signup')
-    //     }
-    //   },
+    
     async signup(context, { email, password, name }) {
       console.log('signup action')
       if (!name) {
@@ -380,7 +346,9 @@ const store = createStore({
           role: roli,
           name: name
         }, { merge: true })
+        console.log(user);
         // Commit user to store
+      
         context.commit('setUser', user)
       } else {
         throw new Error('could not complete signup')
@@ -437,16 +405,6 @@ const store = createStore({
     const menu = await res.json();
     commit('setMenu', menu)
   },
-  // async signup(context, { email, password }) {
-  //     console.log('signup action')
-
-  //     const res = await createUserWithEmailAndPassword(auth, email, password)
-  //     if (res) {
-  //       context.commit('setUser', res.user)
-  //     } else {
-  //       throw new Error('could not complete signup')
-  //     }
-  //   },
 
 
 

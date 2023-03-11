@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import store from "../store/index"
+
 
 
 
@@ -200,7 +200,10 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAdmin)) {
     // check if user is admin
-    if (store.state.userRole === "Admin") {
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    const userRole = userData ? userData.userRole : null;
+
+    if (userRole === "Admin") {
       next()
     } else {
       next('/login') // redirect to login page if user is not admin
@@ -209,4 +212,5 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
+
 export default router
