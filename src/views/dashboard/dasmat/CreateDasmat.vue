@@ -5,8 +5,8 @@
 
     <div class="mb-3">
       <label class="form-label" for="name">Emri</label>
-      <input class="form-control" v-bind:value="newCreateDasmat.emri" minlength="4" maxlength="100"
-                v-on:input="newCreateDasmat.emri = $event.target.value" type="text" placeholder="Emri" required />
+      <input class="form-control" minlength="4" maxlength="100"
+                v-model="newCreateDasmat.emri" type="text" placeholder="Emri" required />
     </div>
 
     <div class="mb-3">
@@ -18,15 +18,14 @@
 
     <div class="mb-3">
       <label class="form-label" for="Address">Adresa</label>
-      <input class="form-control" v-bind:value="newCreateDasmat.adresa" minlength="6" maxlength="200"
-                v-on:input="newCreateDasmat.adresa = $event.target.value" type="text" placeholder="Adresa" required />
+      <input class="form-control" minlength="6" maxlength="200"
+                v-model="newCreateDasmat.adresa" type="text" placeholder="Adresa" required />
     </div>
 
     <div class="mb-3">
-      <label class="form-label" for="foto">Foto</label>
-      <input class="form-control" v-bind:value="newCreateDasmat.foto" minlength="8" maxlength="200"
-                v-on:input="newCreateDasmat.foto = $event.target.value" type="text" placeholder="Foto" required />
-    </div>
+        <label for="foto" class="form-label">Foto</label>
+        <input type="file" name="foto" v-on:change="onFileChange" class="form-control" id="foto" accept="image/*">
+      </div>
 
     <div class="d-grid mt-4">
       <button class="btn btn-lg" id="submitButton" type="submit">Krijo</button>
@@ -39,6 +38,10 @@
 
 
 <script>
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+
+const storage = getStorage();
+
 export default {
         data() {
             return {
@@ -63,13 +66,46 @@ export default {
             } 
         },
         methods: {
+            onFileChange(event) {
+              this.newCreateDasmat.foto = event.target.files[0];
+            },
             async handleCreateDasmat() {
-            this.$store.dispatch('createDasmat', { ...this.newCreateDasmat }) 
-                this.$router.back();
-                    
-            }
+              const storageRef = ref(storage, 'images/' + this.newCreateDasmat.foto.name);
+              const uploadTask = uploadBytesResumable(storageRef, this.newCreateDasmat.foto);
+            uploadTask.on('state_changed',
+              (snapshot) => {
+              const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              console.log('Upload is ' + progress + '% done');
+                switch (snapshot.state) {
+                  case 'paused':
+                  console.log('Upload is paused');
+                  break;
+                  case 'running':
+                  console.log('Upload is running');
+                  break;
+                }
+            },
+            (error) => {
+               console.error(error);
+            },
+            async () => {
+              const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+
+              this.newCreateDasmat.foto = downloadURL;
+
+              this.$store.dispatch("createDasmat", { ...this.newCreateDasmat });
+
+              this.newCreateDasmat = {
+                emri: '',
+                qyteti: '',
+                adresa: '',
+                foto: ''
+              };
         }
-  }
+      );
+    },
+  },
+};
 </script>
 
 
