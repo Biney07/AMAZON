@@ -42,5 +42,19 @@ export default {
             return res.status(StatusCodes.FORBIDDEN).json({ error: error.message, message: ReasonPhrases.FORBIDDEN })
 
         }
-    }
+    },
+    // allUsers: async (req, res) => {
+    //     try {
+    //       const listUsersResult = await admin.auth().listUsers();
+    //       const users = listUsersResult.users;
+    
+    //       // users.forEach((user) => {
+    //       //     console.log(`User: ${user.uid}, email: ${user.email}`);
+    //       // });
+    
+    //       return res.json({ users });
+    //     } catch (error) {
+    //       res.json("Error: " + error);
+    //     }
+    //   },
 }

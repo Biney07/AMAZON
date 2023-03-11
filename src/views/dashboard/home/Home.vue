@@ -1,5 +1,7 @@
 <template>
     <h1>Home Dashboard</h1>
+
+  
     <form style="margin: auto;
   width: 40%;
  text-align: start;

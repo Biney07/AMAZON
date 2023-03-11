@@ -405,6 +405,8 @@ const store = createStore({
     const menu = await res.json();
     commit('setMenu', menu)
   },
+  
+  
 
 
 

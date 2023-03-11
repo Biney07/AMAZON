@@ -1,5 +1,9 @@
 <template>
 
+<div class="form-group mt-4">
+    <label for="search">Kerko:</label>
+    <input type="text" v-model="searchQuery" id="search" class="form-control w-50 m-auto" placeholder="Kerko...">
+</div>
     <div class="float-start" style="margin-left:47px; margin-top:6px;">
         <a><router-link class="btn btn-success" to="/dashboard/home/Home">Krijo</router-link></a>
       
@@ -22,7 +26,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="dhoma in this.dhomat" :key="dhoma._id">
+                        <tr v-for="dhoma in this.paginatedDhomat" :key="dhoma._id">
                             <td>{{ dhoma.numri }}</td>
                             <td>{{ dhoma.pershkrimi }}</td>
                             <td>{{ dhoma.foto1 }}</td>
@@ -37,6 +41,13 @@
                     </tbody>
                 </table>
             </div>
+            <div class="text-center">
+              <button class="btn btn-success" :disabled="currentPage === 1" @click="currentPage--">Previous</button>
+             <span v-for="pageNumber in totalPages" :key="pageNumber">
+               <button class="btn btn-success" :class="{ active: pageNumber === currentPage }" @click="currentPage = pageNumber">{{ pageNumber }}</button>
+             </span>
+            <button class="btn btn-success" :disabled="currentPage === totalPages" @click="currentPage++">Next</button>
+           </div>
         </div>
 </template> 
 
@@ -45,8 +56,30 @@
 import { mapState } from 'vuex';
 
 export default {
+    data() {
+        return {
+        currentPage: 1,
+        searchQuery: ''
+    }
+        },
 	computed: {
-            ...mapState(['dhomat'])
+            ...mapState(['dhomat']),
+            pageSize() {
+        return 5
+    },
+    filteredDhomat() {
+  return this.dhomat.filter(dhoma => {
+    return dhoma.pershkrimi.toString().includes(this.searchQuery.toLowerCase());
+  });
+},
+totalPages() {
+        return Math.ceil(this.filteredDhomat.length / this.pageSize)
+    },
+    paginatedDhomat() {
+        const startIndex = (this.currentPage - 1) * this.pageSize
+        const endIndex = startIndex + this.pageSize
+        return this.filteredDhomat.slice(startIndex, endIndex)
+    },
         },
         mounted() {
             this.$store.dispatch('fetchDhomat');
