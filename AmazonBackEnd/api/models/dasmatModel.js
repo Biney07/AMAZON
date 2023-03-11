@@ -1,10 +1,10 @@
-import { number } from 'joi';
 import mongoose from 'mongoose';
 
 
 const schema = mongoose.Schema({
-    numri: Number,
-    numriMusafireve: Number,
+    emri: String,
+    qyteti: String,
+    adresa: String,
     foto: String,
 });
 
