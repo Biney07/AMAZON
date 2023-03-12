@@ -1,61 +1,87 @@
 <template>
-  <form @submit.prevent="createRezervim">
-    <div>
-      <label for="user_id">User Name</label>
-      <p>{{ user.name }}</p>
-    </div>
-    <div>
-      <label for="dhoma_id">Dhoma ID:</label>
-      <select v-model="newRezervim.dhoma_id">
-        <option v-for="dhoma in dhomat" :key="dhoma.id" :value="dhoma.id">{{ dhoma.id }}</option>
-      </select>
-    </div>
-    <div>
-      <label for="rezervim_date">Rezervim Date:</label>
-      <input type="date" v-model="newRezervim.rezervim_date">
-    </div>
-    <button type="submit">Create Rezervim</button>
-  </form>
+  <div class="container">
+    <form class="mt-5">
+      <div class="form-group" v-if="step === 1">
+        <label for="rezervim_date">Rezervim Date:</label>
+        <input type="date" v-model="rezervimDate" class="form-control">
+        <button @click.prevent="nextStep" class="btn btn-primary mt-3">Next</button>
+      </div>
+      <div class="form-group" v-if="step === 2">
+        <label for="dhoma">Dhoma:</label>
+        <select id="dhoma" v-model="numriDhomes" class="form-control">
+          <option v-for="dhoma in availableDhomat" :key="dhoma.id" :value="dhoma.numri">{{ dhoma.numri }}</option>
+        </select>
+        <button @click.prevent="prevStep" class="btn btn-secondary mt-3 mr-3">Previous</button>
+        <button @click.prevent="createRezervim" class="btn btn-primary mt-3">Create Rezervim</button>
+      </div>
+    </form>
+  </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 
 export default {
   computed: {
- 
+    ...mapState(['dhomat']),
     user() {
       const userData = JSON.parse(localStorage.getItem('userData'))
       const userUid = userData ? userData.user.uid : null;
       const userName = userData ? userData.userName : null;
-      console.log(userName);
-      return { uid: userUid, name: userName }; 
-      
-    }, 
-    dhomat() {
-      console.log(this.$store.state.dhomat);
-      return this.$store.state.dhomat;
+      return { uid: userUid, name: userName };
+    },
+    availableDhomat() {
+      // Filter out dhomat that are already reserved for the selected date
+      return this.dhomat.filter(dhoma => {
+        const reservedDhoma = this.rezervimet.find(rezervim => {
+          console.log(JSON.stringify(rezervim.rezervim_date));
+          const match = rezervim.numri_dhomes === dhoma.numri && rezervim.rezervim_date === this.rezervimDate;
+          console.log(`match: ${match}, numri_dhomes: ${rezervim.numri_dhomes}, dhoma.numri: ${dhoma.numri}, rezervim_date: ${rezervim.rezervim_date}, this.rezervimDate: ${this.rezervimDate}`);
+   
+          return match;
+        });
+        console.log(reservedDhoma);
+        return !reservedDhoma;
+      });
     }
+  },
+  mounted() {
+    this.fetchRezervimet();
   },
   data() {
     return {
-      newRezervim: {
-        user_id: '',
-        dhoma_id: '',
-        rezervim_date: ''
-      }
+      step: 1,
+      rezervimet: null,
+      rezervimDate: '',
+      numriDhomes: ''
     }
   },
   methods: {
+    fetchRezervimet() {
+      fetch('http://localhost:3000/rezervimidhomes')
+        .then(response => {
+          console.log(response); // log the response object
+          return response.json();
+        })
+        .then(data => {
+          this.rezervimet = data;
+          console.log(this.rezervimet);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
     createRezervim() {
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          user_id: this.userId,
-          dhoma_id: this.newRezervim.dhoma_id,
-          rezervim_date: this.newRezervim.rezervim_date
+          user_id: this.user.uid,
+          numri_dhomes: this.numriDhomes,
+          rezervim_date: this.rezervimDate
         })
       };
+      console.log(requestOptions);
       fetch('http://localhost:3000/rezervimidhomes', requestOptions)
         .then(response => response.json())
         .then(data => {
@@ -66,7 +92,27 @@ export default {
           // Handle error
           console.error(error);
         });
+    },
+    nextStep() {
+      if (this.rezervimDate !== '') {
+        this.step = 2;
+      } else {
+        alert('Please select a rezervim date.');
+      }
+    },
+    prevStep() {
+      this.step = 1;
     }
+  },
+  created() {
+    this.$store.dispatch('fetchDhomat');
   }
 }
 </script>
+
+<style scoped>
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+</style>

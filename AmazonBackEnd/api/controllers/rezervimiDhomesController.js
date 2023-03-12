@@ -4,7 +4,6 @@ const RezervimiDhomes = require('../models/rezervimiDhomesModel');
 exports.getRezervimeDhomash = async (req, res) => {
   try {
     const rezervime = await RezervimiDhomes.find()
-      .populate('dhoma_id', 'name')
       .select('-__v')
       .exec();
 
@@ -15,18 +14,20 @@ exports.getRezervimeDhomash = async (req, res) => {
   }
 };
 
-exports.createRezervimDhome = async (req, res) => {
-  const { user_id, dhoma_id } = req.body;
 
-  // Check if the dhoma_id is a valid ObjectId
-  if (!mongoose.Types.ObjectId.isValid(dhoma_id)) {
-    return res.status(400).json({ msg: 'Invalid dhoma_id' });
+exports.createRezervimDhome = async (req, res) => {
+  const { user_id, numri_dhomes, rezervim_date } = req.body;
+
+  // Check if the numri_dhomes is a valid ObjectId
+  if (!mongoose.Types.ObjectId.isValid(numri_dhomes)) {
+    return res.status(400).json({ msg: 'Invalid numri_dhomes' });
   }
 
   try {
     const rezervim = new RezervimiDhomes({
       user_id,
-      dhoma_id,
+      numri_dhomes,
+      rezervim_date
     });
 
     await rezervim.save();
@@ -41,7 +42,7 @@ exports.createRezervimDhome = async (req, res) => {
 exports.getRezervimDhomeById = async (req, res) => {
   try {
     const rezervim = await RezervimiDhomes.findById(req.params.id)
-      .populate('dhoma_id', 'name')
+      .populate('numri_dhomes', 'name')
       .select('-__v')
       .exec();
 
@@ -62,8 +63,8 @@ exports.getRezervimDhomeById = async (req, res) => {
 };
 
 exports.updateRezervimDhome = async (req, res) => {
-  const { user_id, dhoma_id } = req.body;
-
+  const { user_id, numri_dhomes, rezervim_date } = req.body;
+  
   try {
     let rezervim = await RezervimiDhomes.findById(req.params.id);
 
@@ -72,8 +73,8 @@ exports.updateRezervimDhome = async (req, res) => {
     }
 
     rezervim.user_id = user_id;
-    rezervim.dhoma_id = dhoma_id;
-
+    rezervim.numri_dhomes = numri_dhomes;
+    rezervim.rezervim_date = rezervim_date;
     await rezervim.save();
 
     res.json(rezervim);

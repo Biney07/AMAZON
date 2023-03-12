@@ -48,7 +48,7 @@
                     { path: '/dashboard/contact', name: 'Contact', subtitle: 'Menaxho Contact' },
                     { path: '/dashboard/register', name: 'Register', subtitle: 'Menaxho Register' },
                     { path: '/dashboard/menute', name: 'Menu', subtitle: 'Menaxho Menu' },
-                    { path: '/dashboard/rezervimidhomes', name: 'RezervimiDhomes', subtitle: 'Menaxho Rezervimin' },
+                    { path: '/dashboard/rezervimidhomes/create', name: 'RezervimiDhomes', subtitle: 'Menaxho Rezervimin' },
                 ]
             }
         },

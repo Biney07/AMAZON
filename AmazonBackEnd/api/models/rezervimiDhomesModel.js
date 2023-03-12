@@ -5,12 +5,12 @@ const rezervimiDhomesSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  dhoma_id: {
-    type: mongoose.Schema.Types.ObjectId,
+  numri_dhomes: {
+    type: Number,
     ref: 'dhoma',
     required: true
   },
-  created_date: {
+  rezervim_date: {
     type: Date,
     
   }
