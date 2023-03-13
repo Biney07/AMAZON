@@ -2,7 +2,7 @@
 <div class="d-flex flex-wrap m-4">
 <div v-for="item in dashboardItems"
                 v-bind:key="item.path">
-   <div class="card m-4" style="width: 18rem;">
+   <div class="card card-background m-4" style="width: 18rem;">
       <router-link class="card-link text-decoration-none" v-bind:to="item.path">
         <div class="card-body">
            <h5 class="card-title">{{item.name}}</h5>
@@ -17,11 +17,11 @@
 
 
 <style>
-.card{
+.card-background{
   background-color: rgba(126, 239, 104, 0.8);
 }
 
-.card:hover{
+.card-background:hover{
   background-color: rgba(95, 214, 71, 0.8);
 }
 

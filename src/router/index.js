@@ -33,6 +33,18 @@ const routes = [
     name: 'menute',
     component: () => import( '../views/MenuteView.vue')
   },
+  {
+    path: '/rezervoDhomen',
+    name: 'rezervoDhomen',
+    component: () => import( '../views/dashboard/rezervimi/RezervimiDhoma.vue'),
+    beforeEnter: (to, from, next) => {
+      if (!localStorage.getItem('userData')) {
+        next('/login');
+      } else {
+        next();
+      }
+    }
+  },
  
   {
     path: '/contact',

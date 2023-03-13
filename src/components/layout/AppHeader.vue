@@ -37,7 +37,11 @@
               <a class="nav-link costum active" aria-current="page"><router-link class="costum"
                   to="/restaurantdasmat">Dasmat</router-link></a>
             </li>
-           
+            <li class="nav-item">
+              <a class="nav-link costum active"  aria-current="page"><router-link style=" color:orangered !important" class="costum"
+                  to="/rezervoDhomen">Rezervo Dhomen</router-link></a>
+            </li>
+
 
             <li v-if="userRole == 'Admin'" class="ms-auto nav-item d-flex">
               <a class="nav-link costum active" aria-current="page">
@@ -50,12 +54,12 @@
         <div class="d-flex ms-auto">
           <li v-if="!user" class="ms-auto nav-item d-flex">
             <button type="button" class="btn btn-success hapsire " aria-current="page"><router-link class="costum logreg"
-              to="/login">Login</router-link></button>
+                to="/login">Login</router-link></button>
           </li>
-        <li v-if="!user" class="ms-auto nav-item d-flex" >
-          <button type="button " class="btn hapsire" style="background-color:orange" aria-current="page"><router-link class="costum logreg"
-              to="/register">Register</router-link></button>
-        </li>
+          <li v-if="!user" class="ms-auto nav-item d-flex">
+            <button type="button " class="btn hapsire" style="background-color:orange" aria-current="page"><router-link
+                class="costum logreg" to="/register">Register</router-link></button>
+          </li>
         </div>
         <div v-if="user" class="d-flex ms-auto">
           <div class="dropdown">
@@ -121,11 +125,13 @@ export default {
   font-size: 1.3rem !important;
   font-weight: 600 !important;
 }
-.logreg{
-  color:white !important;
+
+.logreg {
+  color: white !important;
   font-size: 18px !important;
 }
-.hapsire{
-  margin: 0px 7px ;
+
+.hapsire {
+  margin: 0px 7px;
 }
 </style>
