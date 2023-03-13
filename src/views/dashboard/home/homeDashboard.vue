@@ -46,7 +46,7 @@
              <span v-for="pageNumber in totalPages" :key="pageNumber">
                <button class="btn btn-success" :class="{ active: pageNumber === currentPage }" @click="currentPage = pageNumber">{{ pageNumber }}</button>
              </span>
-            <button class="btn btn-success" :disabled="currentPage === totalPages" @click="currentPage++">Next</button>
+            <button class="btn btn-success" :disabled="currentPage === totalPages"  @click="currentPage++">Next</button>
            </div>
         </div>
 </template> 

@@ -34,6 +34,11 @@ const routes = [
     component: () => import( '../views/MenuteView.vue')
   },
   {
+    path: '/profile',
+    name: 'profile',
+    component: () => import( '../views/ProfileView.vue')
+  },
+  {
     path: '/rezervoDhomen',
     name: 'rezervoDhomen',
     component: () => import( '../views/dashboard/rezervimi/RezervimiDhoma.vue'),

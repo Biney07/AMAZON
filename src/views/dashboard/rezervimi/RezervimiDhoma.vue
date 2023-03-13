@@ -1,13 +1,14 @@
 <template>
   <div class="container">
     <form class="mt-5">
-      <div class="form-group" v-if="step === 1">
-        <label for="rezervim_date">Rezervim Date:</label>
+      <div class="form-group space" v-if="step === 1">
+        <label for="rezervim_date" style="font-family: Playfair; font-size:50px; margin:-20px 0px 20px 0px ">Rezervo
+          Daten</label>
         <input type="date" v-model="rezervimDate" class="form-control" :min="getCurrentDate()">
 
-        <button @click.prevent="nextStep" class="btn btn-primary mt-3">Next</button>
+        <button @click.prevent="nextStep" class="btn btn-success mt-3">Next</button>
       </div>
-      <div v-if="step === 2">
+      <div class="space2" v-if="step === 2">
         <label for="dhoma" style="font-family: Playfair; font-size:50px; margin:-20px 0px 20px 0px ">Zgjedh Dhomen</label>
         <div class="row">
           <div class="col-md-4 mb-4" v-for="dhoma in availableDhomat" :key="dhoma._id">
@@ -22,14 +23,16 @@
                     {{ dhoma.numri }}
                   </h3>
                 </div>
-                <p class="card-text" style="font-size:30px; margin: 10px 0px 0px 20px; font-family: Playfair; font-weight: bolder; font-size:40px; color:green">{{ dhoma.cmimi }} €</p>
+                <p class="card-text" style="font-size:30px; margin: 14px 0px 0px 20px;  font-family:'Poppins';
+                           font-size:35px; ">{{ dhoma.cmimi }} €</p>
               </div>
 
             </div>
           </div>
         </div>
-        <button @click.prevent="prevStep" class="btn btn-secondary mt-3 mr-3">Previous</button>
-        <button @click.prevent="createRezervim" class="btn btn-primary mt-3">Create Rezervim</button>
+        <button @click.prevent="prevStep" style="margin-right:10px" class="btn btn-secondary mt-3 mr-3">Previous</button>
+        <button @click.prevent="createRezervim" style="margin-left:10px" class="btn btn-success mt-3">Create
+          Rezervim</button>
       </div>
     </form>
   </div>
@@ -38,8 +41,9 @@
 
 <script>
 import { mapState } from 'vuex';
-
+import { useRouter } from 'vue-router'
 export default {
+  
   computed: {
     ...mapState(['dhomat']),
     user() {
@@ -49,15 +53,14 @@ export default {
       return { uid: userUid, name: userName };
     },
     availableDhomat() {
+
       return this.dhomat.filter(dhoma => {
         const reservedDhoma = this.rezervimet.find(rezervim => {
 
           const match = parseInt(rezervim.numri_dhomes) === parseInt(dhoma.numri) && new Date(rezervim.rezervim_date).toLocaleDateString() === new Date(this.rezervimDate).toLocaleDateString();
-          console.log(`match: ${match}, numri_dhomes: ${rezervim.numri_dhomes}, dhoma.numri: ${dhoma.numri}, rezervim_date: ${new Date(rezervim.rezervim_date).toLocaleDateString()}, this.rezervimDate: ${new Date(this.rezervimDate).toLocaleDateString()}`);
-
           return match;
         });
-        console.log(reservedDhoma);
+
         return !reservedDhoma;
       });
     }
@@ -74,6 +77,9 @@ export default {
     }
   },
   methods: {
+
+
+
     getCurrentDate() {
       let today = new Date()
       let day = today.getDate()
@@ -105,27 +111,54 @@ export default {
         });
     },
     createRezervim() {
-      const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          user_id: this.user.uid,
-          numri_dhomes: this.numriDhomes,
-          rezervim_date: this.rezervimDate
-        })
-      };
-      console.log(requestOptions);
-      fetch('http://localhost:3000/rezervimidhomes', requestOptions)
-        .then(response => response.json())
-        .then(data => {
-          // Handle success
-          console.log(data);
-        })
-        .catch(error => {
-          // Handle error
-          console.error(error);
-        });
+      const router = useRouter()
+      this.$swal({
+        title: "Jeni te sigurt qe deshironi te rezervoni dhomen?",
+        text: "A jeni te sigurt? Pasi qe nuk mund te kthehet me!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "red",
+        confirmButtonText: "Po, Deshiroj ta rezervoj",
+        closeOnConfirm: true
+      }).then((result) => {
+        if (result.value) {
+          const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              user_id: this.user.uid,
+              numri_dhomes: this.numriDhomes,
+              rezervim_date: this.rezervimDate
+            })
+          };
+
+          fetch('http://localhost:3000/rezervimidhomes', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+              console.log(data);
+              // Handle success here
+              this.$swal(
+                'Rezervimi u krye me sukses!',
+                '',
+                'success'
+              ).then(() => {
+                // Navigate to another route
+                router.push('/profile');
+              });
+            })
+            .catch(error => {
+              console.error(error);
+              // Handle error here
+              this.$swal(
+                'Ndodhi nje gabim!',
+                'Provojeni perseri me vone.',
+                'error'
+              )
+            });
+        }
+      });
     },
+
     nextStep() {
       if (this.rezervimDate !== '') {
         this.step = 2;
@@ -144,9 +177,15 @@ export default {
 </script>
 
 <style scoped>
+@font-face {
+  font-family: 'Poppins';
+  src: url('../../../../public/Poppins.ttf')
+}
+
 .container {
   max-width: 900px;
   margin: 0 auto;
+
 }
 
 .card-img-top {
@@ -156,4 +195,16 @@ export default {
 .grayscale {
   filter: grayscale(100%);
   transition: filter 0.5s ease-out;
-}</style>
+
+}
+
+.space {
+  margin-top: 160px;
+  margin-bottom: 190px;
+}
+
+.space2 {
+  margin-top: 30px;
+  margin-bottom: 120px;
+}
+</style>

@@ -38,8 +38,8 @@
                   to="/restaurantdasmat">Dasmat</router-link></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link costum active"  aria-current="page"><router-link style=" color:orangered !important" class="costum"
-                  to="/rezervoDhomen">Rezervo Dhomen</router-link></a>
+              <a class="nav-link costum active" aria-current="page"><router-link style=" color:orangered !important"
+                  class="costum" to="/rezervoDhomen">Rezervo Dhomen</router-link></a>
             </li>
 
 
@@ -68,6 +68,7 @@
             </button>
             <ul class="dropdown-menu">
               <li>
+                <button v-if="user" class="dropdown-item" @click="handleClickProfile">Profile</button>
                 <button v-if="user" class="dropdown-item" @click="handleClick">Logout</button>
               </li>
             </ul>
@@ -76,34 +77,30 @@
       </div>
     </div>
   </nav>
-
-  <!-- <div class="headd">
-       
-        <header>
-       
-   
-            <ul>
-               
-            </ul>
-     
-    </header>
-    </div> -->
 </template>
 
 <script>
 import { useStore } from "vuex";
 import { computed } from "vue";
+import { useRouter } from 'vue-router'
 
 export default {
   setup() {
-    const store = useStore();
+    const router = useRouter()
+    const store = useStore()
+
     const handleClick = () => {
       store.dispatch("logout");
-      window.location.reload();
       localStorage.removeItem("userData");
+      router.push("/login");
     };
+    const handleClickProfile = () => {
+      router.push("/profile");
+    };
+
     return {
       handleClick,
+      handleClickProfile,
       user: computed(() => store.state.user),
       userName: computed(() => store.state.userName),
       userRole: computed(() => store.state.userRole),
