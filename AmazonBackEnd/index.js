@@ -14,9 +14,8 @@ import userRouter from './api/routes/userRoute'
 import foodRouter from './api/routes/foodRoute';
 import menuRouter from './api/routes/menuRoute';
 import rezervimiDhomes from './api/routes/rezervimiDhomaRoute';
-import eventRouter from './api/routes/eventRoute';
+import eventRouter from './api/routes/eventRoute'
 mongoose.connect(`${MONGO_CONNECTION_URI}:${MONGO_DB_PORT}/${MONGO_DB_NAME}`).then(() => {
-    console.log(`Connected to mongodb on port ${MONGO_DB_PORT}`);
 
     const app = express();
 
@@ -39,8 +38,8 @@ mongoose.connect(`${MONGO_CONNECTION_URI}:${MONGO_DB_PORT}/${MONGO_DB_NAME}`).th
     app.use('/users', userRouter);
     app.use('/foods', foodRouter);
     app.use('/menute', menuRouter);
-    app.use('/rezervimidhomes', rezervimiDhomes);
-    app.use('/events', eventRouter);
+    app.use('/rezervimidhomes', rezervimiDhomes)
+    app.use('/events', eventRouter)
 
     app.listen(API_PORT, () => {
         console.log(`Amazon listening on port: ${API_PORT}`)

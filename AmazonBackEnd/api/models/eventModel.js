@@ -1,4 +1,6 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
+
+
 
 const schema = mongoose.Schema({
   title: String,
@@ -11,4 +13,6 @@ const schema = mongoose.Schema({
 
 const eventModel = mongoose.model("events", schema);
 
-export default eventModel;
+console.log("Event Model created");
+
+module.exports = eventModel;
