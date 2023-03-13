@@ -85,7 +85,26 @@
                 this.$store.dispatch('fetchEvents');
             },
       methods: {
-
-      }
-    };
+    handleDeleteEvent(eventId) {
+      this.$swal({
+        title: "Jeni te sigurt qe deshironi te fshini?",
+        text: "A jeni te sigurt? Pasi qe nuk mund te kthehet me!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "red",
+        confirmButtonText: "Po, Deshiroj ta fshij!",
+        closeOnConfirm: true
+    }).then((result) => {
+        if (result.value) {
+            this.$store.dispatch('deleteEvent', eventId)
+        this.$swal(
+            'I fshire!',
+            'Eshte fshire me sukses.',
+            'success'
+        )
+        }
+    });
+    },
+  },
+};
     </script>

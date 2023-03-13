@@ -157,6 +157,9 @@ const store = createStore({
     setEvents(state, events) {
       state.events = events;
     },
+    removeEventById(state, eventId) {
+      state.events = state.events.filter((event) => event._id !== eventId)
+    },
     removeMenu: (state, menuId) =>
       (state.menus = state.menus.filter(menu => menu._id !== menuId))
   },
@@ -463,6 +466,14 @@ const store = createStore({
   
       commit("setAllUsers", allUsers);
     },
+
+    async deleteEvent({ commit }, eventId) {
+      await fetch(`http://localhost:3000/events/${eventId}`, {
+         method: 'DELETE'
+      })
+
+      commit('removeEventById', eventId)
+  }
   },
 
 

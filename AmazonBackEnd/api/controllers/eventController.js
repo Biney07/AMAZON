@@ -40,5 +40,18 @@ const eventController ={
         
     },
 
+
+    delete: async(req, res) => {
+        const eventId = req.params.eventId;
+
+        try {
+            await eventModel.deleteOne({ _id: eventId });
+            res.json({ deleted: true });
+        } catch (err) {
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: ReasonPhrases.INTERNAL_SERVER_ERROR});
+        }
+
+    }
+
 };
 export default eventController;

@@ -5,5 +5,6 @@ const eventRouter = express.Router({ mergeParams: true });
 
 eventRouter.get('/', eventController.list);
 eventRouter.post('/', eventController.create);
+eventRouter.delete('/:eventId', eventController.delete)
 
 export default eventRouter;

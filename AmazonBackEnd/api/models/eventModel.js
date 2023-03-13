@@ -9,6 +9,6 @@ const schema = mongoose.Schema({
   date: Date
 });
 
-const eventModel = mongoose.model("event", schema);
+const eventModel = mongoose.model("events", schema);
 
 export default eventModel;
