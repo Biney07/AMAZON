@@ -11,12 +11,32 @@ const dhomaController = {
     },
     create: async(req, res) => {
         console.log('req.body - ', req.body);
-       
+        const validationResult = createDhomaSchema.validate(req.body);
     
-        const newDhome = new dhomaModel(req.body);
-            await newDhome.save();
+        if (validationResult.error) {
+            return res
+                .status(StatusCodes.NOT_FOUND)
+                .json({
+                    message: ReasonPhrases.NOT_FOUND,
+                    error: validationResult.error.message
+                });
+        }
+        const newDhome = new dhomaModel(validationResult.value);
+      
         
-            return res.json(newDhome);
+           
+
+            try {
+                await newDhome.save();
+            
+                return res.json(newDhome);
+            } catch (err) {
+                return res.json(StatusCodes.NOT_FOUND)
+                    .json({
+                        message: ReasonPhrases.NOT_FOUND,
+                        error: err.message
+                    });
+            }
         
     },
     findById: async (req, res) => {

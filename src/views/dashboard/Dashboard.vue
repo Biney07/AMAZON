@@ -49,6 +49,7 @@
                     { path: '/dashboard/register', name: 'Register', subtitle: 'Menaxho Register' },
                     { path: '/dashboard/menute', name: 'Menu', subtitle: 'Menaxho Menu' },
                     { path: '/dashboard/rezervimidhomes/create', name: 'RezervimiDhomes', subtitle: 'Menaxho Rezervimin' },
+                    { path: '/dashboard/events', name: 'Events', subtitle: 'Menaxho Events' },
                 ]
             }
         },

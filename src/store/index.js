@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-
+import axios from 'axios';
 
 import { auth, db } from '../firebase'
 import {
@@ -24,10 +24,19 @@ const store = createStore({
     dasmat: [],
     foods: [],
     menus: [],
+    events:[],
     user: null,
     authIsReady: false,
     userRole: null,
     userName:null,
+    usersByClaim: [],
+  },
+  getters: {
+    user: (state) => state.user,
+    allUsers: (state) => state.allUsers,
+    paginatedUsers: (state) => state.paginatedUsers,
+    isLoading: (state) => state.isLoading,
+    usersByClaim: (state) => state.usersByClaim,
   },
   mutations: {
     addContact(state, contact) {
@@ -122,9 +131,15 @@ const store = createStore({
           console.log('error getting user data:', error);
         });
     },
+    setAllUsers(state, allUsers) {
+      state.allUsers = allUsers;
+    },
     
     setAuthIsReady(state, payload) {
       state.authIsReady = payload
+    },   
+    setUsersByClaim(state, users){
+      state.usersByClaim = users;
     },
     setMenu: (state, menus) => (state.menus = menus),
     addMenu: (state, newMenu) => state.menus.push(newMenu),
@@ -136,12 +151,25 @@ const store = createStore({
         }
       }
     },
-
+    addEvent(state, event) {
+      state.events.push(event);
+    },
+    setEvents(state, events) {
+      state.events = events;
+    },
     removeMenu: (state, menuId) =>
       (state.menus = state.menus.filter(menu => menu._id !== menuId))
   },
+
   actions: {
 
+    async usersByClaim ({commit}, claim){
+      const res = await axios.get(`http://localhost:3000/usersByClaim/${claim}`)
+
+      const { data } = res;
+
+      commit('setUsersByClaim', data)
+    },
     async fetchContacts({ commit }) {
       const res = await fetch('http://localhost:3000/contacts');
       const contacts = await res.json();
@@ -405,8 +433,35 @@ const store = createStore({
     const menu = await res.json();
     commit('setMenu', menu)
   },
-  
-  
+  async fetchEvents({ commit }) {
+    const res = await fetch('http://localhost:3000/events');
+    const events = await res.json();
+    commit('setEvents', events)
+  },
+  async createEvent({ commit }, eventData) {
+    const res = await fetch('http://localhost:3000/events',
+      {
+        method: 'post',
+        body: JSON.stringify(eventData),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+
+      }
+    )
+
+    const newEvent = await res.json();
+
+    commit('addEvent', newEvent);
+  },
+ 
+  async fetchAllUsers({ commit }) {
+    const all = await axios.get(`http://localhost:3000/users?limit=0`);
+    const allUsers = all.data.list;
+
+    commit("setAllUsers", allUsers);
+  },
+
 
 
 

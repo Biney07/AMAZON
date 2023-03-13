@@ -170,6 +170,16 @@ const routes = [
     name: 'menuteCreate',
     component: () => import( '../views/dashboard/menute/MenuCreate.vue')
   },
+  {
+    path: '/dashboard/events',
+    name: 'eventsDashboard',
+    component: () => import( '../views/dashboard/events/EventsDashboard.vue')
+  },
+  {
+    path: '/dashboard/events/create',
+    name: 'eventsCreate',
+    component: () => import( '../views/dashboard/events/CreateEvents.vue')
+  },
     {
     path: '/dashboard/menute',
     name: 'menuDashboard',

@@ -43,18 +43,47 @@ export default {
 
         }
     },
-    // allUsers: async (req, res) => {
-    //     try {
-    //       const listUsersResult = await admin.auth().listUsers();
-    //       const users = listUsersResult.users;
+    allUsers: async (req, res) => {
+        try {
+          const listUsersResult = await admin.auth().listUsers();
+          const users = listUsersResult.users;
     
-    //       // users.forEach((user) => {
-    //       //     console.log(`User: ${user.uid}, email: ${user.email}`);
-    //       // });
+          
     
-    //       return res.json({ users });
-    //     } catch (error) {
-    //       res.json("Error: " + error);
-    //     }
-    //   },
+          return res.json({ users });
+        } catch (error) {
+          res.json("Error: " + error);
+        }
+      },
+      // usersByClaim: async (req, res) => {
+      //   const claimType = req.params.claim;
+      //   try {
+      //     await admin
+      //       .auth()
+      //       .listUsers()
+      //       .then((listUsersResult) => {
+      //         const usersWithClaim = listUsersResult.users.filter(
+      //           (user) => user.customClaims && user.customClaims[claimType] === true
+      //         );
+      //         res.send(usersWithClaim);
+      //       });
+      //   } catch (error) {
+      //     console.log("Error listing users:", error);
+      //     res.status(500).send("Error listing users");
+      //   }
+      // },
+      usersByClaim: async (req, res) => {
+        const claimType = req.params.claim;
+        try {
+          const listUsersResult = await admin.auth().listUsers();
+          const usersWithClaim = listUsersResult.users.filter(
+            (user) => user.customClaims && user.customClaims[claimType] === true
+          );
+          res.send(usersWithClaim);
+        } catch (error) {
+          console.log("Error listing users:", error);
+          res.status(500).send("Error listing users");
+        }
+      },
+      
 }
