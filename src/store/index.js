@@ -398,68 +398,71 @@ const store = createStore({
 
       await signOut(auth)
       context.commit('setUser', null)
-    }
-  }, async fetchMenus({ commit }) {
-    const response = await fetch('http://localhost:3000/menute');
-    const menus = await response.json();
-    commit('setMenu', menus);
-  },
-  async createMenu({ commit }, menuData) {
-    await fetch('http://localhost:3000/menute', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(menuData)
-    });
-    commit('addMenu', menuData);
-  },
-  async updateMenu({ commit }, { menuId, menuData }) {
-    console.log(menuData);
-    await fetch(`http://localhost:3000/menute/${menuId}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(menuData)
-    });
-    commit('updateMenu', { menuId, menuData });
-  },
-  async deleteMenu({ commit }, menuId) {
-    await fetch(`http://localhost:3000/menute/${menuId}`, {
-      method: 'DELETE'
-    });
-    commit('removeMenu', menuId);
-  },
-  async getMenuById({ commit }, menuId) {
+    },
 
-    const res = await fetch(`http://localhost:3000/menute/${menuId}`);
-    const menu = await res.json();
-    commit('setMenu', menu)
-  },
-  async fetchEvents({ commit }) {
-    const res = await fetch('http://localhost:3000/events');
-    const events = await res.json();
-    commit('setEvents', events)
-  },
-  async createEvent({ commit }, eventData) {
-    const res = await fetch('http://localhost:3000/events',
-      {
-        method: 'post',
-        body: JSON.stringify(eventData),
-        headers: {
-          'Content-Type': 'application/json'
+
+    async fetchMenus({ commit }) {
+      const response = await fetch('http://localhost:3000/menute');
+      const menus = await response.json();
+      commit('setMenu', menus);
+    },
+    async createMenu({ commit }, menuData) {
+      await fetch('http://localhost:3000/menute', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(menuData)
+      });
+      commit('addMenu', menuData);
+    },
+    async updateMenu({ commit }, { menuId, menuData }) {
+      console.log(menuData);
+      await fetch(`http://localhost:3000/menute/${menuId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(menuData)
+      });
+      commit('updateMenu', { menuId, menuData });
+    },
+    async deleteMenu({ commit }, menuId) {
+      await fetch(`http://localhost:3000/menute/${menuId}`, {
+        method: 'DELETE'
+      });
+      commit('removeMenu', menuId);
+    },
+    async getMenuById({ commit }, menuId) {
+  
+      const res = await fetch(`http://localhost:3000/menute/${menuId}`);
+      const menu = await res.json();
+      commit('setMenu', menu)
+    },
+    async fetchEvents({ commit }) {
+      const res = await fetch('http://localhost:3000/events');
+      const events = await res.json();
+      commit('setEvents', events)
+    },
+    async createEvent({ commit }, eventData) {
+      const res = await fetch('http://localhost:3000/events',
+        {
+          method: 'post',
+          body: JSON.stringify(eventData),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+  
         }
-
-      }
-    )
-
-    const newEvent = await res.json();
-
-    commit('addEvent', newEvent);
-  },
- 
-  async fetchAllUsers({ commit }) {
-    const all = await axios.get(`http://localhost:3000/users?limit=0`);
-    const allUsers = all.data.list;
-
-    commit("setAllUsers", allUsers);
+      )
+  
+      const newEvent = await res.json();
+  
+      commit('addEvent', newEvent);
+    },
+   
+    async fetchAllUsers({ commit }) {
+      const all = await axios.get(`http://localhost:3000/users?limit=0`);
+      const allUsers = all.data.list;
+  
+      commit("setAllUsers", allUsers);
+    },
   },
 
 
