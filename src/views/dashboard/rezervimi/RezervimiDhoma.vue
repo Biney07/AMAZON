@@ -34,9 +34,9 @@ export default {
       // Filter out dhomat that are already reserved for the selected date
       return this.dhomat.filter(dhoma => {
         const reservedDhoma = this.rezervimet.find(rezervim => {
-          console.log(JSON.stringify(rezervim.rezervim_date));
-          const match = rezervim.numri_dhomes === dhoma.numri && rezervim.rezervim_date === this.rezervimDate;
-          console.log(`match: ${match}, numri_dhomes: ${rezervim.numri_dhomes}, dhoma.numri: ${dhoma.numri}, rezervim_date: ${rezervim.rezervim_date}, this.rezervimDate: ${this.rezervimDate}`);
+          
+          const match = parseInt(rezervim.numri_dhomes) === parseInt(dhoma.numri)  && new Date(rezervim.rezervim_date).toLocaleDateString() === new Date(this.rezervimDate).toLocaleDateString();
+          console.log(`match: ${match}, numri_dhomes: ${rezervim.numri_dhomes}, dhoma.numri: ${dhoma.numri}, rezervim_date: ${new Date(rezervim.rezervim_date).toLocaleDateString()}, this.rezervimDate: ${new Date(this.rezervimDate).toLocaleDateString()}`);
    
           return match;
         });
@@ -52,7 +52,7 @@ export default {
     return {
       step: 1,
       rezervimet: null,
-      rezervimDate: '',
+      rezervimDate: new Date(),
       numriDhomes: ''
     }
   },
