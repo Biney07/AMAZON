@@ -31,7 +31,7 @@
             </li>
             <li class="nav-item">
               <a class="nav-link costum active" aria-current="page"><router-link class="costum"
-                  to="/contact">Contacttttt</router-link></a>
+                  to="/contact">Contacttt</router-link></a>
             </li>
             <li class="nav-item">
               <a class="nav-link costum active" aria-current="page"><router-link class="costum"
