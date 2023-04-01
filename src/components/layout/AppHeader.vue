@@ -31,11 +31,11 @@
             </li>
             <li class="nav-item">
               <a class="nav-link costum active" aria-current="page"><router-link class="costum"
-                  to="/contact">Contacttt</router-link></a>
+                  to="/contact">KONTACT</router-link></a>
             </li>
             <li class="nav-item">
               <a class="nav-link costum active" aria-current="page"><router-link class="costum"
-                  to="/restaurantdasmat">Dasmatt</router-link></a>
+                  to="/restaurantdasmat">Dasmat</router-link></a>
             </li>
             <li class="nav-item">
               <a class="nav-link costum active" aria-current="page"><router-link style=" color:orangered !important"
