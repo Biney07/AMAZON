@@ -155,6 +155,7 @@ export default {
                 'error'
               )
             });
+            router.push('/profile');
         }
       });
     },

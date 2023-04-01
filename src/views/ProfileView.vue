@@ -51,12 +51,16 @@ export default {
             const dhomatt = this.dhomat.filter(dhoma => {
                 const userDhomat = this.rezervimet.find(rezervim => {
                     const match = rezervim.user_id.toString() === userUid.toString();
+                    console.log(match+":"+ rezervim.dhoma_id +";"+dhoma.id);
                     return match && rezervim.dhoma_id === dhoma.id;
+                    
                 });
                 console.log(userDhomat);
                 return userDhomat && dhoma.numri === userDhomat.numri_dhomes; // add check for numri_dhomes
             });
+
             console.log(dhomatt);
+
             return dhomatt;
         },
         UsersDhomatWithDates() {
