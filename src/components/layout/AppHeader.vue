@@ -35,7 +35,7 @@
             </li>
             <li class="nav-item">
               <a class="nav-link costum active" aria-current="page"><router-link class="costum"
-                  to="/restaurantdasmat">Dasmat</router-link></a>
+                  to="/restaurantdasmat">Dasmatt</router-link></a>
             </li>
             <li class="nav-item">
               <a class="nav-link costum active" aria-current="page"><router-link style=" color:orangered !important"
