@@ -44,8 +44,7 @@
                 </div>
                 <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
 
-                  <img src="https://img.freepik.com/free-vector/computer-login-concept-illustration_114360-7862.jpg?w=996&t=st=1678255267~exp=1678255867~hmac=f31b7b3e21331b3077ba99651052e3229fd147e74551d7aaf367f153827ecd96"
-                    class="img-fluid" alt="Sample image">
+                  <img src="../../../public/209442.png" class="img-fluid" alt="Sample image">
 
                 </div>
               </div>
@@ -106,20 +105,20 @@ export default {
 </script>
 
 
-  <style scoped>
-  .btn{
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-  }
+<style scoped>
+.btn {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+}
 
-  button:hover{
-    background-color: rgba(0, 0, 0, 0.8);
-    color: black;
-  }
+button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: black;
+}
 
-  input{
-    border-color: rgba(0, 0, 0, 0.8);
-  
-  }
-  </style>
+input {
+  border-color: rgba(0, 0, 0, 0.8);
+
+}
+</style>
   

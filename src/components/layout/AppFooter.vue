@@ -1,6 +1,6 @@
 <template>
 <footer class="text-center text-lg-start bg-light text-muted">
-  <section class="d-flex justify-content-center">
+  <section class="d-flex justify-content-center pt-5">
     
 
     <div>

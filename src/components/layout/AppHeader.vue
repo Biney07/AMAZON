@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
       <a href="/"><img class="logo" src="./../../assets/logo.png" alt="logo" /></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
@@ -12,6 +12,10 @@
             <li class="nav-item">
               <a class="text-decoration-none nav-link costum active" aria-current="page">
                 <router-link class="costum" to="/">Home</router-link></a>
+            </li>
+            <li class="nav-item">
+              <a class="text-decoration-none nav-link costum active" aria-current="page">
+                <router-link class="costum" to="/dhomat">Dhomat</router-link></a>
             </li>
             <li class="nav-item">
               <a class="nav-link costum active" aria-current="page"><router-link class="costum"
@@ -31,7 +35,7 @@
             </li>
             <li class="nav-item">
               <a class="nav-link costum active" aria-current="page"><router-link class="costum"
-                  to="/contact">KONTACT</router-link></a>
+                  to="/contact">Contact Us</router-link></a>
             </li>
             <li class="nav-item">
               <a class="nav-link costum active" aria-current="page"><router-link class="costum"
@@ -76,6 +80,87 @@
         </div>
       </div>
     </div>
+  </nav> -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
+    <a href="" class="navbar-brand p-0">
+      <a href="/"><img class="logo" src="./../../assets/logo.png" alt="logo" /></a>
+
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+      <span class="fa fa-bars"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <div class="navbar-nav ms-auto py-0 pe-4">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="text-decoration-none nav-link costum active" aria-current="page">
+              <router-link class="costum" to="/">Home</router-link></a>
+          </li>
+          <li class="nav-item">
+            <a class="text-decoration-none nav-link costum active" aria-current="page">
+              <router-link class="costum" to="/dhomat">Dhomat</router-link></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link costum active" aria-current="page"><router-link class="costum"
+                to="/about">About</router-link></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link costum active" aria-current="page"><router-link class="costum"
+                to="/aktivitete">Aktivitete</router-link></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link costum active" aria-current="page"><router-link class="costum"
+                to="/foods">Ushqimet</router-link></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link costum active" aria-current="page"><router-link class="costum"
+                to="/menute">Menute</router-link></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link costum active" aria-current="page"><router-link class="costum" to="/contact">Contact
+              </router-link></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link costum active" aria-current="page"><router-link class="costum"
+                to="/restaurantdasmat">Dasmat</router-link></a>
+          </li>
+
+          <li v-if="userRole == 'Admin'" class="ms-auto nav-item d-flex">
+            <a class="nav-link costum active" aria-current="page">
+              <router-link class="costum" to="/dashboard">Dashboard</router-link>
+            </a>
+          </li>
+
+
+        </ul>
+      </div>
+      <a href="" class="section-title ff-secondary text-start text-primary fw-normal rezervo"><router-link to="/rezervoDhomen"
+          class="rezervo">Rezervo Dhomen </router-link></a>
+
+      <li v-if="!user" class="ms-auto nav-item d-flex">
+        <a type="button" class="btn btn-primary green-background py-2 px-4"><router-link class="costum "
+            to="/login">Login</router-link></a>
+      </li>
+      <li v-if="!user" class="ms-auto nav-item d-flex">
+        <a type="button " class="btn btn-primary green-background py-2 px-4" style="background-color:orange"><router-link
+            class="costum " to="/register">Register</router-link></a>
+      </li>
+
+
+      <div v-if="user" class="dropdown">
+        <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          {{ userName }}
+        </button>
+        <ul class="dropdown-menu">
+          <li>
+            <button v-if="user" class="dropdown-item" @click="handleClickProfile">Profile</button>
+            <button v-if="user" class="dropdown-item" @click="handleClick">Logout</button>
+          </li>
+        </ul>
+      </div>
+
+
+    </div>
   </nav>
 </template>
 
@@ -119,16 +204,39 @@ export default {
 
 .costum {
   text-decoration: none !important;
-  font-size: 1.3rem !important;
-  font-weight: 600 !important;
+  font-size: 0.9rem !important;
+  color: white;
+  padding: 0px;
+}
+
+.rezervo {
+  text-decoration: none !important;
+  font-size: 1.1rem !important;
+  color: white;
+  padding-right: 10px;
+}
+
+.costum.active {
+  text-decoration: none !important;
+  font-size: 0.9rem !important;
+  color: white;
+  padding: 0px;
+
+}
+
+.costum:hover {
+  color: rgb(188, 230, 168);
 }
 
 .logreg {
   color: white !important;
-  font-size: 18px !important;
+  font-size: 0.9rem !important;
 }
 
-.hapsire {
-  margin: 0px 7px;
+
+@media (min-width: 992px) {
+  .navbar-expand-lg .navbar-nav .nav-link {
+    padding: 0px;
+  }
 }
 </style>
