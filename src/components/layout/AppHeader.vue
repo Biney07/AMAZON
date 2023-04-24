@@ -81,7 +81,7 @@
       </div>
     </div>
   </nav> -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
+  <nav class="navbar navbar-expand-lg navbar-dark px-4 px-lg-5 py-3 py-lg-0" style="background-color:#263A29 !important">
     <a href="" class="navbar-brand p-0">
       <a href="/"><img class="logo" src="./../../assets/logo.png" alt="logo" /></a>
 
@@ -134,30 +134,29 @@
 
         </ul>
       </div>
-      <a href="" class="section-title ff-secondary text-start text-primary fw-normal rezervo"><router-link to="/rezervoDhomen"
-          class="rezervo">Rezervo Dhomen </router-link></a>
+      <a href="" class=" ff-secondary text-start  fw-normal rezervo"><router-link
+          to="/rezervoDhomen" class="rezervo">Rezervo Dhomen </router-link></a>
 
-      <li v-if="!user" class="ms-auto nav-item d-flex">
-        <a type="button" class="btn btn-primary green-background py-2 px-4"><router-link class="costum "
+      <li v-if="!user" class="butonlog nav-item d-flex">
+        <a type="button" class="btn butonlog green-background py-1.9 px-3"><router-link class="costum "
             to="/login">Login</router-link></a>
       </li>
-      <li v-if="!user" class="ms-auto nav-item d-flex">
-        <a type="button " class="btn btn-primary green-background py-2 px-4" style="background-color:orange"><router-link
+      <li v-if="!user" class="butonlog nav-item d-flex">
+        <a type="button " class="btn butonlog green-background py-1.9 px-3" style="background-color:orange"><router-link
             class="costum " to="/register">Register</router-link></a>
       </li>
 
-
       <div v-if="user" class="dropdown">
-        <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <button class="btn green-background white dropdown-toggle" type="button" id="dropdownMenuButton"
+          data-mdb-toggle="dropdown" aria-expanded="false">
           {{ userName }}
         </button>
-        <ul class="dropdown-menu">
-          <li>
-            <button v-if="user" class="dropdown-item" @click="handleClickProfile">Profile</button>
-            <button v-if="user" class="dropdown-item" @click="handleClick">Logout</button>
-          </li>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <li><a v-if="user" class="dropdown-item" @click="handleClickProfile">Profile</a></li>
+          <li><a v-if="user" class="dropdown-item" @click="handleClick">Log out</a></li>
         </ul>
       </div>
+
 
 
     </div>
@@ -171,6 +170,7 @@ import { useRouter } from 'vue-router'
 
 export default {
   setup() {
+
     const router = useRouter()
     const store = useStore()
 
@@ -198,8 +198,8 @@ export default {
 .logo {
   height: 50px;
   padding: 0px 30px 0px 30px;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .costum {
@@ -213,7 +213,7 @@ export default {
   text-decoration: none !important;
   font-size: 1.1rem !important;
   color: white;
-  padding-right: 10px;
+  margin-right: 10px;
 }
 
 .costum.active {
@@ -233,6 +233,20 @@ export default {
   font-size: 0.9rem !important;
 }
 
+.section-title::after {
+  position: absolute;
+  content: "";
+  width: 0px;
+  height: 0px;
+  top: 0;
+  right: -55px;
+  margin-top: -1px;
+  background: var(--primary);
+}
+
+.butonlog {
+  padding: 5px !important;
+}
 
 @media (min-width: 992px) {
   .navbar-expand-lg .navbar-nav .nav-link {

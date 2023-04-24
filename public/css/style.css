@@ -6,8 +6,15 @@
 }
 .green{
     color:var(--primary);
-   
+  
 }
+.black{
+    color:var(--black);
+}
+.white{
+    color:var(--light)!important;
+}
+
 .green-background{
     background-color: var(--primary) !important;
     border-color: var(--primary) !important;
@@ -160,7 +167,7 @@
 
 /*** Hero Header ***/
 .hero-header {
-    background: linear-gradient(rgba(15, 23, 43, .9), rgba(15, 23, 43, .9)), url(../img/bg-hero.jpg);
+    background: linear-gradient(rgba(10, 28, 10, 0.9), rgba(10, 30, 20, 0.9)), url(../img/bg-hero.jpg);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;

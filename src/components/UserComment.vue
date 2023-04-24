@@ -6,7 +6,7 @@
         <div class="card-img-overlay d-flex justify-content-center align-items-center flex-column">
             <h1 class="card-title title custom-title" >Tradita Vazhdon</h1>
             <div class="comment" style="width:900px;">
-                <h5 class="card-text text-center">{{ Comment }}</h5>
+                <h5 class="card-text text-center white" >{{ Comment }}</h5>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@ export default {
     transition: 700ms ease;
     font-variation-settings: "wght" 311;
     margin-bottom: 0.8rem;
-    color: PaleGoldenRod;
+    color: rgb(187, 236, 118);
     outline: none;
     text-align: center;
 }

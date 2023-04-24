@@ -6,7 +6,11 @@ import "bootstrap"
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import store from './store';
-import  './firebase'
+import  './firebase';
+import 'mdb-ui-kit/js/mdb.min.js';
+import 'mdb-ui-kit/css/mdb.min.css'
+
+
 const app = createApp(App);
 
 app.use(store);

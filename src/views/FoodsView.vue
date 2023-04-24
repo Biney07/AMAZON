@@ -1,74 +1,64 @@
 <template>
-  <div>
-    <div class="btn-group" role="group">
-      <button
-        type="button"
-        class="btn btn-outline-success mx-2 rounded-pill"
-        :class="{ active: selectedCategory === 'appetizers' }"
-        @click="selectedCategory = 'appetizers'"
-      >
-        Appetizers
-      </button>
-      <button
-        type="button"
-        class="btn btn-outline-success mx-2 rounded-pill"
-        :class="{ active: selectedCategory === 'main dish' }"
-        @click="selectedCategory = 'main dish'"
-      >
-        Main Dish
-      </button>
-      <button
-        type="button"
-        class="btn btn-outline-success mx-2 rounded-pill"
-        :class="{ active: selectedCategory === 'dessert' }"
-        @click="selectedCategory = 'dessert'"
-      >
-        Dessert
-      </button>
-        <button type="button"   class="btn btn-outline-success mx-2 rounded-pill" :class="{ active: selectedCategory === '' }" @click="selectedCategory = ''">All</button>
-    </div>
-
-    <div class="flexbox">
-      <div v-for="food in filteredFoods" :key="food._id">
-        <div
-          class="food-card"
-          :style="{
-            backgroundImage: 'url(' + food.image + ')',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }"
-        >
-          <div class="shadow-background">
-            <div class="food-card-content">
-              <div class="heading show">
-                <h2>{{ food.name }}</h2>
-                <div class="shadow"></div>
+  <div class="container-xxl py-5">
+    <div class="container">
+      <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+        <h5 class="section-title ff-secondary text-center green fw-normal">Food Menu</h5>
+        <h1 class="mb-5">Te gatuar me elegance</h1>
+      </div>
+      <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.1s">
+        <ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5">
+          <li class="nav-item" :class="{ active: selectedCategory === 'appetizers' }"
+            @click="selectedCategory = 'appetizers'">
+            <a class="d-flex align-items-center text-start mx-3 ms-0 pb-3 active" data-bs-toggle="pill" href="#tab-1">
+              <i class="fa fa-coffee fa-2x green"></i>
+              <div class="ps-3">
+                <small class="text-body">Openly</small>
+                <h6 class="mt-n1 mb-0">Appetizers</h6>
               </div>
-              <div class="heading author show">
-                <h5 style="text-transform: capitalize; margin-top: -7px">
-                  {{ food.category }}
-                </h5>
-                <div class="shadow"></div>
-              </div>
-              <div class="hover-content">
-                <div
-                  class="food-card-properties"
-                  style="position: absolute; bottom: 0; right: 0"
-                >
-                  <div>
-                    <i class="fa fa-money"></i>
-                    <h1>{{ food.price }} €</h1>
-                  </div>
-                </div>
+            </a>
+          </li>
+          <li class="nav-item" :class="{ active: selectedCategory === 'main dish' }"
+            @click="selectedCategory = 'main dish'">
 
-                <div class="content">
-                  {{ food.description }}
-                  <div class="show-less"></div>
+            <a class="d-flex align-items-center text-start mx-3 pb-3" data-bs-toggle="pill" href="#tab-2">
+              <i class="fa fa-utensils fa-2x green"></i>
+              <div class="ps-3">
+                <small class="text-body">Main</small>
+                <h6 class="mt-n1 mb-0">Plate</h6>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item" :class="{ active: selectedCategory === 'dessert' }" @click="selectedCategory = 'dessert'">
+
+            <a class="d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill" href="#tab-3">
+              <i class="fa fa-birthday-cake fa-2x green"></i>
+              <div class="ps-3">
+                <small class="text-body">Lovely</small>
+                <h6 class="mt-n1 mb-0">Dessert</h6>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <div class="tab-content" style="width: 80%;">
+          <div class="tab-pane fade show p-0 active" v-for="food in filteredFoods" :key="food._id" style="max-w
+              ">
+            <div class="d-flex align-items-center justify-content-left">
+              <div class="d-flex">
+                <img class="img-fluid rounded" :src="food.image" alt="" style="width: 170px  ">
+              </div>
+              <div class="d-flex">
+                <div class="d-flex flex-column text-start ps-4" style="min-width: 300px;">
+                  <h5 class="d-flex justify-content-between border-bottom " style="">
+                    <span style="font-size:35px">{{ food.name }}</span>
+                    <span style="font-size:25px" class="green">{{ food.price }} €</span>
+                  </h5>
+                  <small class="fst-italic">{{ food.description }}</small>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -100,192 +90,4 @@ export default {
 };
 </script>
 <style>
-@import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
-html {
-  font-family: "Open Sans", sans-serif;
-  height: 100%;
-  width: 100%;
-  background: whitesmoke;
-}
-.shadow-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-}
-
-.shadow-background::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-.shadow-background:hover::before {
-  opacity: 1;
-}
-div.show {
-  position: relative;
-  overflow: hidden;
-  width: fit-content;
-}
-.heading > h2 {
-  margin: 0;
-  padding: 4px 0;
-  line-height: 1.125;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 200px;
-  color: white; /* add this line */
-}
-div.show > h1,
-div.show > h2,
-div.show > h3,
-div.show > h4,
-div.show > h5,
-div.show > p {
-  animation: 1s show-slow ease-in;
-  color: white !important;
-}
-.shadow {
-  position: absolute;
-  bottom: 0;
-  height: 15px;
-  width: 100%;
-  background: #bbb;
-  transform: translateY(101%);
-}
-.show > .shadow {
-  animation: zoop 0.8s ease-in;
-}
-@keyframes zoop {
-  0% {
-    transform: translateY(101%);
-  }
-  70% {
-    transform: translateY(40%);
-  }
-  100% {
-    transform: translateY(-100%);
-  }
-}
-@keyframes show-slow {
-  0% {
-    opacity: 0;
-  }
-  60% {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0%);
-  }
-}
-.heading > * {
-  margin: 0;
-  padding: 4px 0;
-  line-height: 1.125;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 200px;
-}
-.author > h5 {
-  line-height: 1.25;
-}
-.content {
-  opacity: 0.85;
-  font-size: 17px;
-  height: 15vh;
-  overflow: hidden;
-  line-height: 1.66;
-  position: relative;
-  padding-top: 8px;
-}
-
-.food-card {
-  position: relative;
-  width: 350px;
-  height: 350px;
-  margin: 20px 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px 1px #00000045;
-  background: rgba(0, 0, 0, 0.8) no-repeat right top;
-  background-size: auto 400px;
-  color: white;
-  overflow: hidden;
-  z-index: 1;
-}
-
-.flexbox {
-  display: flex;
-  justify-content: center;
-  vertical-align: middle;
-  flex-wrap: wrap;
-  width: 95%;
-  margin: 40px 40px 40px 40px;
-}
-.food-card-content {
-  padding: 20px 30px;
-  transition: 0.5s ease all;
-  color: white;
-}
-.hover-content {
-  text-align: left;
-  max-height: 0;
-  transition: 0.5s ease-out all;
-  overflow: hidden;
-}
-.food-card:hover .hover-content {
-  max-height: 300px;
-}
-.food-card:hover .food-card-content {
-  max-height: 300px;
-}
-.food-card-properties {
-  text-align: right;
-  padding: 10px 0px 0px 0px;
-  z-index: 1;
-}
-.food-card-properties > div {
-  border-right: 1px solid #ffffff45;
-  width: fit-content;
-  padding: 0 10px;
-  display: inline-block;
-  z-index: 1;
-}
-.food-card-properties > div:last-child {
-  border-right: none;
-  z-index: 1;
-}
-.food-card-properties > div > i {
-  font-size: 16px;
-  z-index: 1;
-}
-.food-card-properties > div > p {
-  font-size: 10px;
-  margin: 0;
-  z-index: 1;
-}
-
-.food-card {
-  transform: scale(0.9);
-  transition: 0.5s all ease;
-}
-.food-card:hover {
-  transform: scale(1);
-  background-size: auto 310px;
-}
-.btn-group {
-  margin: 20px 0px -50px 0px;
-}
 </style>
