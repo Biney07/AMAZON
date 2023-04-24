@@ -1,39 +1,32 @@
 <template>
     <label for="dhoma" style="font-family: Playfair; font-size:50px; margin:30px 0px 20px 0px ">Rezervimet</label>
     <div style="margin-top: 20px; display:flex; justify-content:center; flex-wrap: wrap; align-items:center">
-        <div v-for="(dhoma, index) in UsersDhomatWithDates" :key="index">
-            <ul class="m-0 p-0">
-                <li class="cards_item container" id="item_salad">
-                    <div class="card">
-                        <div class="toppart">
-                            <div class="card_details">
-                                {{ dhoma.numri }}
-                            </div>
-                            <div class="card_price">{{ dhoma.cmimi }} €</div>
+        <ul class="m-0 p-0" v-for="(dhoma, index) in UsersDhomat" :key="index">
+            <li class="cards_item container" id="item_salad">
+                <div class="card">
+                    <div class="toppart">
+                        <div class="card_details">
+                            {{ dhoma.numri }}
                         </div>
-                        <div class="card_image">
-                            <img :src="dhoma.foto1" :class="{ 'grayscale': numriDhomes !== dhoma.numri }" alt="Room Image"
-                                @click="numriDhomes = dhoma.numri">
-                        </div>
-                        <div class="card_content">
-                            <h2 class="card_title">Dhoma {{ dhoma.numri }}</h2>
-                            <div class="card_text">
-                                <p>Rezervuar me datën: {{
-                                    dhoma.rezervimiDate ? new Date(dhoma.rezervimiDate).toLocaleDateString('en-US', {
-                                        year: 'numeric',
-                                        month: 'long',
-                                        day: 'numeric'
-                                    }) : 'Nuk ka rezervime'
-                                }}</p>
-                            </div>
+                        <div class="card_price">{{ dhoma.cmimi }} €</div>
+                    </div>
+                    <div class="card_image">
+                        <img :src="dhoma.foto1" :class="{ 'grayscale': numriDhomes !== dhoma.numri }" alt="Room Image"
+                            @click="numriDhomes = dhoma.numri">
+                    </div>
+                    <div class="card_content">
+                        <h2 class="card_title">Dhoma {{ dhoma.numri }}</h2>
+                        <div class="card_text">
+                            <p>{{ reservationDateText(dhoma.rezervimiDate) }}</p>
+
                         </div>
                     </div>
-                </li>
-            </ul>
-        </div>
-
+                </div>
+            </li>
+        </ul>
     </div>
 </template>
+  
   
 
 <script>
@@ -51,38 +44,29 @@ export default {
         },
 
         UsersDhomat() {
-            const userUid = this.user.uid; // get the user UID
+            return this.getRoomsAndReservations();
+        }, reservationDateText() {
+            return (reservationDate) => {
+                const today = new Date();
+                const reservationDateObj = new Date(reservationDate);
 
-            const dhomatt = this.dhomat.filter(dhoma => {
-                // Filter all the reservations made by the current user for the current room
-                const userDhomat = this.rezervimet.filter(rezervim => {
-                    const match = rezervim.user_id.toString() === userUid.toString();
-                    return match && rezervim.dhoma_id === dhoma.id;
+                if (!reservationDate) {
+                    return 'Nuk ka rezervime';
+                }
+
+                const dateString = reservationDateObj.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
                 });
 
-                // If there are reservations made by the current user for the current room, return true
-                return userDhomat.length > 0;
-            });
-
-            console.log(dhomatt);
-
-            return dhomatt;
-        }, UsersDhomatWithDates() {
-            const usersDhomat = this.UsersDhomat;
-            const dhomaRezervime = usersDhomat.map(dhoma => {
-                const rezervim = this.rezervimet.filter(r => r.user_id === this.user.uid && r.dhoma_id === dhoma.id);
-                const validRezervim = rezervim.filter(r => {
-                    const rezervimDate = new Date(r.rezervim_date);
-                    return rezervimDate >= new Date();
-                }).sort((a, b) => new Date(a.rezervim_date) - new Date(b.rezervim_date))[0];
-
-                return {
-                    ...dhoma,
-                    rezervimiDate: validRezervim ? validRezervim.rezervim_date : null
-                };
-            });
-            return dhomaRezervime;
-        }
+                if (reservationDateObj < today) {
+                    return `Ishte rezervuar me datën: ${dateString}`;
+                } else {
+                    return `Rezervuar me datën: ${dateString}`;
+                }
+            };
+        },
 
 
     },
@@ -102,7 +86,9 @@ export default {
         fetchRezervimet() {
             fetch('http://localhost:3000/rezervimidhomes')
                 .then(response => {
-                    console.log(response);
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch rezervimet data');
+                    }
                     return response.json();
                 })
                 .then(data => {
@@ -113,12 +99,43 @@ export default {
                     console.error(error);
                 });
         },
+        getRoomsAndReservations() {
+            const userUid = this.user.uid;
 
+            // Filter reservations made by the current user
+            const userReservations = this.rezervimet.filter(
+                (rezervim) => rezervim.user_id.toString() === userUid.toString()
+            );
+
+            const roomsWithReservations = userReservations.map((reservation) => {
+                // Find the corresponding room for each reservation
+                const room = this.dhomat.find(
+                    (dhoma) => dhoma.numri === reservation.numri_dhomes
+                );
+
+                // Combine the room data with the reservation date
+                return {
+                    ...room,
+                    rezervimiDate: reservation.rezervim_date
+                };
+            });
+
+            console.log(roomsWithReservations);
+
+            return roomsWithReservations;
+        }
     },
-    created() {
-        this.$store.dispatch('fetchDhomat');
 
+
+    async created() {
+        try {
+            await this.$store.dispatch('fetchDhomat');
+        } catch (error) {
+            console.error('Failed to fetch dhomat data:', error);
+        }
+        this.fetchRezervimet();
     }
+
 }
 
 </script>
