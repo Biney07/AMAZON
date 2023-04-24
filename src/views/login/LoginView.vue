@@ -86,7 +86,7 @@ export default {
         })
         router.push('/');
         toast('You have successfully logged in!', {
-          autoClose: 900,
+          autoClose: 500,
         });
       }
       catch (err) {

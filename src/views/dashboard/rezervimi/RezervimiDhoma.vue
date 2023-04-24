@@ -24,7 +24,7 @@
                   </h3>
                 </div>
                 <p class="card-text" style="font-size:30px; margin: 14px 0px 0px 20px;  font-family:'Poppins';
-                           font-size:35px; ">{{ dhoma.cmimi }} €</p>
+                               font-size:35px; ">{{ dhoma.cmimi }} €</p>
               </div>
 
             </div>
@@ -41,9 +41,8 @@
 
 <script>
 import { mapState } from 'vuex';
-import { useRouter } from 'vue-router'
 export default {
-  
+
   computed: {
     ...mapState(['dhomat']),
     user() {
@@ -111,7 +110,6 @@ export default {
         });
     },
     createRezervim() {
-      const router = useRouter()
       this.$swal({
         title: "Jeni te sigurt qe deshironi te rezervoni dhomen?",
         text: "A jeni te sigurt? Pasi qe nuk mund te kthehet me!",
@@ -143,7 +141,10 @@ export default {
                 'success'
               ).then(() => {
                 // Navigate to another route
-                router.push('/profile');
+                window.location.href = '#/profile';
+                setTimeout(() => {
+                  window.location.reload();
+                }, 100);
               });
             })
             .catch(error => {
@@ -155,10 +156,12 @@ export default {
                 'error'
               )
             });
-            router.push('/profile');
         }
       });
+
     },
+
+
 
     nextStep() {
       if (this.rezervimDate !== '') {
